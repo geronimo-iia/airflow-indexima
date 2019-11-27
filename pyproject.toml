@@ -1,0 +1,102 @@
+[tool.poetry]
+
+name = "airflow_indexima"
+version = "0.0.0"
+description = "Indexima Airflow integration"
+
+
+license = "MIT"
+
+authors = ["Jerome Guibert <jguibert@gmail.com>"]
+
+readme = "README.md"
+
+homepage = "https://pypi.org/project/airflow_indexima"
+documentation = "https://geronimo-iia.github.io/airflow-indexima/"
+repository = "https://github.com/geronimo-iia/airflow-indexima"
+
+keywords = []
+
+classifiers = [
+    # update this list to match your application: https://pypi.org/pypi?%3Aaction=list_classifiers
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed"
+]
+
+[tool.poetry.dependencies]
+
+python = "^3.6"
+
+# Optional dependency sample
+#curio = { version = "^0.9", optional = true }
+#[tool.poetry.extras]
+#curio = ["curio"]
+
+[tool.poetry.dev-dependencies]
+
+# Formatters
+black = "=19.3b0"
+isort = "=4.3.4"
+
+# Linters
+mypy = "*"
+pydocstyle = "*"
+flake8 = "*"
+flake8-blind-except = "*"
+flake8-bugbear = "*"
+flake8-builtins = "*"
+flake8-comprehensions = "*"
+flake8-debugger = "*"
+flake8-docstrings = "*"
+flake8-isort = "*"
+flake8-black = "*"
+flake8-quotes = "*"
+flake8-string-format = "*"
+
+# Testing
+pytest = "^4.3.1"
+pytest-cov = "*"
+pytest-describe = "*"
+pytest-expecter = "*"
+pytest-random = "*"
+freezegun = "*"
+
+# Reports
+coveragespace = "*"
+
+# Documentation
+pydoc-markdown = "2.0.5"
+pymdown-extensions = "6.0"
+pygments = "*"
+mkdocs-material= "*"
+fontawesome_markdown = "*"
+# needed for pyreverse (https://www.logilab.org/blogentry/6883)
+pylint = "*"
+
+# Tooling
+pyinstaller = "*"
+sniffer = "*"
+MacFSEvents = { version = "*", platform = "darwin" }
+pync = { version = "*", platform = "darwin" }
+autopep8 = "^1.4"
+
+#[tool.poetry.scripts]
+#airflow-indexima = "airflow_indexima.cli:main"
+
+[tool.black]
+
+target-version = ["py37"]
+skip-string-normalization = true
+line_length = 110
+
+[build-system]
+
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

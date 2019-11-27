@@ -1,0 +1,54 @@
+# Temporary Python files
+*.pyc
+*.egg-info
+__pycache__
+.ipynb_checkpoints
+
+# Temporary OS files
+Icon*
+
+# Temporary virtual environment files
+/.cache/
+/.venv/
+
+# Temporary server files
+.env
+*.pid
+
+# Google Drive
+*.gdoc
+*.gsheet
+*.gslides
+*.gdraw
+
+# Testing and coverage results
+/.coverage
+/.coverage.*
+/htmlcov/
+
+# Build and release directories
+/build/
+/dist/
+*.spec
+.install
+
+# Sublime Text
+*.sublime-workspace
+
+# IDE
+.settings
+.idea/
+.vscode
+.history
+
+# OSX
+.DS_Store
+
+# Doc temp directories
+mkdocs/site
+mkdocs/docs/api/
+mkdocs/docs/changelog.md
+mkdocs/docs/code_of_conduct.md
+mkdocs/docs/index.md
+mkdocs/docs/license.md
+mkdocs/docs/uml/
