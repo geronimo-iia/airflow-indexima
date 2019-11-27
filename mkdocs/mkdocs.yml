@@ -30,9 +30,7 @@ theme:
 
 nav:
   - Home: index.md
-  - API:
-      - overview: api-overview.md
-      - main: api/index.md
+  - API: api/index.md
   - About:
       - Contributing: contributing.md
       - Documentation: documentation.md

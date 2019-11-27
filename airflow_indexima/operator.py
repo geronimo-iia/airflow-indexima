@@ -1,6 +1,7 @@
-"""Indexima operator definition."""
+"""Indexima operators module definition."""
 
 from typing import Optional
+
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
@@ -11,37 +12,37 @@ __all__ = ['IndeximaQueryRunnerOperator', 'IndeximaHookBasedOperator']
 
 
 class IndeximaHookBasedOperator(BaseOperator):
+    """Our base class for indexima operator.
+
+    if you would customize IndeximaHook, you could define another one with ```hook_class_name``` field.
+    """
+
+    hook_class_name = IndeximaHook
 
     ui_color = '#ededed'
 
     @apply_defaults
-    def __init__(
-        self, task_id: str, indexima_conn_id: str, auth: str = 'CUSTOM', *args, **kwargs,
-    ):
+    def __init__(self, task_id: str, indexima_conn_id: str, auth: str = 'CUSTOM', *args, **kwargs):
         super(IndeximaHookBasedOperator, self).__init__(task_id=task_id, *args, **kwargs)
         self.indexima_conn_id = indexima_conn_id
         self.auth = auth
 
     def get_hook(self):
-        return IndeximaHook(indexima_conn_id=self.indexima_conn_id, auth=self.auth,)
+        """Return a configured IndeximaHook instance."""
+        return self.hook_class_name(indexima_conn_id=self.indexima_conn_id, auth=self.auth)
 
 
 class IndeximaQueryRunnerOperator(IndeximaHookBasedOperator):
+    """A simple query executor."""
 
     template_fields: tuple = ('sql_query',)
 
     @apply_defaults
     def __init__(
-        self, task_id: str, sql_query: str, indexima_conn_id: str, auth: str = 'CUSTOM', *args, **kwargs,
+        self, task_id: str, sql_query: str, indexima_conn_id: str, auth: str = 'CUSTOM', *args, **kwargs
     ):
         super(IndeximaQueryRunnerOperator, self).__init__(
-            task_id=task_id,
-            indexima_conn_id=indexima_conn_id,
-            username=username,
-            password_key=password_key,
-            auth=auth,
-            *args,
-            **kwargs,
+            task_id=task_id, indexima_conn_id=indexima_conn_id, auth=auth, *args, **kwargs
         )
         self.sql_query = sql_query
 
@@ -53,9 +54,12 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
     """Redshift to Indexima with mode full (truncate and import).
 
     Operations:
+
         1. truncate target_table (false per default)
         2. load source_select_query into target_table using redshift_user_name credential
         3. commit/rollback target_table
+
+    All fields ('load_path_uri', 'source_select_query', 'truncate_sql') support airflow macro.
     """
 
     template_fields = ('load_path_uri', 'source_select_query', 'truncate_sql')
@@ -88,7 +92,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
         """
 
         super(IndeximaLoadDataOperator, self).__init__(
-            task_id=task_id, indexima_conn_id=indexima_conn_id, auth=auth, *args, **kwargs,
+            task_id=task_id, indexima_conn_id=indexima_conn_id, auth=auth, *args, **kwargs
         )
         self.target_table = target_table
         self.source_select_query = source_select_query

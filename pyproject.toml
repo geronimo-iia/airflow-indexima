@@ -34,8 +34,8 @@ classifiers = [
 
 python = "^3.6"
 #apache-airflow (>=1.10.3,<2.0.0) requires boto3 (>=1.7.0,<1.8.0).
-boto3 = "1.7.*"
-apache-airflow = {version = "1.10.2", extras = ["s3"]}
+#boto3 = "1.7.*"
+apache-airflow = "1.10.2"
 gitpython = "2.1.*"
 PyHive="0.6.1"
 thrift="0.13.0"
@@ -75,7 +75,7 @@ coveragespace = "*"
 
 # Documentation
 pydoc-markdown = "2.0.5"
-pymdown-extensions = "6.0"
+pymdown-extensions = "5.0"
 pygments = "*"
 mkdocs-material= "*"
 fontawesome_markdown = "*"
@@ -89,8 +89,6 @@ MacFSEvents = { version = "*", platform = "darwin" }
 pync = { version = "*", platform = "darwin" }
 autopep8 = "^1.4"
 
-#[tool.poetry.scripts]
-#airflow-indexima = "airflow_indexima.cli:main"
 
 [tool.black]
 

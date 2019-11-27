@@ -1,4 +1,4 @@
-"""Indexima Hook Definition."""
+"""Indexima hook module definition."""
 
 from typing import Any, Optional
 
@@ -12,12 +12,15 @@ __all__ = ['IndeximaHook']
 class IndeximaHook(BaseHook):
     """Indexima hook implementation.
 
-    This implementation can be used as a context manager.
+    This implementation can be used as a context manager like this:
+
+    ```python
+    with IndeximaHook(...) as hook:
+        hook.run('select ...')
+    ```
     """
 
-    def __init__(
-        self, indexima_conn_id: str, auth: str = 'CUSTOM', *args, **kwargs,
-    ):
+    def __init__(self, indexima_conn_id: str, auth: str = 'CUSTOM', *args, **kwargs):
         super(IndeximaHook, self).__init__(source='indexima', *args, **kwargs)
         self.indexima_conn_id = indexima_conn_id
         self.schema = kwargs.pop("schema", None)
@@ -33,6 +36,7 @@ class IndeximaHook(BaseHook):
         self.log.info(
             f'connect to {conn.host}  {conn.username}  {"X"*len(conn.password)}  {conn.port} {self.auth}'  # noqa: E501
         )
+        conn = self.prepare_connection(conn)
         self._conn = hive.Connection(
             host=conn.host,
             username=conn.username,
@@ -43,13 +47,28 @@ class IndeximaHook(BaseHook):
         )
         return self._conn
 
+    def prepare_connection(self, conn):
+        """Prepare connection parameter.
+
+        If you would get credential from other backend like ssm, override this method.
+
+        # returns:
+            conn: connection parameters
+        """
+        return conn
+
     def get_records(self, sql):
+        """Execute query and return curror.
+
+        (alias of run method)
+        """
         return self.run(sql=sql)
 
     def get_pandas_df(self, sql):
         raise NotImplementedError()
 
     def run(self, sql):
+        """Execute query and return curror."""
         if not self._conn:
             self.get_conn()
         cursor = self._conn.cursor()  # type: ignore
@@ -57,9 +76,11 @@ class IndeximaHook(BaseHook):
         return cursor
 
     def commit(self, tablename):
+        """Execute a simple commit on table."""
         self.run(f'COMMIT {tablename}')
 
     def rollback(self, tablename):
+        """Execute a simple rollback on table."""
         self.run(f'ROLLBACK {tablename}')
 
     def __enter__(self):

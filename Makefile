@@ -7,6 +7,7 @@ REPOSITORY := geronimo-iia/airflow-indexima
 PACKAGES := $(PACKAGE) tests
 CONFIG := $(wildcard *.py)
 MODULES := $(wildcard $(PACKAGE)/*.py)
+DISABLE_COVERAGE := true
 
 # POETRY CMD
 RUN := poetry run
@@ -38,7 +39,7 @@ debug-info:  ## Show poetry debug info
 install: .install .cache ## Install project dependencies
 
 .install: poetry.lock 
-	poetry install
+	SLUGIFY_USES_TEXT_UNIDECODE=yes poetry install
 	@ touch $@
 
 poetry.lock: pyproject.toml
@@ -90,7 +91,7 @@ test: install ## Run unit tests
 	@ if test -e $(FAILURES); then $(RUN) pytest tests $(PYTEST_RERUN_OPTIONS); fi
 	@ rm -rf $(FAILURES)
 	$(RUN) pytest tests $(PYTEST_OPTIONS)
-	$(RUN) coveragespace $(REPOSITORY) overall
+	#$(RUN) coveragespace $(REPOSITORY) overall
 
 .PHONY: read-coverage
 read-coverage:
@@ -115,7 +116,9 @@ $(DOCS_PATH)/api: $(MODULES)
 	@ mkdir -p $(DOCS_PATH)/api
 	@ cd $(DOCS_PATH)/api; \
 		PYTHONPATH=$(shell pwd); \
-		$(RUN) pydocmd simple $(PACKAGE)+ > index.md
+		$(RUN) pydocmd simple $(PACKAGE)++ \
+			$(PACKAGE).hook+ \
+			$(PACKAGE).operator+ > index.md
 # Add here all other package generation
 # PYTHONPATH=$(shell pwd) is a workaround to https://github.com/NiklasRosenstein/pydoc-markdown/issues/30
 

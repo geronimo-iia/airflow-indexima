@@ -12,13 +12,14 @@ Versions following [Semantic Versioning](https://semver.org/)
 
 ## Overview
 
-Indexima Airflow integration
+Indexima Airflow integration based on pyhive.
+
 
 ## Setup
 
 ### Requirements
 
-* Python 3.7+
+* Python 3.6+
 
 ### Installation
 
@@ -44,7 +45,23 @@ $ python
 >>> airflow_indexima.__version__
 ```
 
-See [Api documentation](https://geronimo-iia.github.io/airflow-indexima/api-overview)
+See [Api documentation](https://geronimo-iia.github.io/airflow-indexima/api/)
+
+
+## Example
+
+### a simple query
+
+```python
+
+```
+
+
+### a load into indexima
+
+```python
+
+```
 
 ## License
 
