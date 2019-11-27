@@ -55,7 +55,3 @@ See [Api documentation](https://geronimo-iia.github.io/airflow-indexima/api-over
 
 See [Contributing](https://geronimo-iia.github.io/airflow-indexima/contributing)
 
-## TODO
-
-- add examples
-
