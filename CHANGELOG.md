@@ -1,3 +1,8 @@
+# 1.0.1 (2019-11-28)
+
+- add example
+- remove work in progress
+
 # 1.0.0 (2019-11-27)
 
 - initial project structure based on [geronimo-iia/template-python](https://github.com/geronimo-iia/template-python)
