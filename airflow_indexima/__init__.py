@@ -3,13 +3,14 @@
 This root module expose:
 
  - IndeximaHook
+ - PrepareConnectionHandler
  - IndeximaHookBasedOperator
  - IndeximaQueryRunnerOperator
  - IndeximaLoadDataOperator
 """
 from pkg_resources import DistributionNotFound, get_distribution
 
-from airflow_indexima.hook import IndeximaHook
+from airflow_indexima.hook import IndeximaHook, PrepareConnectionHandler
 from airflow_indexima.operator import (
     IndeximaHookBasedOperator,
     IndeximaLoadDataOperator,
@@ -25,6 +26,7 @@ except DistributionNotFound:
 
 __all__ = [
     'IndeximaHook',
+    'PrepareConnectionHandler',
     'IndeximaHookBasedOperator',
     'IndeximaQueryRunnerOperator',
     'IndeximaLoadDataOperator',

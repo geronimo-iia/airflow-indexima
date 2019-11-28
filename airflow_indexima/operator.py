@@ -5,7 +5,7 @@ from typing import Optional
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
-from airflow_indexima.hook import IndeximaHook
+from airflow_indexima.hook import IndeximaHook, PrepareConnectionHandler
 
 
 __all__ = ['IndeximaQueryRunnerOperator', 'IndeximaHookBasedOperator']
@@ -22,32 +22,53 @@ class IndeximaHookBasedOperator(BaseOperator):
     ui_color = '#ededed'
 
     @apply_defaults
-    def __init__(self, task_id: str, indexima_conn_id: str, auth: str = 'CUSTOM', *args, **kwargs):
+    def __init__(
+        self,
+        task_id: str,
+        indexima_conn_id: str,
+        auth: str = 'CUSTOM',
+        prepare_connection: Optional[PrepareConnectionHandler] = None,
+        *args,
+        **kwargs,
+    ):
         super(IndeximaHookBasedOperator, self).__init__(task_id=task_id, *args, **kwargs)
-        self.indexima_conn_id = indexima_conn_id
-        self.auth = auth
+        self._hook = IndeximaHook(
+            indexima_conn_id=indexima_conn_id, auth=auth, prepare_connection=prepare_connection
+        )
 
     def get_hook(self):
         """Return a configured IndeximaHook instance."""
-        return self.hook_class_name(indexima_conn_id=self.indexima_conn_id, auth=self.auth)
+        return self._hook
 
 
 class IndeximaQueryRunnerOperator(IndeximaHookBasedOperator):
     """A simple query executor."""
 
-    template_fields: tuple = ('sql_query',)
+    template_fields: tuple = ('_sql_query',)
 
     @apply_defaults
     def __init__(
-        self, task_id: str, sql_query: str, indexima_conn_id: str, auth: str = 'CUSTOM', *args, **kwargs
+        self,
+        task_id: str,
+        sql_query: str,
+        indexima_conn_id: str,
+        auth: str = 'CUSTOM',
+        prepare_connection: Optional[PrepareConnectionHandler] = None,
+        *args,
+        **kwargs,
     ):
         super(IndeximaQueryRunnerOperator, self).__init__(
-            task_id=task_id, indexima_conn_id=indexima_conn_id, auth=auth, *args, **kwargs
+            task_id=task_id,
+            indexima_conn_id=indexima_conn_id,
+            auth=auth,
+            prepare_connection=prepare_connection,
+            *args,
+            **kwargs,
         )
-        self.sql_query = sql_query
+        self._sql_query = sql_query
 
     def execute(self, context):
-        self.get_hook().run(self.sql_query)
+        self.get_hook().run(self._sql_query)
 
 
 class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
@@ -59,10 +80,10 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
         2. load source_select_query into target_table using redshift_user_name credential
         3. commit/rollback target_table
 
-    All fields ('load_path_uri', 'source_select_query', 'truncate_sql') support airflow macro.
+    All fields ('target_table', 'load_path_uri', 'source_select_query', 'truncate_sql') support airflow macro.
     """
 
-    template_fields = ('load_path_uri', 'source_select_query', 'truncate_sql')
+    template_fields = ('_target_table', '_load_path_uri', '_source_select_query', '_truncate_sql')
 
     def __init__(
         self,
@@ -74,6 +95,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
         truncate: bool = False,
         truncate_sql: Optional[str] = None,
         auth: str = 'CUSTOM',
+        prepare_connection: Optional[PrepareConnectionHandler] = None,
         *args,
         **kwargs,
     ):
@@ -92,24 +114,29 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
         """
 
         super(IndeximaLoadDataOperator, self).__init__(
-            task_id=task_id, indexima_conn_id=indexima_conn_id, auth=auth, *args, **kwargs
+            task_id=task_id,
+            indexima_conn_id=indexima_conn_id,
+            auth=auth,
+            prepare_connection=prepare_connection,
+            *args,
+            **kwargs,
         )
-        self.target_table = target_table
-        self.source_select_query = source_select_query
-        self.load_path_uri = load_path_uri
-        self.truncate = truncate
-        self.truncate_sql = truncate_sql if truncate_sql else f'truncate table {self.target_table}'
+        self._target_table = target_table
+        self._source_select_query = source_select_query
+        self._load_path_uri = load_path_uri
+        self._truncate = truncate
+        self._truncate_sql = truncate_sql if truncate_sql else f'truncate table {self.target_table}'
 
     def execute(self, context):
         with self.get_hook() as hook:
-            if self.truncate and self.truncate_sql:
-                hook.run(self.truncate_sql)
+            if self._truncate and self._truncate_sql:
+                hook.run(self._truncate_sql)
             try:
                 hook.run(
-                    f"load data inpath '{self.load_path_uri}' "  # noqa= E501
-                    f"into table {self.target_table} query '{self.source_select_query}';"
+                    f"load data inpath '{self._load_path_uri}' "
+                    f"into table {self._target_table} query '{self._source_select_query}';"
                 )
-                hook.commit(tablename=self.target_table)
+                hook.commit(tablename=self._target_table)
             except Exception as e:
-                hook.rollback(tablename=self.target_table)
+                hook.rollback(tablename=self._target_table)
                 raise e

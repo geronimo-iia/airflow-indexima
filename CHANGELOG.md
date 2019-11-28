@@ -5,5 +5,5 @@
 - add Simple Operator
 - add pyhive, ...
 - configure documentation
-- add a way to customize credentials retreival
+- add a way to customize credentials retreival (with a prepare connection function handler)
 

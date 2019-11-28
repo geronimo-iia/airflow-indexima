@@ -1,10 +1,8 @@
 # airflow-indexima
 
+WORK IN PROGRESS !!
 
 [![Unix Build Status](https://img.shields.io/travis/geronimo-iia/airflow-indexima/master.svg?label=unix)](https://travis-ci.org/geronimo-iia/airflow-indexima)
-[![Coverage Status](https://img.shields.io/coveralls/geronimo-iia/airflow-indexima/master.svg)](https://coveralls.io/r/geronimo-iia/airflow-indexima)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe669a02b4aa46b5b1faf619ba2bf382)](https://www.codacy.com/app/geronimo-iia/airflow-indexima?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=geronimo-iia/airflow-indexima&amp;utm_campaign=Badge_Grade)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/geronimo-iia/airflow-indexima.svg)](https://scrutinizer-ci.com/g/geronimo-iia/airflow-indexima/?branch=master)
 [![PyPI Version](https://img.shields.io/pypi/v/airflow-indexima.svg)](https://pypi.org/project/airflow-indexima)
 [![PyPI License](https://img.shields.io/pypi/l/airflow-indexima.svg)](https://pypi.org/project/airflow-indexima)
 
@@ -12,7 +10,7 @@ Versions following [Semantic Versioning](https://semver.org/)
 
 ## Overview
 
-Indexima Airflow integration based on pyhive.
+[Indexima](https://indexima.com/) [Airflow](https://airflow.apache.org/) integration based on pyhive.
 
 
 ## Setup
