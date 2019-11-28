@@ -164,8 +164,8 @@ $(DIST_FILES): $(MODULES) pyproject.toml
 
 # RELEASE #####################################################################
 
-.PHONY: upload
-upload: dist ## Upload the current version to PyPI
+.PHONY: publish
+publish: dist ## Upload the current version to PyPI
 	git diff --name-only --exit-code
 	poetry publish
 	bin/open https://pypi.org/project/$(PROJECT)
