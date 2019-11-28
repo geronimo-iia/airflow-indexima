@@ -38,6 +38,14 @@ class IndeximaHook(BaseHook):
         *args,
         **kwargs,
     ):
+        """Create an IndeximaHook instance.
+
+        # Parameters
+            indexima_conn_id(str): connection identifier
+            auth(str): pyhive authentication mode (defaults: 'CUSTOM')
+            prepare_connection (Optional[PrepareConnectionHandler]) : optional function handler 
+                to post process connection parameter(default: None)
+        """
         super(IndeximaHook, self).__init__(source='indexima', *args, **kwargs)
         self._indexima_conn_id = indexima_conn_id
         self._schema = kwargs.pop("schema", None)

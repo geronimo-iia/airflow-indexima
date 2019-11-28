@@ -8,14 +8,11 @@ from airflow.utils.decorators import apply_defaults
 from airflow_indexima.hook import IndeximaHook, PrepareConnectionHandler
 
 
-__all__ = ['IndeximaQueryRunnerOperator', 'IndeximaHookBasedOperator']
+__all__ = ['IndeximaHookBasedOperator', 'IndeximaQueryRunnerOperator', 'IndeximaHookBasedOperator']
 
 
 class IndeximaHookBasedOperator(BaseOperator):
-    """Our base class for indexima operator.
-
-    if you would customize IndeximaHook, you could define another one with ```hook_class_name``` field.
-    """
+    """Our base class for indexima operator."""
 
     hook_class_name = IndeximaHook
 
@@ -36,7 +33,7 @@ class IndeximaHookBasedOperator(BaseOperator):
             indexima_conn_id=indexima_conn_id, auth=auth, prepare_connection=prepare_connection
         )
 
-    def get_hook(self):
+    def get_hook(self) -> IndeximaHook:
         """Return a configured IndeximaHook instance."""
         return self._hook
 
@@ -68,6 +65,11 @@ class IndeximaQueryRunnerOperator(IndeximaHookBasedOperator):
         self._sql_query = sql_query
 
     def execute(self, context):
+        """Execute sql query.
+
+        # Parameters
+            context: dag context
+        """
         self.get_hook().run(self._sql_query)
 
 

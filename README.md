@@ -51,13 +51,39 @@ See [Api documentation](https://geronimo-iia.github.io/airflow-indexima/api/)
 ### a simple query
 
 ```python
+from airflow_indexima import IndeximaQueryRunnerOperator
 
+...
+
+with dag:
+    ...
+    op = IndeximaQueryRunnerOperator(
+        task_id = 'my-task-id',
+        sql_query= 'DELETE FROM Client WHERE GRPD = 1',
+        indexima_conn_id='my-indexima-connection'
+    )
+    ...
 ```
 
 
 ### a load into indexima
 
 ```python
+from airflow_indexima import IndeximaLoadDataOperator
+
+...
+
+with dag:
+    ...
+    op = IndeximaLoadDataOperator(
+        task_id = 'my-task-id',
+        indexima_conn_id='my-indexima-connection',
+        target_table='Client',
+        source_select_query='select * from dsi.client',
+        truncate=True,
+        load_path_uri='jdbc:redshift://my-private-instance.com:5439/db_client?ssl=true&user=airflow-user&password=XXXXXXXX'
+    )
+    ...
 
 ```
 
