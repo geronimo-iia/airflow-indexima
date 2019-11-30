@@ -11,6 +11,9 @@ Versions following [Semantic Versioning](https://semver.org/)
 
 [Indexima](https://indexima.com/) [Airflow](https://airflow.apache.org/) integration based on pyhive.
 
+This project is used in our prod environment with success.
+As it a young project, take care of change, any help is welcome :)
+
 
 ## Setup
 
@@ -44,8 +47,6 @@ $ python
 
 See [Api documentation](https://geronimo-iia.github.io/airflow-indexima/api/)
 
-
-## Example
 
 ### a simple query
 
@@ -83,6 +84,50 @@ with dag:
         load_path_uri='jdbc:redshift://my-private-instance.com:5439/db_client?ssl=true&user=airflow-user&password=XXXXXXXX'
     )
     ...
+
+```
+
+### customize credential access
+
+If you use another backend to store your password (like AWS SSM), you could define a decorator
+and use it as a function in your dag.
+
+```python
+from airflow.models import Connection
+from airflow import DAG
+
+from airdlow_indexima.uri import define_load_path_factory, get_redshift_load_path_uri
+
+
+def my_decorator(conn:Connection) -> Connection
+    conn.password = get_ssm_parameter(param_name=f'{conn.conn_id}.{con.login}')
+    return conn
+
+
+dag = DAG(
+    dag_id='my_dag',
+    user_defined_macros={
+        # we define a macro get_load_path_uri
+        'get_load_path_uri': define_load_path_factory(
+            conn_id='my-redshift-connection',
+            decorator=my_decorator,
+            factory=get_redshift_load_path_uri)
+        },
+    ...
+)
+
+with dag:
+    ...
+    op = IndeximaLoadDataOperator(
+        task_id = 'my-task-id',
+        indexima_conn_id='my-indexima-connection',
+        target_table='Client',
+        source_select_query='select * from dsi.client',
+        truncate=True,
+        load_path_uri='{{ get_load_path_uri() }}'
+    )
+    ...
+
 
 ```
 

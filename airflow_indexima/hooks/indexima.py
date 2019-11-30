@@ -1,17 +1,14 @@
 """Indexima hook module definition."""
 
-from typing import Any, Callable, Optional
+from typing import Any, Optional
 
 from airflow.hooks.base_hook import BaseHook
-from airflow.models import Connection
 from pyhive import hive
 
+from airflow_indexima.connection import ConnectionDecorator
 
-__all__ = ['IndeximaHook', 'PrepareConnectionHandler']
 
-
-PrepareConnectionHandler = Callable[[Connection], Connection]
-"""Define prepare connection function profile."""
+__all__ = ['IndeximaHook']
 
 
 class IndeximaHook(BaseHook):
@@ -24,8 +21,8 @@ class IndeximaHook(BaseHook):
         hook.run('select ...')
     ```
 
-    This implementation can be customized with a ```prepare_connection```function
-    which must have this profile: Callable[[Connection], Connection] (alias PrepareConnectionHandler)
+    This implementation can be customized with a ```connection_decorator```function
+    which must have this profile: Callable[[Connection], Connection] (alias ConnectionDecorator)
 
     In this handler you could retreive credentials from other backeng like aws ssm.
     """
@@ -34,7 +31,7 @@ class IndeximaHook(BaseHook):
         self,
         indexima_conn_id: str,
         auth: str = 'CUSTOM',
-        prepare_connection: Optional[PrepareConnectionHandler] = None,
+        connection_decorator: Optional[ConnectionDecorator] = None,
         *args,
         **kwargs,
     ):
@@ -43,7 +40,7 @@ class IndeximaHook(BaseHook):
         # Parameters
             indexima_conn_id(str): connection identifier
             auth(str): pyhive authentication mode (defaults: 'CUSTOM')
-            prepare_connection (Optional[PrepareConnectionHandler]) : optional function handler
+            connection_decorator (Optional[ConnectionDecorator]) : optional function handler
                 to post process connection parameter(default: None)
         """
         super(IndeximaHook, self).__init__(source='indexima', *args, **kwargs)
@@ -51,10 +48,14 @@ class IndeximaHook(BaseHook):
         self._schema = kwargs.pop("schema", None)
         self._auth = auth
         self._conn: Optional[Any] = None
-        self._prepare_connection = prepare_connection
+        self._connection_decorator = connection_decorator
 
     def get_conn(self) -> hive.Connection:
-        """Return a hive connection."""
+        """Return a hive connection.
+
+        # Returns
+            (hive.Connection): the hive connection
+        """
 
         conn = self.get_connection(self._indexima_conn_id)
         if not conn:
@@ -62,8 +63,8 @@ class IndeximaHook(BaseHook):
         self.log.info(
             f'connect to {conn.host}  {conn.username}  {"X"*len(conn.password)}  {conn.port} {self.auth}'  # noqa: E501
         )
-        if self._prepare_connection:
-            conn = self._prepare_connection(conn)
+        if self._connection_decorator:
+            conn = self._connection_decorator(conn)
         self._conn = hive.Connection(
             host=conn.host,
             username=conn.username,
@@ -93,11 +94,19 @@ class IndeximaHook(BaseHook):
         return cursor
 
     def commit(self, tablename: str):
-        """Execute a simple commit on table."""
+        """Execute a simple commit on table.
+
+        # Parameters
+            tablename (str): table name to commit
+        """
         self.run(f'COMMIT {tablename}')
 
     def rollback(self, tablename: str):
-        """Execute a simple rollback on table."""
+        """Execute a simple rollback on table.
+
+        # Parameters
+            tablename (str): table name to rollback
+        """
         self.run(f'ROLLBACK {tablename}')
 
     def __enter__(self):
