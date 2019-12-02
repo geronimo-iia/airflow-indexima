@@ -1,7 +1,7 @@
 """URI base function and type."""
 from typing import Callable, Optional
 
-from airflow_indexima.utils import ConnectionDecorator
+from airflow_indexima.connection import ConnectionDecorator
 
 
 __all__ = ['UriGeneratorFactory', 'UriFactory', 'define_load_path_factory']
