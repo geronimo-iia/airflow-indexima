@@ -78,6 +78,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
     """Indexima load data operator.
 
     Operations:
+
         1. truncate target_table (false per default)
         2. load source_select_query into target_table using redshift_user_name credential
         4. commit/rollback target_table
