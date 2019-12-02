@@ -117,8 +117,11 @@ $(DOCS_PATH)/api: $(MODULES)
 	@ cd $(DOCS_PATH)/api; \
 		PYTHONPATH=$(shell pwd); \
 		$(RUN) pydocmd simple $(PACKAGE)++ \
-			$(PACKAGE).hook++ \
-			$(PACKAGE).operator++ > index.md
+			$(PACKAGE).connection++ \
+			$(PACKAGE).hooks.indexima++ \
+			$(PACKAGE).operators.indexima++ \
+			$(PACKAGE).uri.base++ \
+			$(PACKAGE).uri.redshift++ > index.md
 # Add here all other package generation
 # PYTHONPATH=$(shell pwd) is a workaround to https://github.com/NiklasRosenstein/pydoc-markdown/issues/30
 

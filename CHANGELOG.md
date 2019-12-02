@@ -1,3 +1,12 @@
+# 2.0.0 (soon)
+
+- escape quote in select query of RedshiftIndexima Operator
+- initiate airflow contrib package
+- complete docstyle
+- introduce uri utilities
+- expose ConnectionDecorator
+- add more example
+
 # 1.0.1 (2019-11-28)
 
 - add example
