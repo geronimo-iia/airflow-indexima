@@ -51,7 +51,7 @@ See [Api documentation](https://geronimo-iia.github.io/airflow-indexima/api/)
 ### a simple query
 
 ```python
-from airflow_indexima import IndeximaQueryRunnerOperator
+from airflow_indexima.operators import IndeximaQueryRunnerOperator
 
 ...
 
@@ -69,7 +69,7 @@ with dag:
 ### a load into indexima
 
 ```python
-from airflow_indexima import IndeximaLoadDataOperator
+from airflow_indexima.operators.indexima import IndeximaLoadDataOperator
 
 ...
 
