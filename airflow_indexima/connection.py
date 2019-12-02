@@ -1,5 +1,6 @@
 """Define ConnectionDecorator."""
 from typing import Callable
+
 from airflow.models import Connection
 
 

@@ -131,6 +131,17 @@ with dag:
 
 ```
 
+a Connection decorator must follow this type: ```ConnectionDecorator = Callable[[Connection], Connection]```
+
+```define_load_path_factory``` is a function which take:
+
+- a connnection identifier
+- a decorator ```ConnectionDecorator```
+- an uri factory ```UriGeneratorFactory = Callable[[str, Optional[ConnectionDecorator]], str]```
+
+and return a function with no argument which can be called as a macro in dag's operator.
+
+
 ## License
 
 [The MIT License (MIT)](https://geronimo-iia.github.io/airflow-indexima/license)

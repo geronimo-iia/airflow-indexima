@@ -5,7 +5,6 @@ from typing import Optional
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
-
 from airflow_indexima.connection import ConnectionDecorator
 from airflow_indexima.hooks.indexima import IndeximaHook
 

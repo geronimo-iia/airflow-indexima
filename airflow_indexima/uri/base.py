@@ -1,23 +1,23 @@
 """URI base function and type."""
-from typing import Optional, Callable
+from typing import Callable, Optional
+
 from airflow_indexima.utils import ConnectionDecorator
 
-__all__ = ['UriDecoratedFactory', 'UriFactory', 'define_load_path_factory']
+
+__all__ = ['UriGeneratorFactory', 'UriFactory', 'define_load_path_factory']
 
 
-UriDecoratedFactory = Callable[[str, Optional[ConnectionDecorator]]
+UriGeneratorFactory = Callable[[str, Optional[ConnectionDecorator]], str]
 
 UriFactory = Callable[[], str]
 
+
 def define_load_path_factory(
-    conn_id: str,
-    decorator: ConnectionDecorator,
-    factory: UriDecoratedFactory
+    conn_id: str, decorator: ConnectionDecorator, factory: UriGeneratorFactory
 ) -> UriFactory:
     """Create an uri factory function with UriFactory profile.
 
     Example:
-
     def my_decorator(conn:Connection) -> Connection:
         ...
         return conn
@@ -30,13 +30,14 @@ def define_load_path_factory(
     # Parameter
         conn_id (str): connection identifier of data source
         decorator (ConnectionDecorator): Connection decorateur
-        factory (UriDecoratedFactory): uri decorated factory
+        factory (UriGeneratorFactory): uri decorated factory
 
     # Return
         (UriFactory): function used as a macro to get load uri path
+
     """
 
     def _load_path_factory() -> str:
-        return factory(connection_id=conn_id, decorator=decorator)
+        return factory(conn_id, decorator)
 
     return _load_path_factory

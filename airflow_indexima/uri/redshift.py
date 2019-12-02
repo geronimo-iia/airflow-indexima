@@ -1,6 +1,11 @@
-from airflow.models import Connection
+"""Define an uri generator for redshift."""
+
 from typing import Optional
+
+from airflow.models import Connection
+
 from airflow_indexima.connection import ConnectionDecorator
+
 
 __all__ = ['get_redshift_load_path_uri']
 
