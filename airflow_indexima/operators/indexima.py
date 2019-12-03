@@ -130,7 +130,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
         self._source_select_query = source_select_query
         self._load_path_uri = load_path_uri
         self._truncate = truncate
-        self._truncate_sql = truncate_sql if truncate_sql else f'truncate table {self.target_table}'
+        self._truncate_sql = truncate_sql if truncate_sql else f'truncate table {self._target_table}'
 
     def execute(self, context):
         with self.get_hook() as hook:

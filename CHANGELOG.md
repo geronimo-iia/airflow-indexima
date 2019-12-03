@@ -1,4 +1,8 @@
-# 2.0.0 (soon)
+# 2.0.1 (2019-12-03)
+
+- fix default truncate query
+
+# 2.0.0 (2019-12-03)
 
 - escape quote in select query of RedshiftIndexima Operator
 - initiate airflow contrib package
