@@ -99,7 +99,7 @@ from airflow import DAG
 from airdlow_indexima.uri import define_load_path_factory, get_redshift_load_path_uri
 
 
-def my_decorator(conn:Connection) -> Connection
+def my_decorator(conn:Connection) -> Connection:
     conn.password = get_ssm_parameter(param_name=f'{conn.conn_id}.{con.login}')
     return conn
 
