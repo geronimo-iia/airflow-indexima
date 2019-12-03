@@ -1501,8 +1501,8 @@ version = "4.4.0"
 setuptools = "*"
 
 [metadata]
-content-hash = "22c7f66d0b99b4b6d3fc9c5cec424bcb17d14f0e9b020e58018173628069b9bc"
-python-versions = "3.6.4"
+content-hash = "a8a6b839248264ec217e39323d75f84f1a59f4668557137a4aa9d1a33fa91896"
+python-versions = "^3.6"
 
 [metadata.hashes]
 alembic = ["0e3b50e96218283ec7443fb661199f5a81f5879f766967a8a2d25e8f9d4e7919"]

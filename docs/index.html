@@ -637,7 +637,7 @@ and use it as a function in your dag.</p>
 <span class="kn">from</span> <span class="nn">airdlow_indexima.uri</span> <span class="kn">import</span> <span class="n">define_load_path_factory</span><span class="p">,</span> <span class="n">get_redshift_load_path_uri</span>
 
 
-<span class="k">def</span> <span class="nf">my_decorator</span><span class="p">(</span><span class="n">conn</span><span class="p">:</span><span class="n">Connection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Connection</span>
+<span class="k">def</span> <span class="nf">my_decorator</span><span class="p">(</span><span class="n">conn</span><span class="p">:</span><span class="n">Connection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Connection</span><span class="p">:</span>
     <span class="n">conn</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">get_ssm_parameter</span><span class="p">(</span><span class="n">param_name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{conn.conn_id}</span><span class="s1">.</span><span class="si">{con.login}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">conn</span>
 

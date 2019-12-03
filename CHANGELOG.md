@@ -1,3 +1,7 @@
+# 2.0.2 (2019-12-03)
+
+- unlock fixed python 3.6.4 to ^3.6
+
 # 2.0.1 (2019-12-03)
 
 - fix default truncate query
