@@ -1,3 +1,7 @@
+# 2.0.6 (2019-12-03)
+
+- fix usage of connection.extra parameter
+
 # 2.0.5 (2019-12-03)
 
 - fix indexima hook:

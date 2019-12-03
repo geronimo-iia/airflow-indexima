@@ -1,5 +1,5 @@
 """Define an uri generator for redshift."""
-
+import json
 from typing import Optional
 
 from airflow.hooks.base_hook import BaseHook
@@ -39,7 +39,8 @@ def get_redshift_load_path_uri(connection_id: str, decorator: Optional[Connectio
         f"&password={conn.password}"
     )
     if conn.extra:
-        for key in conn.extra:
-            _result += f"&{key}={conn.extra[key]}"
+        _extra = json.loads(conn.extra)
+        for key in _extra:
+            _result += f"&{key}={_extra[key]}"
 
     return _result
