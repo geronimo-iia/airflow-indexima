@@ -1,3 +1,7 @@
+# 2.0.4 (2019-12-03)
+
+- fix connection retrieval in get_redshift_load_path_uri
+  
 # 2.0.3 (2019-12-03)
 
 - align dependencies constraint on thrift to pyhive and thrift-sasl

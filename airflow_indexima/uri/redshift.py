@@ -1,7 +1,7 @@
 """Define an uri generator for redshift."""
 
 from typing import Optional
-
+from airflow.hooks.base_hook import BaseHook
 from airflow.models import Connection
 
 from airflow_indexima.connection import ConnectionDecorator
@@ -27,7 +27,9 @@ def get_redshift_load_path_uri(connection_id: str, decorator: Optional[Connectio
         (str) load path uri
 
     """
-    conn = Connection(connection_id).get_hook()
+    conn = BaseHook.get_connection(connection_id)
+    if not conn:
+        raise RuntimeError(f'no connection with {connection_id}')
     if decorator:
         conn = decorator(conn)
 
