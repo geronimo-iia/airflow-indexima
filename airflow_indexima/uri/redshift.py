@@ -1,8 +1,8 @@
 """Define an uri generator for redshift."""
 
 from typing import Optional
+
 from airflow.hooks.base_hook import BaseHook
-from airflow.models import Connection
 
 from airflow_indexima.connection import ConnectionDecorator
 
@@ -34,7 +34,7 @@ def get_redshift_load_path_uri(connection_id: str, decorator: Optional[Connectio
         conn = decorator(conn)
 
     _result = (
-        f":jdbc:redshift//{conn.host}:{conn.post}/{conn.schema}"
+        f":jdbc:redshift//{conn.host}:{conn.port}/{conn.schema}"
         f"?user={conn.login}"
         f"&password={conn.password}"
     )

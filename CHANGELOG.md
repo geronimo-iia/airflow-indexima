@@ -1,6 +1,7 @@
 # 2.0.4 (2019-12-03)
 
 - fix connection retrieval in get_redshift_load_path_uri
+- fix redshit uri port
   
 # 2.0.3 (2019-12-03)
 
