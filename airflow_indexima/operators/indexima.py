@@ -137,7 +137,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
             if self._truncate and self._truncate_sql:
                 hook.run(self._truncate_sql)
             try:
-                _escape_source_select_query = self.source_select_query.replace("'", "\\'")
+                _escape_source_select_query = self._source_select_query.replace("'", "\\'")
                 hook.run(
                     f"load data inpath '{self._load_path_uri}' "
                     f"into table {self._target_table} query '{_escape_source_select_query}';"

@@ -60,14 +60,14 @@ class IndeximaHook(BaseHook):
         conn = self.get_connection(self._indexima_conn_id)
         if not conn:
             raise RuntimeError(f'no connection identifier found with {self._indexima_conn_id}')
-        self.log.info(
-            f'connect to {conn.host}  {conn.username}  {"X"*len(conn.password)}  {conn.port} {self.auth}'  # noqa: E501
-        )
         if self._connection_decorator:
             conn = self._connection_decorator(conn)
+        self.log.info(
+            f'connect to {conn.host}  {conn.login}  {"X"*len(conn.password)}  {conn.port} {self._auth}'  # noqa: E501
+        )
         self._conn = hive.Connection(
             host=conn.host,
-            username=conn.username,
+            username=conn.login,
             password=conn.password,
             database=self._schema or conn.schema,
             port=conn.port if conn.port else 10000,

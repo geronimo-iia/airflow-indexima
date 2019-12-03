@@ -1,3 +1,12 @@
+# 2.0.5 (2019-12-03)
+
+- fix indexima hook:
+  - (username/login)
+  - field access (auth)
+  - decorator applied before usage
+- fix IndeximaLoadDataOperator field access
+- fix redshit uri base
+
 # 2.0.4 (2019-12-03)
 
 - fix connection retrieval in get_redshift_load_path_uri
