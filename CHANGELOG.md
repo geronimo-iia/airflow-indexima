@@ -1,3 +1,8 @@
+# 2.1.0-b0 (2019-12-04)
+
+- manage error return from indexima
+- define IndeximaAirflowPlugin
+
 # 2.0.6 (2019-12-03)
 
 - fix usage of connection.extra parameter

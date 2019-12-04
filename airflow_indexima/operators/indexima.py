@@ -138,10 +138,11 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
                 hook.run(self._truncate_sql)
             try:
                 _escape_source_select_query = self._source_select_query.replace("'", "\\'")
-                hook.run(
+                cursor = hook.run(
                     f"load data inpath '{self._load_path_uri}' "
                     f"into table {self._target_table} query '{_escape_source_select_query}';"
                 )
+                hook.check_error_of_load_query(cursor=cursor)
                 hook.commit(tablename=self._target_table)
             except Exception as e:
                 hook.rollback(tablename=self._target_table)

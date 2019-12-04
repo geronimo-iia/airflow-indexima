@@ -35,6 +35,8 @@ or add it to your [Poetry](https://poetry.eustace.io/) project:
 $ poetry add airflow-indexima
 ```
 
+or you could use it as an [Airflow plugin](https://airflow.apache.org/docs/stable/plugins.html)
+
 ## Usage
 
 After installation, the package can imported:

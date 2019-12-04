@@ -75,7 +75,7 @@ class IndeximaHook(BaseHook):
         )
         return self._conn
 
-    def get_records(self, sql: str):
+    def get_records(self, sql: str) -> hive.Cursor:
         """Execute query and return curror.
 
         (alias of run method)
@@ -85,13 +85,27 @@ class IndeximaHook(BaseHook):
     def get_pandas_df(self, sql: str):
         raise NotImplementedError()
 
-    def run(self, sql: str):
+    def run(self, sql: str) -> hive.Cursor:
         """Execute query and return curror."""
         if not self._conn:
             self.get_conn()
         cursor = self._conn.cursor()  # type: ignore
         cursor.execute(sql)
         return cursor
+
+    def check_error_of_load_query(self, cursor: hive.Cursor):
+        """Raise error if a load query fail.
+
+        # Parameters
+            cursor: cursor returned by load path query.
+
+        # Raises
+            (RuntimeError): if an error is found
+
+        """
+        for path, inserts, errors, message in iter(cursor.fetchone, None):  # type: ignore
+            if errors > 0:  # type: ignore
+                raise RuntimeError(f"""({path}, {inserts}, {errors}: {message}""")  # type: ignore
 
     def commit(self, tablename: str):
         """Execute a simple commit on table.
