@@ -100,3 +100,6 @@ line_length = 110
 
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
+[tool.poetry.plugins."airflow.plugins"]
+"indexima" = "airflow_indexima.indexima:IndeximaAirflowPlugin"
