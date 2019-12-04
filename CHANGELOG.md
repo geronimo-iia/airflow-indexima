@@ -1,4 +1,4 @@
-# 2.1.0-b0 (2019-12-04)
+# 2.1.0 (2019-12-04)
 
 - manage error return from indexima
 - define IndeximaAirflowPlugin
