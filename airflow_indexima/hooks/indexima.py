@@ -1,6 +1,6 @@
 """Indexima hook module definition."""
 
-from typing import Any, Optional
+from typing import Any, List, Optional
 
 from airflow.hooks.base_hook import BaseHook
 from pyhive import hive
@@ -103,9 +103,13 @@ class IndeximaHook(BaseHook):
             (RuntimeError): if an error is found
 
         """
+        _messages: List[str] = []
         for path, inserts, errors, message in iter(cursor.fetchone, None):  # type: ignore
             if errors > 0:  # type: ignore
-                raise RuntimeError(f"""({path}, {inserts}, {errors}: {message}""")  # type: ignore
+                _messages.append(f"({path}, {inserts}, {errors}: {message}")  # type: ignore
+
+        if len(_messages):
+            raise RuntimeError('\n'.join(_messages))
 
     def commit(self, tablename: str):
         """Execute a simple commit on table.
