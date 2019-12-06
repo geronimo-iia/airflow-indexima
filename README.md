@@ -88,8 +88,19 @@ with dag:
     ...
 
 ```
+### get load path uri from Connection
 
-### customize credential access
+In order to get jdbc uri from an Airflow Connection, you could use:
+
+- ```get_redshift_load_path_uri```
+- ```get_postgresql_load_path_uri```
+
+from module ```airflow_indexima.uri```
+
+Both method have this profile: ```Callable[[str, Optional[ConnectionDecorator]], str]```
+
+
+### customize Connection credential access
 
 If you use another backend to store your password (like AWS SSM), you could define a decorator
 and use it as a function in your dag.
