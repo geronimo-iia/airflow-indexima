@@ -1,3 +1,12 @@
+# 2.1.1 (soon)
+
+- add dry_run mode
+- refactor uri sub module
+- add jdbc uri generator for postgresql
+- support full syntax of load path query
+- add test unit (not too soon...)
+- activate coverage
+
 # 2.1.0 (2019-12-04)
 
 - manage error return from indexima

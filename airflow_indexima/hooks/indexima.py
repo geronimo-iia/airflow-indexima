@@ -32,6 +32,7 @@ class IndeximaHook(BaseHook):
         indexima_conn_id: str,
         auth: str = 'CUSTOM',
         connection_decorator: Optional[ConnectionDecorator] = None,
+        dry_run: Optional[bool] = False,
         *args,
         **kwargs,
     ):
@@ -42,6 +43,8 @@ class IndeximaHook(BaseHook):
             auth(str): pyhive authentication mode (defaults: 'CUSTOM')
             connection_decorator (Optional[ConnectionDecorator]) : optional function handler
                 to post process connection parameter(default: None)
+            dry_run (Optional[bool]): dry run mode (default: False). If true no action will
+                ve applied against datasource.
         """
         super(IndeximaHook, self).__init__(source='indexima', *args, **kwargs)
         self._indexima_conn_id = indexima_conn_id
@@ -49,6 +52,7 @@ class IndeximaHook(BaseHook):
         self._auth = auth
         self._conn: Optional[Any] = None
         self._connection_decorator = connection_decorator
+        self._dry_run = dry_run or False
 
     def get_conn(self) -> hive.Connection:
         """Return a hive connection.
@@ -90,7 +94,10 @@ class IndeximaHook(BaseHook):
         if not self._conn:
             self.get_conn()
         cursor = self._conn.cursor()  # type: ignore
-        cursor.execute(sql)
+        if not self._dry_run:
+            cursor.execute(sql)
+        else:
+            self.log.warn(sql)
         return cursor
 
     def check_error_of_load_query(self, cursor: hive.Cursor):
@@ -136,3 +143,6 @@ class IndeximaHook(BaseHook):
             self._conn.close()
         self._conn = None
         return False
+
+    def is_dry_run(self) -> bool:
+        return self._dry_run

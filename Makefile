@@ -7,7 +7,6 @@ REPOSITORY := geronimo-iia/airflow-indexima
 PACKAGES := $(PACKAGE) tests
 CONFIG := $(wildcard *.py)
 MODULES := $(wildcard $(PACKAGE)/*.py)
-DISABLE_COVERAGE := true
 
 # POETRY CMD
 RUN := poetry run
@@ -91,7 +90,7 @@ test: install ## Run unit tests
 	@ if test -e $(FAILURES); then $(RUN) pytest tests $(PYTEST_RERUN_OPTIONS); fi
 	@ rm -rf $(FAILURES)
 	$(RUN) pytest tests $(PYTEST_OPTIONS)
-	#$(RUN) coveragespace $(REPOSITORY) overall
+	$(RUN) coveragespace $(REPOSITORY) overall
 
 .PHONY: read-coverage
 read-coverage:
