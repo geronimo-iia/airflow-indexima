@@ -1,11 +1,13 @@
-# 2.1.1 (soon)
+# 2.2.0 (soon)
 
-- add dry_run mode
-- refactor uri sub module
+- add dry_run mode on operator
+- refactor uri module (simplier code)
 - add jdbc uri generator for postgresql
 - support full syntax of load path query
-- add test unit (not too soon...)
-- activate coverage
+- add a bunch of test unit (not too soon...) and reactivate coverage
+- integrate hive transport factory in order to manage socket configuration
+- add support for authentication mode: ldap, custom, kerberos and none
+- add more documentation
 
 # 2.1.0 (2019-12-04)
 

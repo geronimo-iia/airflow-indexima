@@ -100,6 +100,54 @@ from module ```airflow_indexima.uri```
 Both method have this profile: ```Callable[[str, Optional[ConnectionDecorator]], str]```
 
 
+Example:
+```
+    get_postgresql_load_path_uri(connection_id='my_conn')
+    >> 'jdbc:postgresql://my-db:5432/db_client?ssl=true&user=airflow-user&password=XXXXXXXX'
+```
+
+## Indexima Connection
+
+
+### Authentication
+
+PyHive supported authentication mode:
+
+- 'NONE': needs a username without password
+- 'CUSTOM': needs a username and password (default mode)
+- 'LDAP': needs a username and password
+- 'KERBEROS': need a kerberos service name
+- 'NOSASL': corresponds to hive.server2.authentication=NOSASL in hive-site.xml
+
+
+### Configuration
+
+You could set those parameters:
+
+- host (str): The host to connect to.
+- port (int): The (TCP) port to connect to.
+- timeout_seconds ([int]): define the socket timeout in second (default 60)
+- socket_keepalive ([bool]): enable TCP keepalive, default false.
+- auth (str): authentication mode
+- username ([str]): username to login
+- password ([str]): password to login
+- kerberos_service_name ([str]): kerberos service name
+
+`host`, `port`, `username` and `password` came from airflow Connection configuration.
+
+`timeout_seconds`, `socket_keepalive`, `auth` and `kerberos_service_name` parameters can came from:
+
+1. attribut on Hook/Operator class
+2. Airflow Connection in ```extra``` parameter, like this:
+   ```
+   '{"auth": "CUSTOM", "timeout_seconds": 90, "socket_keepalive": true}'
+   ```
+
+Setted attribut override airflow connection configuration.
+
+You could add a decorator function in order to post process Connection before usage.
+This decorator will be executed after connection configuration (see next section).
+
 ### customize Connection credential access
 
 If you use another backend to store your password (like AWS SSM), you could define a decorator
@@ -113,6 +161,7 @@ from airdlow_indexima.uri import define_load_path_factory, get_redshift_load_pat
 
 
 def my_decorator(conn:Connection) -> Connection:
+    # conn instance will be not shared, and use only on connection request
     conn.password = get_ssm_parameter(param_name=f'{conn.conn_id}.{con.login}')
     return conn
 

@@ -311,8 +311,42 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#customize-credential-access" class="md-nav__link">
-    customize credential access
+  <a href="#get-load-path-uri-from-connection" class="md-nav__link">
+    get load path uri from Connection
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexima-connection" class="md-nav__link">
+    Indexima Connection
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    Authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customize-connection-credential-access" class="md-nav__link">
+    customize Connection credential access
   </a>
   
 </li>
@@ -352,10 +386,106 @@
       
 
 
-  <li class="md-nav__item">
-    <a href="api/" title="API" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
       API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api-overview/" title="Overview" class="md-nav__link">
+      Overview
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api/hooks/" title="Hooks" class="md-nav__link">
+      Hooks
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api/operators/" title="Operator" class="md-nav__link">
+      Operator
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api/connection/" title="Connection Utilities" class="md-nav__link">
+      Connection Utilities
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api/hive_transport/" title="Hive Transport Utilities" class="md-nav__link">
+      Hive Transport Utilities
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api/uri/" title="URI Utilities" class="md-nav__link">
+      URI Utilities
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="api/indexima/" title="Airflow indexima plugin" class="md-nav__link">
+      Airflow indexima plugin
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -520,8 +650,42 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#customize-credential-access" class="md-nav__link">
-    customize credential access
+  <a href="#get-load-path-uri-from-connection" class="md-nav__link">
+    get load path uri from Connection
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexima-connection" class="md-nav__link">
+    Indexima Connection
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    Authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customize-connection-credential-access" class="md-nav__link">
+    customize Connection credential access
   </a>
   
 </li>
@@ -629,7 +793,52 @@ As it a young project, take care of change, any help is welcome :)</p>
     <span class="o">...</span>
 </pre></div>
 
-<h3 id="customize-credential-access">customize credential access<a class="headerlink" href="#customize-credential-access" title="Permanent link">&para;</a></h3>
+<h3 id="get-load-path-uri-from-connection">get load path uri from Connection<a class="headerlink" href="#get-load-path-uri-from-connection" title="Permanent link">&para;</a></h3>
+<p>In order to get jdbc uri from an Airflow Connection, you could use:</p>
+<ul>
+<li><code>get_redshift_load_path_uri</code></li>
+<li><code>get_postgresql_load_path_uri</code></li>
+</ul>
+<p>from module <code>airflow_indexima.uri</code></p>
+<p>Both method have this profile: <code>Callable[[str, Optional[ConnectionDecorator]], str]</code></p>
+<p>Example:
+<div class="codehilite"><pre><span></span>    get_postgresql_load_path_uri(connection_id=&#39;my_conn&#39;)
+    &gt;&gt; &#39;jdbc:postgresql://my-db:5432/db_client?ssl=true&amp;user=airflow-user&amp;password=XXXXXXXX&#39;
+</pre></div></p>
+<h2 id="indexima-connection">Indexima Connection<a class="headerlink" href="#indexima-connection" title="Permanent link">&para;</a></h2>
+<h3 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h3>
+<p>PyHive supported authentication mode:</p>
+<ul>
+<li>'NONE': needs a username without password</li>
+<li>'CUSTOM': needs a username and password (default mode)</li>
+<li>'LDAP': needs a username and password</li>
+<li>'KERBEROS': need a kerberos service name</li>
+<li>'NOSASL': corresponds to hive.server2.authentication=NOSASL in hive-site.xml</li>
+</ul>
+<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
+<p>You could set those parameters:</p>
+<ul>
+<li>host (str): The host to connect to.</li>
+<li>port (int): The (TCP) port to connect to.</li>
+<li>timeout_seconds ([int]): define the socket timeout in second (default 60)</li>
+<li>socket_keepalive ([bool]): enable TCP keepalive, default false.</li>
+<li>auth (str): authentication mode</li>
+<li>username ([str]): username to login</li>
+<li>password ([str]): password to login</li>
+<li>kerberos_service_name ([str]): kerberos service name</li>
+</ul>
+<p><code>host</code>, <code>port</code>, <code>username</code> and <code>password</code> came from airflow Connection configuration.</p>
+<p><code>timeout_seconds</code>, <code>socket_keepalive</code>, <code>auth</code> and <code>kerberos_service_name</code> parameters can came from:</p>
+<ol>
+<li>attribut on Hook/Operator class</li>
+<li>Airflow Connection in <code>extra</code> parameter, like this:
+   <div class="codehilite"><pre><span></span>&#39;{&quot;auth&quot;: &quot;CUSTOM&quot;, &quot;timeout_seconds&quot;: 90, &quot;socket_keepalive&quot;: true}&#39;
+</pre></div></li>
+</ol>
+<p>Setted attribut override airflow connection configuration.</p>
+<p>You could add a decorator function in order to post process Connection before usage.
+This decorator will be executed after connection configuration (see next section).</p>
+<h3 id="customize-connection-credential-access">customize Connection credential access<a class="headerlink" href="#customize-connection-credential-access" title="Permanent link">&para;</a></h3>
 <p>If you use another backend to store your password (like AWS SSM), you could define a decorator
 and use it as a function in your dag.</p>
 <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">airflow.models</span> <span class="kn">import</span> <span class="n">Connection</span>
@@ -639,6 +848,7 @@ and use it as a function in your dag.</p>
 
 
 <span class="k">def</span> <span class="nf">my_decorator</span><span class="p">(</span><span class="n">conn</span><span class="p">:</span><span class="n">Connection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Connection</span><span class="p">:</span>
+    <span class="c1"># conn instance will be not shared, and use only on connection request</span>
     <span class="n">conn</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">get_ssm_parameter</span><span class="p">(</span><span class="n">param_name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{conn.conn_id}</span><span class="s1">.</span><span class="si">{con.login}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">conn</span>
 
@@ -701,13 +911,13 @@ and use it as a function in your dag.</p>
       <nav class="md-footer-nav__inner md-grid">
         
         
-          <a href="api/" title="API" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="api-overview/" title="Overview" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                API
+                Overview
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

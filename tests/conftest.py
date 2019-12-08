@@ -22,3 +22,10 @@ def connection():
     ] = 'redshift://airflow-user:XXXXXXXX@my-private-instance.com:5439/db_client?ssl=true'
     yield BaseHook.get_connection('my_conn_id')
     del os.environ['AIRFLOW_CONN_MY_CONN_ID']
+
+
+@pytest.fixture(scope="function")
+def indexima_connection():
+    os.environ['AIRFLOW_CONN_INDEXIMA_ID'] = 'hive://airflow-user:XXXXXXXX@indexima.com:10000/default'
+    yield BaseHook.get_connection('indexima_id')
+    del os.environ['AIRFLOW_CONN_INDEXIMA_ID']

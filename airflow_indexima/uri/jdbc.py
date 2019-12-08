@@ -44,7 +44,7 @@ def get_jdbc_load_path_uri(
 
 
 def get_redshift_load_path_uri(connection_id: str, decorator: Optional[ConnectionDecorator] = None) -> str:
-    """Return redshoft load path uri from a connection_id.
+    """Return redshift load path uri from a connection_id.
 
     Example:
     ```

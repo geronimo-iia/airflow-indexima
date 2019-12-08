@@ -1,4 +1,4 @@
-"""URI base function and type."""
+"""URI utilities."""
 from typing import Callable, Optional
 
 from airflow_indexima.connection import ConnectionDecorator

@@ -90,7 +90,7 @@ test: install ## Run unit tests
 	@ if test -e $(FAILURES); then $(RUN) pytest tests $(PYTEST_RERUN_OPTIONS); fi
 	@ rm -rf $(FAILURES)
 	$(RUN) pytest tests $(PYTEST_OPTIONS)
-	$(RUN) coveragespace $(REPOSITORY) overall
+	#$(RUN) coveragespace $(REPOSITORY) overall
 
 .PHONY: read-coverage
 read-coverage:
@@ -115,12 +115,13 @@ $(DOCS_PATH)/api: $(MODULES)
 	@ mkdir -p $(DOCS_PATH)/api
 	@ cd $(DOCS_PATH)/api; \
 		PYTHONPATH=$(shell pwd); \
-		$(RUN) pydocmd simple $(PACKAGE)+ \
-			$(PACKAGE).connection+ \
-			$(PACKAGE).hooks.indexima+ \
-			$(PACKAGE).operators.indexima+ \
-			$(PACKAGE).uri.base+ \
-			$(PACKAGE).uri.redshift+ > index.md
+		$(RUN) pydocmd simple $(PACKAGE).hooks.indexima++ > hooks.md; \
+ 		$(RUN) pydocmd simple $(PACKAGE).operators.indexima++ > operators.md; \
+ 		$(RUN) pydocmd simple $(PACKAGE).connection+ > connection.md; \
+ 		$(RUN) pydocmd simple $(PACKAGE).hive_transport+ > hive_transport.md; \
+ 		$(RUN) pydocmd simple $(PACKAGE).uri.factory+ $(PACKAGE).uri.jdbc+ > uri.md; \
+		$(RUN) pydocmd simple $(PACKAGE).indexima++ > indexima.md; \
+		
 # Add here all other package generation
 # PYTHONPATH=$(shell pwd) is a workaround to https://github.com/NiklasRosenstein/pydoc-markdown/issues/30
 
