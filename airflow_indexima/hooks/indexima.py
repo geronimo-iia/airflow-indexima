@@ -112,7 +112,9 @@ class IndeximaHook(BaseHook):
             parameters['kerberos_service_name'] = kerberos_service_name
         # TODO test only
         configuration = {
+            "hive.server.read.socket.timeout": str(3600000),
             "hive.server2.session.check.interval": str(3600000),
+            "hive.server2.idle.session.check.operation": "true",
             "hive.server2.idle.operation.timeout": str(3600000 * 24),
             "hive.server2.idle.session.timeout": str(3600000 * 24 * 3)
         }
