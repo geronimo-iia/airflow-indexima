@@ -9,6 +9,9 @@
 - add support for authentication mode: ldap, custom, kerberos and none
 - add more documentation
 - use thrift 0.13.0
+- use a new connection on rollback
+- log original error before rollback
+- use https://www.ericlin.me/2015/07/how-to-configue-session-timeout-in-hive/
 
 # 2.1.0 (2019-12-04)
 
