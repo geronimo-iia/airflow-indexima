@@ -92,7 +92,7 @@ class IndeximaHook(BaseHook):
         if self._connection_decorator:
             conn = self._connection_decorator(conn)
 
-        self.log.info(f'connect to {conn.host}  {conn.login} {conn.port} {self._auth}')  # noqa: E501
+        self.log.info(f'connect to {conn.host}  {conn.login} {conn.port}')  # noqa: E501
         (auth, kerberos_service_name, timeout_seconds, socket_keepalive) = extract_hive_extra_setting(
             connection=conn
         )
@@ -105,8 +105,7 @@ class IndeximaHook(BaseHook):
             parameters['timeout_seconds'] = timeout_seconds or 60
         if socket_keepalive:
             parameters['socket_keepalive'] = socket_keepalive
-        if auth:
-            parameters['auth'] = auth or 'CUSTOM'
+        parameters['auth'] = auth or 'CUSTOM'
         if conn.login:
             parameters['username'] = conn.login
         if conn.password:

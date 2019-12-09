@@ -263,7 +263,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
         if self._locale:
             sql_query.append(f"LOCALE '{self._locale}'")
 
-        return " \n".join(sql_query) + ";"
+        return " ".join(sql_query) + ";"
 
     def execute(self, context):
         """Process executor."""

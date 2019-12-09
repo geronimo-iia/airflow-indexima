@@ -42,7 +42,7 @@ def test_load_data_operator_generate_query_basic():
         indexima_conn_id='fake_connection_id',
         target_table="fake_table",
         load_path_uri="fake:uri//dummy",
-    ).generate_load_data_query() == ("LOAD DATA INPATH 'fake:uri//dummy' \nINTO TABLE fake_table;")
+    ).generate_load_data_query() == ("LOAD DATA INPATH 'fake:uri//dummy' INTO TABLE fake_table;")
 
 
 def test_load_data_operator_generate_query_with_format():
@@ -55,7 +55,7 @@ def test_load_data_operator_generate_query_with_format():
         load_path_uri="fake:uri//dummy",
         format_query="CSV SEPARATOR 'separator'",
     ).generate_load_data_query() == (
-        "LOAD DATA INPATH 'fake:uri//dummy' \n" "INTO TABLE fake_table \n" "FORMAT CSV SEPARATOR 'separator';"
+        "LOAD DATA INPATH 'fake:uri//dummy' " "INTO TABLE fake_table " "FORMAT CSV SEPARATOR 'separator';"
     )
 
 
@@ -70,9 +70,9 @@ def test_load_data_operator_generate_query_with_format_and_prefix():
         format_query="CSV SEPARATOR 'separator'",
         prefix_query="2017\\t2\\t1\\t",
     ).generate_load_data_query() == (
-        "LOAD DATA INPATH 'fake:uri//dummy' \n"
-        "INTO TABLE fake_table \n"
-        "FORMAT CSV SEPARATOR 'separator' \n"
+        "LOAD DATA INPATH 'fake:uri//dummy' "
+        "INTO TABLE fake_table "
+        "FORMAT CSV SEPARATOR 'separator' "
         "PREFIX '2017\\t2\\t1\\t';"
     )
 
@@ -87,8 +87,8 @@ def test_load_data_operator_generate_query_with_query():
         load_path_uri="fake:uri//dummy",
         source_select_query="select * from tutu where custom = 'aa'",
     ).generate_load_data_query() == (
-        "LOAD DATA INPATH 'fake:uri//dummy' \n"
-        "INTO TABLE fake_table \n"
+        "LOAD DATA INPATH 'fake:uri//dummy' "
+        "INTO TABLE fake_table "
         "QUERY 'select * from tutu where custom = \\'aa\\'';"
     )
 
@@ -105,10 +105,10 @@ def test_load_data_operator_generate_query_with_format_and_prefix_and_query():
         prefix_query="2017\\t2\\t1\\t",
         source_select_query="select * from tutu where custom = 'aa'",
     ).generate_load_data_query() == (
-        "LOAD DATA INPATH 'fake:uri//dummy' \n"
-        "INTO TABLE fake_table \n"
-        "FORMAT CSV SEPARATOR 'separator' \n"
-        "PREFIX '2017\\t2\\t1\\t' \n"
+        "LOAD DATA INPATH 'fake:uri//dummy' "
+        "INTO TABLE fake_table "
+        "FORMAT CSV SEPARATOR 'separator' "
+        "PREFIX '2017\\t2\\t1\\t' "
         "QUERY 'select * from tutu where custom = \\'aa\\'';"
     )
 
@@ -126,11 +126,11 @@ def test_load_data_operator_generate_query_with_format_and_prefix_and_query_and_
         source_select_query="select * from tutu where custom = 'aa'",
         skip_lines=2,
     ).generate_load_data_query() == (
-        "LOAD DATA INPATH 'fake:uri//dummy' \n"
-        "INTO TABLE fake_table \n"
-        "FORMAT CSV SEPARATOR 'separator' \n"
-        "PREFIX '2017\\t2\\t1\\t' \n"
-        "QUERY 'select * from tutu where custom = \\'aa\\'' \n"
+        "LOAD DATA INPATH 'fake:uri//dummy' "
+        "INTO TABLE fake_table "
+        "FORMAT CSV SEPARATOR 'separator' "
+        "PREFIX '2017\\t2\\t1\\t' "
+        "QUERY 'select * from tutu where custom = \\'aa\\'' "
         "SKIP 2;"
     )
 
@@ -149,12 +149,12 @@ def test_load_data_operator_generate_query_with_format_and_prefix_and_query_and_
         skip_lines=2,
         no_check=True,
     ).generate_load_data_query() == (
-        "LOAD DATA INPATH 'fake:uri//dummy' \n"
-        "INTO TABLE fake_table \n"
-        "FORMAT CSV SEPARATOR 'separator' \n"
-        "PREFIX '2017\\t2\\t1\\t' \n"
-        "QUERY 'select * from tutu where custom = \\'aa\\'' \n"
-        "SKIP 2 \n"
+        "LOAD DATA INPATH 'fake:uri//dummy' "
+        "INTO TABLE fake_table "
+        "FORMAT CSV SEPARATOR 'separator' "
+        "PREFIX '2017\\t2\\t1\\t' "
+        "QUERY 'select * from tutu where custom = \\'aa\\'' "
+        "SKIP 2 "
         "NOCHECK;"
     )
 
@@ -174,13 +174,13 @@ def test_load_data_operator_generate_query_with_format_and_prefix_and_query_and_
         no_check=True,
         limit=1000,
     ).generate_load_data_query() == (
-        "LOAD DATA INPATH 'fake:uri//dummy' \n"
-        "INTO TABLE fake_table \n"
-        "FORMAT CSV SEPARATOR 'separator' \n"
-        "PREFIX '2017\\t2\\t1\\t' \n"
-        "QUERY 'select * from tutu where custom = \\'aa\\'' \n"
-        "SKIP 2 \n"
-        "NOCHECK \n"
+        "LOAD DATA INPATH 'fake:uri//dummy' "
+        "INTO TABLE fake_table "
+        "FORMAT CSV SEPARATOR 'separator' "
+        "PREFIX '2017\\t2\\t1\\t' "
+        "QUERY 'select * from tutu where custom = \\'aa\\'' "
+        "SKIP 2 "
+        "NOCHECK "
         "LIMIT 1000;"
     )
 
@@ -201,13 +201,13 @@ def test_load_data_operator_generate_query_with_format_and_prefix_and_query_and_
         limit=1000,
         locale="fr",
     ).generate_load_data_query() == (
-        "LOAD DATA INPATH 'fake:uri//dummy' \n"
-        "INTO TABLE fake_table \n"
-        "FORMAT CSV SEPARATOR 'separator' \n"
-        "PREFIX '2017\\t2\\t1\\t' \n"
-        "QUERY 'select * from tutu where custom = \\'aa\\'' \n"
-        "SKIP 2 \n"
-        "NOCHECK \n"
-        "LIMIT 1000 \n"
+        "LOAD DATA INPATH 'fake:uri//dummy' "
+        "INTO TABLE fake_table "
+        "FORMAT CSV SEPARATOR 'separator' "
+        "PREFIX '2017\\t2\\t1\\t' "
+        "QUERY 'select * from tutu where custom = \\'aa\\'' "
+        "SKIP 2 "
+        "NOCHECK "
+        "LIMIT 1000 "
         "LOCALE 'fr';"
     )

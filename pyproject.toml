@@ -1,7 +1,7 @@
 [tool.poetry]
 
 name = "airflow_indexima"
-version = "2.2.0-b1"
+version = "2.2.0-b2"
 description = "Indexima Airflow integration"
 
 
@@ -38,7 +38,7 @@ python = "^3.6"
 apache-airflow = "1.10.2"
 gitpython = "2.1.*"
 PyHive="0.6.1"
-thrift=">0.10.0"
+thrift="^0.13.0"
 thrift-sasl="0.3.0"
 
 [tool.poetry.dev-dependencies]

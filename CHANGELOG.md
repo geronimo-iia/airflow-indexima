@@ -8,6 +8,7 @@
 - integrate hive transport factory in order to manage socket configuration
 - add support for authentication mode: ldap, custom, kerberos and none
 - add more documentation
+- use thrift 0.13.0
 
 # 2.1.0 (2019-12-04)
 
