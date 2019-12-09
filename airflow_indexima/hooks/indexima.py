@@ -1,6 +1,6 @@
 """Indexima hook module definition."""
 
-from typing import Any, List, Optional
+from typing import Any, Dict, List, Optional
 
 from airflow.hooks.base_hook import BaseHook
 from pyhive import hive
@@ -73,6 +73,14 @@ class IndeximaHook(BaseHook):
             timeout_seconds=timeout_seconds,
             socket_keepalive=socket_keepalive,
         )
+        # set default hive configuration
+        self._hive_configuration = {
+            "hive.server.read.socket.timeout": str(3600000),
+            "hive.server2.session.check.interval": str(3600000),
+            "hive.server2.idle.session.check.operation": "true",
+            "hive.server2.idle.operation.timeout": str(3600000 * 24),
+            "hive.server2.idle.session.timeout": str(3600000 * 24 * 3),
+        }
 
     def get_conn(self) -> hive.Connection:
         """Return a hive connection.
@@ -110,16 +118,8 @@ class IndeximaHook(BaseHook):
             parameters['password'] = conn.password
         if kerberos_service_name:
             parameters['kerberos_service_name'] = kerberos_service_name
-        # TODO test only
-        configuration = {
-            "hive.server.read.socket.timeout": str(3600000),
-            "hive.server2.session.check.interval": str(3600000),
-            "hive.server2.idle.session.check.operation": "true",
-            "hive.server2.idle.operation.timeout": str(3600000 * 24),
-            "hive.server2.idle.session.timeout": str(3600000 * 24 * 3),
-        }
         self._conn = hive.Connection(
-            configuration=configuration,
+            configuration=self._hive_configuration,
             database=self._schema or conn.schema,
             thrift_transport=create_hive_transport(**parameters),
         )
@@ -196,3 +196,21 @@ class IndeximaHook(BaseHook):
 
     def is_dry_run(self) -> bool:
         return self._dry_run
+
+    @property
+    def hive_configuration(self) -> Dict[str, str]:
+        """Return hive configuration.
+
+        # Returns
+            (Dict[str, str]): A dictionary of Hive settings (functionally same as the `set` command)
+        """
+        return self._hive_configuration
+
+    @hive_configuration.setter
+    def hive_configuration(self, configuration: Dict[str, str]):
+        """Set hive connection configuration.
+
+        # Parameters
+            configuration: A dictionary of Hive settings (functionally same as the `set` command)
+        """
+        self._hive_configuration = configuration

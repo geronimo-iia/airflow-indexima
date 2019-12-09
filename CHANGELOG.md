@@ -11,7 +11,8 @@
 - use thrift 0.13.0
 - use a new connection on rollback
 - log original error before rollback
-- use https://www.ericlin.me/2015/07/how-to-configue-session-timeout-in-hive/
+- use information from https://www.ericlin.me/2015/07/how-to-configue-session-timeout-in-hive/
+- add 'hive_configuration' member to IndeximaHook
 
 # 2.1.0 (2019-12-04)
 
