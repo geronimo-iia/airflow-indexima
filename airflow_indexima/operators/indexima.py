@@ -267,13 +267,14 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
 
     def execute(self, context):
         """Process executor."""
-        with self.get_hook() as hook:
-            if self._truncate and self._truncate_sql:
-                hook.run(self._truncate_sql)
-            try:
+        try:
+            with self.get_hook() as hook:
+                if self._truncate and self._truncate_sql:
+                    hook.run(self._truncate_sql)
                 cursor = hook.run(self.generate_load_data_query())
                 hook.check_error_of_load_query(cursor=cursor)
                 hook.commit(tablename=self._target_table)
-            except Exception as e:
-                hook.rollback(tablename=self._target_table)
-                raise e
+        except Exception as e:
+            self.log.error(e)
+            self.get_hook().rollback(tablename=self._target_table)
+            raise e
