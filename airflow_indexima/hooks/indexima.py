@@ -99,11 +99,9 @@ class IndeximaHook(BaseHook):
 
         # build parameters for create_hive_transport and keep default value meaning
         parameters = {'host': conn.host}
-        if conn.port:
-            parameters['port'] = conn.port or 10000
-        if timeout_seconds:
-            parameters['timeout_seconds'] = timeout_seconds or 60
-        if socket_keepalive:
+        parameters['port'] = conn.port or 10000
+        parameters['timeout_seconds'] = timeout_seconds or 60
+        if socket_keepalive is not None:
             parameters['socket_keepalive'] = socket_keepalive
         parameters['auth'] = auth or 'CUSTOM'
         if conn.login:
@@ -112,8 +110,14 @@ class IndeximaHook(BaseHook):
             parameters['password'] = conn.password
         if kerberos_service_name:
             parameters['kerberos_service_name'] = kerberos_service_name
-
+        # TODO test only
+        configuration = {
+            "hive.server2.session.check.interval": str(3600000),
+            "hive.server2.idle.operation.timeout": str(3600000 * 24),
+            "hive.server2.idle.session.timeout": str(3600000 * 24 * 3)
+        }
         self._conn = hive.Connection(
+            configuration=configuration,
             database=self._schema or conn.schema, thrift_transport=create_hive_transport(**parameters)
         )
         return self._conn
@@ -173,14 +177,18 @@ class IndeximaHook(BaseHook):
         """
         self.run(f'ROLLBACK {tablename}')
 
+    def close(self):
+        """Close current connection."""
+        if self._conn:
+            self._conn.close()
+        self._conn = None
+
     def __enter__(self):
         self.get_conn()
         return self
 
     def __exit__(self, *exc):
-        if self._conn:
-            self._conn.close()
-        self._conn = None
+        self.close()
         return False
 
     def is_dry_run(self) -> bool:
