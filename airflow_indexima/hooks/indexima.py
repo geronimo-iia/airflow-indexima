@@ -116,11 +116,12 @@ class IndeximaHook(BaseHook):
             "hive.server2.session.check.interval": str(3600000),
             "hive.server2.idle.session.check.operation": "true",
             "hive.server2.idle.operation.timeout": str(3600000 * 24),
-            "hive.server2.idle.session.timeout": str(3600000 * 24 * 3)
+            "hive.server2.idle.session.timeout": str(3600000 * 24 * 3),
         }
         self._conn = hive.Connection(
             configuration=configuration,
-            database=self._schema or conn.schema, thrift_transport=create_hive_transport(**parameters)
+            database=self._schema or conn.schema,
+            thrift_transport=create_hive_transport(**parameters),
         )
         return self._conn
 
