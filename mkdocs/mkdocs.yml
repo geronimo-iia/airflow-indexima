@@ -30,7 +30,14 @@ theme:
 
 nav:
   - Home: index.md
-  - API: api/index.md
+  - API:
+      - Overview: api-overview.md
+      - Hooks: api/hooks.md
+      - Operator: api/operators.md
+      - Connection Utilities: api/connection.md
+      - Hive Transport Utilities: api/hive_transport.md
+      - URI Utilities: api/uri.md
+      - Airflow indexima plugin: api/indexima.md
   - About:
       - Contributing: contributing.md
       - Documentation: documentation.md

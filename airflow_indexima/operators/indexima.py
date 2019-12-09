@@ -9,29 +9,54 @@ from airflow_indexima.connection import ConnectionDecorator
 from airflow_indexima.hooks.indexima import IndeximaHook
 
 
-__all__ = ['IndeximaHookBasedOperator', 'IndeximaQueryRunnerOperator', 'IndeximaHookBasedOperator']
+__all__ = ['IndeximaHookBasedOperator', 'IndeximaQueryRunnerOperator', 'IndeximaLoadDataOperator']
 
 
 class IndeximaHookBasedOperator(BaseOperator):
-    """Our base class for indexima operator."""
+    """Our base class for indexima operator.
 
-    hook_class_name = IndeximaHook
+    This class act as a wrapper on IndeximaHook.
+    """
 
-    ui_color = '#ededed'
+    ui_color = '#ededed'  # Define color for airflow UI.
 
     @apply_defaults
     def __init__(
         self,
         task_id: str,
         indexima_conn_id: str,
-        auth: str = 'CUSTOM',
         connection_decorator: Optional[ConnectionDecorator] = None,
+        dry_run: Optional[bool] = False,
+        auth: Optional[str] = None,
+        kerberos_service_name: Optional[str] = None,
+        timeout_seconds: Optional[int] = None,
+        socket_keepalive: Optional[bool] = None,
         *args,
         **kwargs,
     ):
+        """Create IndeximaHookBasedOperator instance.
+
+        # Parameters
+            task_id (str): task identifier
+            indexima_conn_id (str): indexima connection identifier
+            connection_decorator Optional[ConnectionDecorator]: optional connection decorator
+            dry_run (Optional[bool]): dry run mode (default: False). If true no action will
+                be applied against datasource.
+            auth (Optional[str]): authentication mode (default: {'CUSTOM'})
+            kerberos_service_name (Optional[str]): optional kerberos service name
+            timeout_seconds (Optional[int]): define the socket timeout in second
+            socket_keepalive (Optional[bool]): enable TCP keepalive.
+
+        """
         super(IndeximaHookBasedOperator, self).__init__(task_id=task_id, *args, **kwargs)
         self._hook = IndeximaHook(
-            indexima_conn_id=indexima_conn_id, auth=auth, connection_decorator=connection_decorator
+            indexima_conn_id=indexima_conn_id,
+            connection_decorator=connection_decorator,
+            dry_run=dry_run,
+            auth=auth,
+            kerberos_service_name=kerberos_service_name,
+            timeout_seconds=timeout_seconds,
+            socket_keepalive=socket_keepalive,
         )
 
     def get_hook(self) -> IndeximaHook:
@@ -50,16 +75,39 @@ class IndeximaQueryRunnerOperator(IndeximaHookBasedOperator):
         task_id: str,
         sql_query: str,
         indexima_conn_id: str,
-        auth: str = 'CUSTOM',
         connection_decorator: Optional[ConnectionDecorator] = None,
+        dry_run: Optional[bool] = False,
+        auth: Optional[str] = None,
+        kerberos_service_name: Optional[str] = None,
+        timeout_seconds: Optional[int] = None,
+        socket_keepalive: Optional[bool] = None,
         *args,
         **kwargs,
     ):
+        """Create IndeximaQueryRunnerOperator instance.
+
+        # Parameters
+            task_id (str): task identifier
+            sql_query (str): query to run
+            indexima_conn_id (str): indexima connection identifier
+            connection_decorator Optional[ConnectionDecorator]: optional connection decorator
+            dry_run (Optional[bool]): dry run mode (default: False). If true no action will
+                be applied against datasource.
+            auth (Optional[str]): authentication mode (default: {'CUSTOM'})
+            kerberos_service_name (Optional[str]): optional kerberos service name
+            timeout_seconds (Optional[int]): define the socket timeout in second
+            socket_keepalive (Optional[bool]): enable TCP keepalive.
+
+        """
         super(IndeximaQueryRunnerOperator, self).__init__(
             task_id=task_id,
             indexima_conn_id=indexima_conn_id,
-            auth=auth,
             connection_decorator=connection_decorator,
+            dry_run=dry_run,
+            auth=auth,
+            kerberos_service_name=kerberos_service_name,
+            timeout_seconds=timeout_seconds,
+            socket_keepalive=socket_keepalive,
             *args,
             **kwargs,
         )
@@ -75,30 +123,66 @@ class IndeximaQueryRunnerOperator(IndeximaHookBasedOperator):
 
 
 class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
-    """Indexima load data operator.
+    r"""Indexima load data operator.
 
     Operations:
+
         1. truncate target_table (false per default)
         2. load source_select_query into target_table using redshift_user_name credential
         4. commit/rollback target_table
 
-    All fields ('target_table', 'load_path_uri', 'source_select_query', 'truncate_sql') support airflow macro.
+    All fields ('target_table', 'load_path_uri', 'source_select_query', 'truncate_sql',
+    'format_query', 'prefix_query', 'skip_lines', 'no_check', 'limit', 'locale') support airflow macro.
+
+    Syntax (see https://indexima.com/support/doc/v.1.6/Load_Data/Load_Data_Inpath.html)
+    ```sql
+    LOAD DATA INPATH 'path_of_the_data_source'
+    INTO TABLE my_data_space
+    [FORMAT 'separator' / ORC / PARQUET / JSON];
+    [PREFIX 'value1 \t value2 \t ... \t']
+    [QUERY "my_SQL_Query"]
+    [SKIP lines]
+    [NOCHECK]
+    [LIMIT n_lines]
+    [LOCALE 'FR']
+    ```
 
     """
 
-    template_fields = ('_target_table', '_load_path_uri', '_source_select_query', '_truncate_sql')
+    template_fields = (
+        '_target_table',
+        '_load_path_uri',
+        '_source_select_query',
+        '_truncate_sql',
+        '_format_query',
+        '_prefix_query',
+        '_skip_lines',
+        '_no_check',
+        '_limit',
+        '_locale',
+    )
 
     def __init__(
         self,
         task_id: str,
         indexima_conn_id: str,
         target_table: str,
-        source_select_query: str,
         load_path_uri: str,
         truncate: bool = False,
         truncate_sql: Optional[str] = None,
-        auth: str = 'CUSTOM',
         connection_decorator: Optional[ConnectionDecorator] = None,
+        source_select_query: Optional[str] = None,
+        format_query: Optional[str] = None,
+        prefix_query: Optional[str] = None,
+        skip_lines: Optional[int] = None,
+        no_check: Optional[bool] = False,
+        limit: Optional[int] = None,
+        locale: Optional[str] = None,
+        dry_run: Optional[bool] = False,
+        auth: Optional[str] = None,
+        kerberos_service_name: Optional[str] = None,
+        timeout_seconds: Optional[int] = None,
+        socket_keepalive: Optional[bool] = None,
         *args,
         **kwargs,
     ):
@@ -108,39 +192,87 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
             task_id (str): task identifier
             indexima_conn_id (str): indexima connection identifier
             target_table (str): target table to load into
-            source_select_query (str): sql query to select data from load_path_uri
             load_path_uri (str): source uri
             truncate (bool): if true execute truncate query before load (default: False)
             truncate_sql (Optional[str]): truncate query (truncate table per default)
-            auth (str): authentication mode (default: {'CUSTOM'})
             connection_decorator Optional[ConnectionDecorator]: optional connection decorator
-
+            source_select_query (Optional[str]): optional sql query to select data from load_path_uri
+            format_query (Optional[str]): optional format to identify a character separator or a file format
+                tailored for big-data ecosystems
+            prefix_query (Optional[str]): optional prefix used to identify a subset of data to be imported.
+            skip_lines (Optional[int]): Allows to skip headers lines when importing data for flat text files.
+            no_check (Optional[bool]): Do not validate data type when loading data when specified
+                (default: False)
+            limit (Optional[int]): It will import only the first #lines on each imported files.
+            locale (Optional[str]): The LOCALE 'country' parameter helps to convert character.
+            dry_run (Optional[bool]): dry run mode (default: False). If true no action will
+                be applied against datasource.
+            auth (Optional[str]): authentication mode (default: {'CUSTOM'})
+            timeout_seconds (Optional[int]): define the socket timeout in second
+            socket_keepalive (Optional[bool]): enable TCP keepalive.
+            kerberos_service_name (Optional[str]): optional kerberos service name
         """
 
         super(IndeximaLoadDataOperator, self).__init__(
             task_id=task_id,
             indexima_conn_id=indexima_conn_id,
-            auth=auth,
             connection_decorator=connection_decorator,
+            dry_run=dry_run,
+            auth=auth,
+            kerberos_service_name=kerberos_service_name,
+            timeout_seconds=timeout_seconds,
+            socket_keepalive=socket_keepalive,
             *args,
             **kwargs,
         )
         self._target_table = target_table
-        self._source_select_query = source_select_query
         self._load_path_uri = load_path_uri
         self._truncate = truncate
-        self._truncate_sql = truncate_sql if truncate_sql else f'truncate table {self.target_table}'
+        self._truncate_sql = truncate_sql if truncate_sql else f'truncate table {self._target_table}'
+        self._source_select_query = source_select_query
+        self._format_query = format_query
+        self._prefix_query = prefix_query
+        self._skip_lines = skip_lines
+        self._no_check = no_check
+        self._limit = limit
+        self._locale = locale
+
+    def generate_load_data_query(self):
+        """Generate 'load data' sql query.
+
+        # Returns
+            (str): load data sql query
+        """
+
+        def escape_quote(txt: str) -> str:
+            return txt.replace("'", "\\'")
+
+        sql_query = [f"LOAD DATA INPATH '{self._load_path_uri}'", f"INTO TABLE {self._target_table}"]
+        if self._format_query:
+            sql_query.append(f"FORMAT {self._format_query}")
+        if self._prefix_query:
+            sql_query.append(f"PREFIX '{escape_quote(self._prefix_query)}'")
+        if self._source_select_query:
+            sql_query.append(f"QUERY '{escape_quote(self._source_select_query)}'")
+        if self._skip_lines:
+            sql_query.append(f"SKIP {self._skip_lines}")
+        if self._no_check:
+            sql_query.append(f"NOCHECK")
+        if self._limit:
+            sql_query.append(f"LIMIT {self._limit}")
+        if self._locale:
+            sql_query.append(f"LOCALE '{self._locale}'")
+
+        return " \n".join(sql_query) + ";"
 
     def execute(self, context):
+        """Process executor."""
         with self.get_hook() as hook:
             if self._truncate and self._truncate_sql:
                 hook.run(self._truncate_sql)
             try:
-                _escape_source_select_query = self.source_select_query.replace("'", "\\'")
-                hook.run(
-                    f"load data inpath '{self._load_path_uri}' "
-                    f"into table {self._target_table} query '{_escape_source_select_query}';"
-                )
+                cursor = hook.run(self.generate_load_data_query())
+                hook.check_error_of_load_query(cursor=cursor)
                 hook.commit(tablename=self._target_table)
             except Exception as e:
                 hook.rollback(tablename=self._target_table)
