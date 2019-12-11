@@ -16,7 +16,7 @@
 - change default time out
 - use a single cursor instance per hook process
 - set hive connection serialization encoding 'UTF-8'
-
+- timeout can be specified with an int or a timedelta
 
 # 2.1.0 (2019-12-04)
 

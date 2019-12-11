@@ -1,6 +1,7 @@
 """Indexima hook module definition."""
 
-from typing import Any, Dict, List, Optional
+import datetime
+from typing import Any, Dict, List, Optional, Union
 
 from airflow.hooks.base_hook import BaseHook
 from pyhive import hive
@@ -39,7 +40,7 @@ class IndeximaHook(BaseHook):
         dry_run: Optional[bool] = False,
         auth: Optional[str] = None,
         kerberos_service_name: Optional[str] = None,
-        timeout_seconds: Optional[int] = None,
+        timeout_seconds: Optional[Union[int, datetime.timedelta]] = None,
         socket_keepalive: Optional[bool] = None,
         *args,
         **kwargs,
@@ -52,8 +53,9 @@ class IndeximaHook(BaseHook):
             connection_decorator (Optional[ConnectionDecorator]) : optional function handler
                 to post process connection parameter(default: None)
             dry_run (Optional[bool]): dry run mode (default: False). If true no action will
-                ve applied against datasource.
-            timeout_seconds (Optional[int]): define the socket timeout in second
+                be applied against datasource.
+            timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second
+                (could be an int or a timedelta)
             socket_keepalive (Optional[bool]): enable TCP keepalive.
             kerberos_service_name (Optional[str]): optional kerberos service name
 
@@ -70,11 +72,18 @@ class IndeximaHook(BaseHook):
         self._connection_decorator = connection_decorator
         self._dry_run = dry_run or False
 
+        _timeout_seconds = None
+        if timeout_seconds is not None:
+            if isinstance(timeout_seconds, datetime.timedelta):
+                _timeout_seconds = timeout_seconds.seconds
+            else:
+                _timeout_seconds = int(timeout_seconds)
+
         self._settings_decorator = lambda connection: apply_hive_extra_setting(
             connection=connection,
             auth=auth,
             kerberos_service_name=kerberos_service_name,
-            timeout_seconds=timeout_seconds,
+            timeout_seconds=_timeout_seconds,
             socket_keepalive=socket_keepalive,
         )
         # set default hive configuration

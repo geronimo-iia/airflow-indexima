@@ -1,6 +1,6 @@
 """Indexima operators module definition."""
-
-from typing import Optional
+import datetime
+from typing import Optional, Union
 
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
@@ -29,7 +29,7 @@ class IndeximaHookBasedOperator(BaseOperator):
         dry_run: Optional[bool] = False,
         auth: Optional[str] = None,
         kerberos_service_name: Optional[str] = None,
-        timeout_seconds: Optional[int] = None,
+        timeout_seconds: Optional[Union[int, datetime.timedelta]] = None,
         socket_keepalive: Optional[bool] = None,
         *args,
         **kwargs,
@@ -44,7 +44,8 @@ class IndeximaHookBasedOperator(BaseOperator):
                 be applied against datasource.
             auth (Optional[str]): authentication mode (default: {'CUSTOM'})
             kerberos_service_name (Optional[str]): optional kerberos service name
-            timeout_seconds (Optional[int]): define the socket timeout in second
+            timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second
+                (could be an int or a timedelta)
             socket_keepalive (Optional[bool]): enable TCP keepalive.
 
         """
@@ -79,7 +80,7 @@ class IndeximaQueryRunnerOperator(IndeximaHookBasedOperator):
         dry_run: Optional[bool] = False,
         auth: Optional[str] = None,
         kerberos_service_name: Optional[str] = None,
-        timeout_seconds: Optional[int] = None,
+        timeout_seconds: Optional[Union[int, datetime.timedelta]] = None,
         socket_keepalive: Optional[bool] = None,
         *args,
         **kwargs,
@@ -95,7 +96,8 @@ class IndeximaQueryRunnerOperator(IndeximaHookBasedOperator):
                 be applied against datasource.
             auth (Optional[str]): authentication mode (default: {'CUSTOM'})
             kerberos_service_name (Optional[str]): optional kerberos service name
-            timeout_seconds (Optional[int]): define the socket timeout in second
+            timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second
+                (could be an int or a timedelta)
             socket_keepalive (Optional[bool]): enable TCP keepalive.
 
         """
@@ -181,7 +183,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
         dry_run: Optional[bool] = False,
         auth: Optional[str] = None,
         kerberos_service_name: Optional[str] = None,
-        timeout_seconds: Optional[int] = None,
+        timeout_seconds: Optional[Union[int, datetime.timedelta]] = None,
         socket_keepalive: Optional[bool] = None,
         *args,
         **kwargs,
@@ -208,7 +210,8 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
             dry_run (Optional[bool]): dry run mode (default: False). If true no action will
                 be applied against datasource.
             auth (Optional[str]): authentication mode (default: {'CUSTOM'})
-            timeout_seconds (Optional[int]): define the socket timeout in second
+            timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second
+                (could be an int or a timedelta)
             socket_keepalive (Optional[bool]): enable TCP keepalive.
             kerberos_service_name (Optional[str]): optional kerberos service name
         """
