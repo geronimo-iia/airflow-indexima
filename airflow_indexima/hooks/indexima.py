@@ -57,6 +57,9 @@ class IndeximaHook(BaseHook):
             socket_keepalive (Optional[bool]): enable TCP keepalive.
             kerberos_service_name (Optional[str]): optional kerberos service name
 
+        Per default, hive connection is set in 'utf-8':
+        ```{ "serialization.encoding": "utf-8"}```
+
         """
         super(IndeximaHook, self).__init__(source='indexima', *args, **kwargs)
         self._indexima_conn_id = indexima_conn_id
@@ -75,7 +78,7 @@ class IndeximaHook(BaseHook):
             socket_keepalive=socket_keepalive,
         )
         # set default hive configuration
-        self._hive_configuration: Optional[Dict[str, str]] = None
+        self._hive_configuration: Optional[Dict[str, str]] = {"serialization.encoding": "utf-8"}
 
     def get_conn(self) -> hive.Connection:
         """Return a hive connection.

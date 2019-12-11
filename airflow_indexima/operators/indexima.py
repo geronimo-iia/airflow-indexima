@@ -228,7 +228,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
         self._target_table = target_table
         self._load_path_uri = load_path_uri
         self._truncate = truncate
-        self._truncate_sql = truncate_sql if truncate_sql else f'truncate table {self._target_table}'
+        self._truncate_sql = truncate_sql if truncate_sql else f'truncate table {self._target_table};'
         self._source_select_query = source_select_query
         self._format_query = format_query
         self._prefix_query = prefix_query
