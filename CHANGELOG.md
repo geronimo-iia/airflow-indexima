@@ -13,6 +13,7 @@
 - log original error before rollback
 - use information from https://www.ericlin.me/2015/07/how-to-configue-session-timeout-in-hive/
 - add 'hive_configuration' member to IndeximaHook
+- change default time out
 
 # 2.1.0 (2019-12-04)
 

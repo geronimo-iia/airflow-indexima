@@ -49,7 +49,7 @@ def create_transport_socket(
     # Parameters
         host (str): The host to connect to.
         port (int): The (TCP) port to connect to.
-        timeout_seconds (Optional[int]): define the socket timeout in second (default 60)
+        timeout_seconds (Optional[int]): define the socket timeout in second
         socket_keepalive (Optional[bool]): enable TCP keepalive, default False.
 
     # Returns
@@ -61,7 +61,8 @@ def create_transport_socket(
         port=port if port else 10000,
         socket_keepalive=socket_keepalive if socket_keepalive is not None else False,
     )
-    socket.setTimeout(timeout_seconds * 1000 if timeout_seconds else 60000)  # set timeout in ms
+    if timeout_seconds:
+        socket.setTimeout(timeout_seconds * 1000)  # set timeout in ms
     return socket
 
 

@@ -74,13 +74,7 @@ class IndeximaHook(BaseHook):
             socket_keepalive=socket_keepalive,
         )
         # set default hive configuration
-        self._hive_configuration = {
-            "hive.server.read.socket.timeout": str(3600000),
-            "hive.server2.session.check.interval": str(3600000),
-            "hive.server2.idle.session.check.operation": "true",
-            "hive.server2.idle.operation.timeout": str(3600000 * 24),
-            "hive.server2.idle.session.timeout": str(3600000 * 24 * 3),
-        }
+        self._hive_configuration: Optional[Dict[str, str]] = None
 
     def get_conn(self) -> hive.Connection:
         """Return a hive connection.
@@ -198,7 +192,7 @@ class IndeximaHook(BaseHook):
         return self._dry_run
 
     @property
-    def hive_configuration(self) -> Dict[str, str]:
+    def hive_configuration(self) -> Optional[Dict[str, str]]:
         """Return hive configuration.
 
         # Returns
@@ -207,10 +201,23 @@ class IndeximaHook(BaseHook):
         return self._hive_configuration
 
     @hive_configuration.setter
-    def hive_configuration(self, configuration: Dict[str, str]):
+    def hive_configuration(self, configuration: Optional[Dict[str, str]]):
         """Set hive connection configuration.
 
         # Parameters
             configuration: A dictionary of Hive settings (functionally same as the `set` command)
+
+        # Example
+
+        ```python
+        hool.hive_configuration = {
+            "hive.server.read.socket.timeout": str(3600000),
+            "hive.server2.session.check.interval": str(3600000),
+            "hive.server2.idle.session.check.operation": "true",
+            "hive.server2.idle.operation.timeout": str(3600000 * 24),
+            "hive.server2.idle.session.timeout": str(3600000 * 24 * 3),
+        })
+        ```
+
         """
         self._hive_configuration = configuration
