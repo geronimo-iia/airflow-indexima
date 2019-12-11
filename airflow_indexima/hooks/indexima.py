@@ -63,6 +63,7 @@ class IndeximaHook(BaseHook):
         self._schema = kwargs.pop("schema", None)
 
         self._conn: Optional[Any] = None
+        self._cursor: Optional[Any] = None
         self._connection_decorator = connection_decorator
         self._dry_run = dry_run or False
 
@@ -117,6 +118,7 @@ class IndeximaHook(BaseHook):
             database=self._schema or conn.schema,
             thrift_transport=create_hive_transport(**parameters),
         )
+        self._cursor = self._conn.cursor()  # type: ignore
         return self._conn
 
     def get_records(self, sql: str) -> hive.Cursor:
@@ -131,14 +133,13 @@ class IndeximaHook(BaseHook):
 
     def run(self, sql: str) -> hive.Cursor:
         """Execute query and return curror."""
-        if not self._conn:
+        if not self._cursor:
             self.get_conn()
-        cursor = self._conn.cursor()  # type: ignore
         if not self._dry_run:
-            cursor.execute(sql)
+            self._cursor.execute(sql)  # type: ignore
         else:
             self.log.warn(sql)
-        return cursor
+        return self._cursor
 
     def check_error_of_load_query(self, cursor: hive.Cursor):
         """Raise error if a load query fail.
@@ -179,6 +180,7 @@ class IndeximaHook(BaseHook):
         if self._conn:
             self._conn.close()
         self._conn = None
+        self._cursor = None
 
     def __enter__(self):
         self.get_conn()

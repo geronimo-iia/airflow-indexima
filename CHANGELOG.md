@@ -14,6 +14,7 @@
 - use information from https://www.ericlin.me/2015/07/how-to-configue-session-timeout-in-hive/
 - add 'hive_configuration' member to IndeximaHook
 - change default time out
+- use a single cursor instance per hook process
 
 # 2.1.0 (2019-12-04)
 
