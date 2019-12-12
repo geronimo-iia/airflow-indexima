@@ -351,6 +351,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#optional-connection-parameters" class="md-nav__link">
+    Optional connection parameters
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -696,6 +703,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#optional-connection-parameters" class="md-nav__link">
+    Optional connection parameters
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -898,6 +912,19 @@ and use it as a function in your dag.</p>
 <li>an uri factory <code>UriGeneratorFactory = Callable[[str, Optional[ConnectionDecorator]], str]</code></li>
 </ul>
 <p>and return a function with no argument which can be called as a macro in dag's operator.</p>
+<h3 id="optional-connection-parameters">Optional connection parameters<a class="headerlink" href="#optional-connection-parameters" title="Permanent link">&para;</a></h3>
+<p>On each operator you could set this member:</p>
+<ul>
+<li>auth (Optional[str]): authentication mode (default: {'CUSTOM'})</li>
+<li>kerberos_service_name (Optional[str]): optional kerberos service name</li>
+<li>timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second
+                (could be an int or a timedelta)</li>
+<li>socket_keepalive (Optional[bool]): enable TCP keepalive.</li>
+</ul>
+<p>Note:</p>
+<ul>
+<li>if execution_timeout is set, it will be used as default value for timeout_seconds.</li>
+</ul>
 <h2 id="production-feedback">Production Feedback<a class="headerlink" href="#production-feedback" title="Permanent link">&para;</a></h2>
 <p>In production, you could have few strange behaviour like those that we have meet.</p>
 <h3 id="tsocket-read-0-bytes">"TSocket read 0 bytes"<a class="headerlink" href="#tsocket-read-0-bytes" title="Permanent link">&para;</a></h3>
@@ -915,7 +942,7 @@ and use it as a function in your dag.</p>
 </li>
 </ol>
 <h1 id="utf-8-or-could-not-read-byte-0">"utf-8" or could not read byte [0]<a class="headerlink" href="#utf-8-or-could-not-read-byte-0" title="Permanent link">&para;</a></h1>
-<p>Be very welcome to add <code>{ &quot;serialization.encoding&quot;: &quot;utf-8&quot;}</code>in hive_configuration member of IndeximaHook.</p>
+<p>Be very welcome to add <code>{ &quot;serialization.encoding&quot;: &quot;utf-8&quot;}</code> in hive_configuration member of IndeximaHook.</p>
 <p>This setting is set in IndeximaHook.<strong>init</strong>, may you override it ?</p>
 <h2 id="playing-airflow-without-airflow-server">Playing Airflow without Airflow Server<a class="headerlink" href="#playing-airflow-without-airflow-server" title="Permanent link">&para;</a></h2>
 <p>When I was trying many little things and deals with hive stuff, i wrote a single script that help me a lot.</p>
