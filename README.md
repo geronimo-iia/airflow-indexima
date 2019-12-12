@@ -237,11 +237,12 @@ Try this in sequence:
    Our solution was to remove our NLB and use a simple dns A field on indexima master.
 
 
-# "utf-8" or could not read byte [0]
+### "utf-8" or could not read byte ...
 
 Be very welcome to add ```{ "serialization.encoding": "utf-8"}``` in hive_configuration member of IndeximaHook.
 
 This setting is set in IndeximaHook.__init__, may you override it ?
+
 
 ## Playing Airflow without Airflow Server
 
