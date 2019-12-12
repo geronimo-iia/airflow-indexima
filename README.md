@@ -232,7 +232,7 @@ Try this in sequence:
 2. if your facing a broken pipe, after 300s, and you have an AWS NLB V2 :
    Read again [network-load-balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/network-load-balancers.html), and focus on this:
    > Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds. You cannot modify this value. For TCP listeners, clients or targets can use TCP keepalive packets to reset the idle timeout. TCP keepalive packets are not supported for TLS listeners.
-   
+
    We have tried for you the "socket_keep_alive", and it did not work at all.
    Our solution was to remove our NLB and use a simple dns A field on indexima master.
 
@@ -309,3 +309,6 @@ del os.environ['AIRFLOW_CONN_INDEXIMA_ID']
 
 See [Contributing](https://geronimo-iia.github.io/airflow-indexima/contributing)
 
+### Thanks
+
+Thanks to @bartosz25 for his help with hive connection details... 
