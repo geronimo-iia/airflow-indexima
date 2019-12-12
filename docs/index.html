@@ -935,12 +935,12 @@ and use it as a function in your dag.</p>
    You could have a different behaviour when running a dag with/without airflow context in docker container.</li>
 <li>if your facing a broken pipe, after 300s, and you have an AWS NLB V2 :
    Read again <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/network-load-balancers.html">network-load-balancers</a>, and focus on this:<blockquote>
-<p>Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds. You cannot modify this value. For TCP listeners, clients or targets can use TCP keepalive packets to reset the idle timeout. TCP keepalive packets are not supported for TLS listeners.
-   We have tried for you the "socket_keep_alive", and it did not work at all.
-   Our solution was to remove our NLB and use a simple dns A field on indexima master.</p>
+<p>Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds. You cannot modify this value. For TCP listeners, clients or targets can use TCP keepalive packets to reset the idle timeout. TCP keepalive packets are not supported for TLS listeners.</p>
 </blockquote>
 </li>
 </ol>
+<p>We have tried for you the "socket_keep_alive", and it did not work at all.
+   Our solution was to remove our NLB and use a simple dns A field on indexima master.</p>
 <h1 id="utf-8-or-could-not-read-byte-0">"utf-8" or could not read byte [0]<a class="headerlink" href="#utf-8-or-could-not-read-byte-0" title="Permanent link">&para;</a></h1>
 <p>Be very welcome to add <code>{ &quot;serialization.encoding&quot;: &quot;utf-8&quot;}</code> in hive_configuration member of IndeximaHook.</p>
 <p>This setting is set in IndeximaHook.<strong>init</strong>, may you override it ?</p>
