@@ -13,10 +13,11 @@
 - log original error before rollback
 - use information from https://www.ericlin.me/2015/07/how-to-configue-session-timeout-in-hive/
 - add 'hive_configuration' member to IndeximaHook
-- change default time out
+- change default time out to None
 - use a single cursor instance per hook process
 - set hive connection serialization encoding 'UTF-8'
 - timeout can be specified with an int or a timedelta
+- use execution_timeout member on operator to set timeout if this one is not specified
 
 # 2.1.0 (2019-12-04)
 

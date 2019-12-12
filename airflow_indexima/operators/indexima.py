@@ -50,6 +50,11 @@ class IndeximaHookBasedOperator(BaseOperator):
 
         """
         super(IndeximaHookBasedOperator, self).__init__(task_id=task_id, *args, **kwargs)
+
+        # align timeout_seconds on execution_timeout if setted
+        if kwargs and 'execution_timeout' in kwargs and timeout_seconds is None:
+            timeout_seconds = kwargs['execution_timeout']
+
         self._hook = IndeximaHook(
             indexima_conn_id=indexima_conn_id,
             connection_decorator=connection_decorator,
