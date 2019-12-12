@@ -357,16 +357,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#license" class="md-nav__link">
-    License
+  <a href="#production-feedback" class="md-nav__link">
+    Production Feedback
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tsocket-read-0-bytes" class="md-nav__link">
+    "TSocket read 0 bytes"
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#contributing" class="md-nav__link">
-    Contributing
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -696,16 +702,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#license" class="md-nav__link">
-    License
+  <a href="#production-feedback" class="md-nav__link">
+    Production Feedback
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tsocket-read-0-bytes" class="md-nav__link">
+    "TSocket read 0 bytes"
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#contributing" class="md-nav__link">
-    Contributing
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -886,6 +898,75 @@ and use it as a function in your dag.</p>
 <li>an uri factory <code>UriGeneratorFactory = Callable[[str, Optional[ConnectionDecorator]], str]</code></li>
 </ul>
 <p>and return a function with no argument which can be called as a macro in dag's operator.</p>
+<h2 id="production-feedback">Production Feedback<a class="headerlink" href="#production-feedback" title="Permanent link">&para;</a></h2>
+<p>In production, you could have few strange behaviour like those that we have meet.</p>
+<h3 id="tsocket-read-0-bytes">"TSocket read 0 bytes"<a class="headerlink" href="#tsocket-read-0-bytes" title="Permanent link">&para;</a></h3>
+<p>You could fine this issue <a href="https://github.com/dropbox/PyHive/issues/240">https://github.com/dropbox/PyHive/issues/240</a> on long load query running.</p>
+<p>Try this in sequence:</p>
+<ol>
+<li>check your operator configuration, and set <code>timeout_seconds</code> member to 3600 second for example.
+   You could have a different behaviour when running a dag with/without airflow context in docker container.</li>
+<li>if your facing a broken pipe, after 300s, and you have an AWS NLB V2 :
+   Read again <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/network-load-balancers.html">network-load-balancers</a>, and focus on this:<blockquote>
+<p>Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds. You cannot modify this value. For TCP listeners, clients or targets can use TCP keepalive packets to reset the idle timeout. TCP keepalive packets are not supported for TLS listeners.
+   We have tried for you the "socket_keep_alive", and it did not work at all.
+   Our solution was to remove our NLB and use a simple dns A field on indexima master.</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="utf-8-or-could-not-read-byte-0">"utf-8" or could not read byte [0]<a class="headerlink" href="#utf-8-or-could-not-read-byte-0" title="Permanent link">&para;</a></h1>
+<p>Be very welcome to add <code>{ &quot;serialization.encoding&quot;: &quot;utf-8&quot;}</code>in hive_configuration member of IndeximaHook.</p>
+<p>This setting is set in IndeximaHook.<strong>init</strong>, may you override it ?</p>
+<h2 id="playing-airflow-without-airflow-server">Playing Airflow without Airflow Server<a class="headerlink" href="#playing-airflow-without-airflow-server" title="Permanent link">&para;</a></h2>
+<p>When I was trying many little things and deals with hive stuff, i wrote a single script that help me a lot.</p>
+<p>Feel free to use it (or not) to set your dag by yourself:</p>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">airflow.hooks.base_hook</span> <span class="kn">import</span> <span class="n">BaseHook</span>
+<span class="kn">from</span> <span class="nn">airflow</span> <span class="kn">import</span> <span class="n">DAG</span>
+<span class="kn">from</span> <span class="nn">airflow_indexima.operators.indexima</span> <span class="kn">import</span> <span class="n">IndeximaLoadDataOperator</span>
+
+<span class="c1"># here we create our Airflow Connection</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;AIRFLOW_CONN_INDEXIMA_ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;hive://my-user:my-password@my-server:10000/default&#39;</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">BaseHook</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="s1">&#39;indexima_id&#39;</span><span class="p">)</span>
+
+<span class="n">dag</span> <span class="o">=</span> <span class="n">DAG</span><span class="p">(</span>
+    <span class="n">dag_id</span><span class="o">=</span><span class="s1">&#39;my_dag&#39;</span><span class="p">,</span>
+    <span class="n">default_args</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s1">&#39;depends_on_past&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;email_on_failure&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+<span class="k">with</span> <span class="n">dag</span><span class="p">:</span>
+
+    <span class="n">load_operator</span> <span class="o">=</span> <span class="n">IndeximaLoadDataOperator</span><span class="p">(</span>
+        <span class="n">task_id</span><span class="o">=</span><span class="s1">&#39;my_task&#39;</span><span class="p">,</span>
+        <span class="n">indexima_conn_id</span><span class="o">=</span><span class="s1">&#39;indexima_id&#39;</span><span class="p">,</span>
+        <span class="n">target_table</span><span class="o">=</span><span class="s1">&#39;my_table&#39;</span><span class="p">,</span>
+        <span class="n">source_select_query</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;select * from source_table where &quot;</span>
+            <span class="s2">&quot;creation_date_tms between &#39;2019-11-30T00:00:00+00:00&#39; and &#39;2019-11-30T12:59:59.000999+00:00&#39;&quot;</span>
+        <span class="p">),</span>
+        <span class="n">truncate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">truncate_sql</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;DELETE FROM my_table WHERE &quot;</span>
+            <span class="s2">&quot;creation_date_tms between &#39;2019-11-30T00:00:00+00:00&#39; and &#39;2019-11-30T12:59:59.000999+00:00&#39;&quot;</span>
+        <span class="p">),</span>
+        <span class="n">load_path_uri</span><span class="o">=</span><span class="s1">&#39;jdbc:postgresql://myserver:5439/db_common?user=etl_user&amp;password=a_strong_password&amp;ssl=true&#39;</span><span class="p">,</span>
+        <span class="n">retries</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">execution_timeout</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+        <span class="n">sla</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="c1"># here we run the dag</span>
+    <span class="n">load_operator</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="p">{})</span>
+
+<span class="k">del</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;AIRFLOW_CONN_INDEXIMA_ID&#39;</span><span class="p">]</span>
+</pre></div>
+
 <h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
 <p><a href="https://geronimo-iia.github.io/airflow-indexima/license">The MIT License (MIT)</a></p>
 <h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>

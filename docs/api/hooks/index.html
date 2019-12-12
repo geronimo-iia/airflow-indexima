@@ -308,6 +308,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#hive_configuration" class="md-nav__link">
+    hive_configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#get_conn" class="md-nav__link">
     get_conn
   </a>
@@ -345,6 +352,13 @@
           <li class="md-nav__item">
   <a href="#rollback" class="md-nav__link">
     rollback
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#close" class="md-nav__link">
+    close
   </a>
   
 </li>
@@ -543,6 +557,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#hive_configuration" class="md-nav__link">
+    hive_configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#get_conn" class="md-nav__link">
     get_conn
   </a>
@@ -584,6 +605,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#close" class="md-nav__link">
+    close
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -611,7 +639,7 @@
                 <h1 id="airflow_indeximahooksindexima">airflow_indexima.hooks.indexima<a class="headerlink" href="#airflow_indeximahooksindexima" title="Permanent link">&para;</a></h1>
 <p>Indexima hook module definition.</p>
 <h2 id="indeximahook">IndeximaHook<a class="headerlink" href="#indeximahook" title="Permanent link">&para;</a></h2>
-<p><div class="codehilite"><pre><span></span><span class="n">IndeximaHook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexima_conn_id</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">connection_decorator</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">airflow</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Connection</span><span class="p">],</span> <span class="n">airflow</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Connection</span><span class="p">],</span> <span class="n">NoneType</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dry_run</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">auth</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kerberos_service_name</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">socket_keepalive</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<p><div class="codehilite"><pre><span></span><span class="n">IndeximaHook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexima_conn_id</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">connection_decorator</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">airflow</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Connection</span><span class="p">],</span> <span class="n">airflow</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Connection</span><span class="p">],</span> <span class="n">NoneType</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dry_run</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">auth</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kerberos_service_name</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">socket_keepalive</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 Indexima hook implementation.</p>
 <p>This implementation can be used as a context manager like this:</p>
@@ -622,6 +650,10 @@ Indexima hook implementation.</p>
 <p>This implementation can be customized with a <code>connection_decorator</code>function
 which must have this profile: Callable[[Connection], Connection] (alias ConnectionDecorator)</p>
 <p>In this handler you could retreive credentials from other backeng like aws ssm.</p>
+<h3 id="hive_configuration">hive_configuration<a class="headerlink" href="#hive_configuration" title="Permanent link">&para;</a></h3>
+<p>Return hive configuration.</p>
+<p><strong>Returns</strong></p>
+<p><code>(Dict[str, str])</code>: A dictionary of Hive settings (functionally same as the <code>set</code> command)</p>
 <h3 id="get_conn">get_conn<a class="headerlink" href="#get_conn" title="Permanent link">&para;</a></h3>
 <p><div class="codehilite"><pre><span></span><span class="n">IndeximaHook</span><span class="o">.</span><span class="n">get_conn</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pyhive</span><span class="o">.</span><span class="n">hive</span><span class="o">.</span><span class="n">Connection</span>
 </pre></div>
@@ -665,6 +697,10 @@ Execute a simple rollback on table.</p>
 <ul>
 <li><strong>tablename (str)</strong>: table name to rollback</li>
 </ul>
+<h3 id="close">close<a class="headerlink" href="#close" title="Permanent link">&para;</a></h3>
+<p><div class="codehilite"><pre><span></span><span class="n">IndeximaHook</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</pre></div>
+Close current connection.</p>
                 
                   
                 
