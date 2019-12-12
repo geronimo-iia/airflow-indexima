@@ -203,6 +203,20 @@ a Connection decorator must follow this type: ```ConnectionDecorator = Callable[
 
 and return a function with no argument which can be called as a macro in dag's operator.
 
+### Optional connection parameters
+
+On each operator you could set this member:
+
+- auth (Optional[str]): authentication mode (default: {'CUSTOM'})
+- kerberos_service_name (Optional[str]): optional kerberos service name
+- timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second
+                (could be an int or a timedelta)
+- socket_keepalive (Optional[bool]): enable TCP keepalive.
+
+Note:
+
+- if execution_timeout is set, it will be used as default value for timeout_seconds.
+
 ## Production Feedback
 
 In production, you could have few strange behaviour like those that we have meet.
@@ -224,7 +238,7 @@ Try this in sequence:
 
 # "utf-8" or could not read byte [0]
 
-Be very welcome to add ```{ "serialization.encoding": "utf-8"}```in hive_configuration member of IndeximaHook.
+Be very welcome to add ```{ "serialization.encoding": "utf-8"}``` in hive_configuration member of IndeximaHook.
 
 This setting is set in IndeximaHook.__init__, may you override it ?
 
