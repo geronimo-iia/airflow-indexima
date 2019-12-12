@@ -1,4 +1,25 @@
-# 2.1.0-b0 (2019-12-04)
+# 2.2.0 ((2019-12-12)
+
+- add dry_run mode on operator
+- refactor uri module (simplier code)
+- add jdbc uri generator for postgresql
+- support full syntax of load path query
+- add a bunch of test unit (not too soon...) and reactivate coverage
+- integrate hive transport factory in order to manage socket configuration
+- add support for authentication mode: ldap, custom, kerberos and none
+- add more documentation
+- use thrift 0.13.0
+- use a new connection on rollback
+- log original error before rollback
+- use information from https://www.ericlin.me/2015/07/how-to-configue-session-timeout-in-hive/
+- add 'hive_configuration' member to IndeximaHook
+- change default time out to None
+- use a single cursor instance per hook process
+- set hive connection serialization encoding 'UTF-8'
+- timeout can be specified with an int or a timedelta
+- use execution_timeout member on operator to set timeout if this one is not specified
+
+# 2.1.0 (2019-12-04)
 
 - manage error return from indexima
 - define IndeximaAirflowPlugin

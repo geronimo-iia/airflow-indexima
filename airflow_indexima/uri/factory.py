@@ -1,4 +1,4 @@
-"""URI base function and type."""
+"""URI utilities."""
 from typing import Callable, Optional
 
 from airflow_indexima.connection import ConnectionDecorator
@@ -29,7 +29,7 @@ def define_load_path_factory(
 
     # Parameter
         conn_id (str): connection identifier of data source
-        decorator (ConnectionDecorator): Connection decorateur
+        decorator (ConnectionDecorator): Connection decorator
         factory (UriGeneratorFactory): uri decorated factory
 
     # Return
