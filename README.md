@@ -126,7 +126,7 @@ You could set those parameters:
 
 - host (str): The host to connect to.
 - port (int): The (TCP) port to connect to.
-- timeout_seconds ([int]): define the socket timeout in second (default 60)
+- timeout_seconds ([int]): define the socket timeout in second (default None)
 - socket_keepalive ([bool]): enable TCP keepalive, default false.
 - auth (str): authentication mode
 - username ([str]): username to login

@@ -785,7 +785,7 @@ As it a young project, take care of change, any help is welcome :)</p>
 &gt;&gt;&gt; airflow_indexima.__version__
 </pre></div>
 
-<p>See <a href="https://geronimo-iia.github.io/airflow-indexima/api/">Api documentation</a></p>
+<p>See <a href="https://geronimo-iia.github.io/airflow-indexima/">Api documentation</a></p>
 <h3 id="a-simple-query">a simple query<a class="headerlink" href="#a-simple-query" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">airflow_indexima.operators</span> <span class="kn">import</span> <span class="n">IndeximaQueryRunnerOperator</span>
 
@@ -846,7 +846,7 @@ As it a young project, take care of change, any help is welcome :)</p>
 <ul>
 <li>host (str): The host to connect to.</li>
 <li>port (int): The (TCP) port to connect to.</li>
-<li>timeout_seconds ([int]): define the socket timeout in second (default 60)</li>
+<li>timeout_seconds ([int]): define the socket timeout in second (default None)</li>
 <li>socket_keepalive ([bool]): enable TCP keepalive, default false.</li>
 <li>auth (str): authentication mode</li>
 <li>username ([str]): username to login</li>

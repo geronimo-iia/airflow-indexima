@@ -1,6 +1,7 @@
 # 2.2.1 (soon)
 
 - fix api link on readme
+- fix readme info
 
 # 2.2.0 ((2019-12-12)
 
