@@ -1,3 +1,7 @@
+# 2.2.1 (soon)
+
+- fix api link on readme
+
 # 2.2.0 ((2019-12-12)
 
 - add dry_run mode on operator
