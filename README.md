@@ -47,7 +47,7 @@ $ python
 >>> airflow_indexima.__version__
 ```
 
-See [Api documentation](https://geronimo-iia.github.io/airflow-indexima/api/)
+See [Api documentation](https://geronimo-iia.github.io/airflow-indexima/)
 
 
 ### a simple query
