@@ -2,6 +2,7 @@
 
 - fix api link on readme
 - fix readme info
+- add optional pause between truncate/load/commit operation
 
 # 2.2.0 ((2019-12-12)
 
