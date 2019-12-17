@@ -194,7 +194,7 @@ class IndeximaHook(BaseHook):
             pause_in_seconds (int): pause delay
 
         """
-        self.run(f'PAUSE {self.pause_in_seconds * 1000};')
+        self.run(f'PAUSE {pause_in_seconds * 1000};')
 
     def close(self):
         """Close current connection."""
