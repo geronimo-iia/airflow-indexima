@@ -187,6 +187,15 @@ class IndeximaHook(BaseHook):
         """
         self.run(f'ROLLBACK {tablename}')
 
+    def pause(self, pause_in_seconds: int):
+        """Execute a pause statement.
+
+        # Parameters
+            pause_in_seconds (int): pause delay
+
+        """
+        self.run(f'PAUSE {pause_in_seconds * 1000}')
+
     def close(self):
         """Close current connection."""
         if self._conn:
