@@ -168,7 +168,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
         '_no_check',
         '_limit',
         '_locale',
-        '_pause_delay_in_seconds_between_query'
+        '_pause_delay_in_seconds_between_query',
     )
 
     def __init__(
@@ -279,18 +279,9 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
 
         return " ".join(sql_query) + ";"
 
-    def generate_pause_query(self) -> str:
-        """Generate 'Pause' statement.
-
-        # Returns
-            (str): pause sql query
-        """
-        # convert second in miliseconds for pause statement.
-        return f"PAUSE {self._pause_delay_in_seconds_between_query * 1000};"
-
     def _execute_pause(self, hook: IndeximaHook):
         if self._pause_delay_in_seconds_between_query and self._pause_delay_in_seconds_between_query > 0:
-            hook.run(self.generate_pause_query())
+            hook.pause(self._pause_delay_in_seconds_between_query)
 
     def execute(self, context):
         """Process executor."""

@@ -211,31 +211,3 @@ def test_load_data_operator_generate_query_with_format_and_prefix_and_query_and_
         "LIMIT 1000 "
         "LOCALE 'fr';"
     )
-
-
-def test_load_data_operator_pause_query_should_raise_error():
-
-    from airflow_indexima.operators.indexima import IndeximaLoadDataOperator
-
-    with pytest.raises(TypeError):
-        IndeximaLoadDataOperator(
-            task_id="my_task",
-            indexima_conn_id='fake_connection_id',
-            target_table="fake_table",
-            load_path_uri="fake:uri//dummy",
-            source_select_query="select * from tutu where custom = 'aa'",
-        ).generate_pause_query()
-
-
-def test_load_data_operator_pause_query():
-    from airflow_indexima.operators.indexima import IndeximaLoadDataOperator
-
-    assert IndeximaLoadDataOperator(
-        task_id="my_task",
-        indexima_conn_id='fake_connection_id',
-        target_table="fake_table",
-        load_path_uri="fake:uri//dummy",
-        source_select_query="select * from tutu where custom = 'aa'",
-        pause_delay_in_seconds_between_query=10,
-    ).generate_pause_query() == ("PAUSE 10000;")
-
