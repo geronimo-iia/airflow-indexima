@@ -1,4 +1,10 @@
-# 2.2.0 ((2019-12-12)
+# 2.2.1 (2019-12-17)
+
+- fix api link on readme
+- fix readme info
+- add optional pause between truncate/load/commit operation
+
+# 2.2.0 (2019-12-12)
 
 - add dry_run mode on operator
 - refactor uri module (simplier code)

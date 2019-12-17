@@ -47,7 +47,7 @@ $ python
 >>> airflow_indexima.__version__
 ```
 
-See [Api documentation](https://geronimo-iia.github.io/airflow-indexima/api/)
+See [Api documentation](https://geronimo-iia.github.io/airflow-indexima/)
 
 
 ### a simple query
@@ -126,7 +126,7 @@ You could set those parameters:
 
 - host (str): The host to connect to.
 - port (int): The (TCP) port to connect to.
-- timeout_seconds ([int]): define the socket timeout in second (default 60)
+- timeout_seconds ([int]): define the socket timeout in second (default None)
 - socket_keepalive ([bool]): enable TCP keepalive, default false.
 - auth (str): authentication mode
 - username ([str]): username to login
@@ -203,6 +203,20 @@ a Connection decorator must follow this type: ```ConnectionDecorator = Callable[
 
 and return a function with no argument which can be called as a macro in dag's operator.
 
+### Optional connection parameters
+
+On each operator you could set this member:
+
+- auth (Optional[str]): authentication mode (default: {'CUSTOM'})
+- kerberos_service_name (Optional[str]): optional kerberos service name
+- timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second
+                (could be an int or a timedelta)
+- socket_keepalive (Optional[bool]): enable TCP keepalive.
+
+Note:
+
+- if execution_timeout is set, it will be used as default value for timeout_seconds.
+
 ## Production Feedback
 
 In production, you could have few strange behaviour like those that we have meet.
@@ -218,15 +232,17 @@ Try this in sequence:
 2. if your facing a broken pipe, after 300s, and you have an AWS NLB V2 :
    Read again [network-load-balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/network-load-balancers.html), and focus on this:
    > Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds. You cannot modify this value. For TCP listeners, clients or targets can use TCP keepalive packets to reset the idle timeout. TCP keepalive packets are not supported for TLS listeners.
+
    We have tried for you the "socket_keep_alive", and it did not work at all.
    Our solution was to remove our NLB and use a simple dns A field on indexima master.
 
 
-# "utf-8" or could not read byte [0]
+### "utf-8" or could not read byte ...
 
-Be very welcome to add ```{ "serialization.encoding": "utf-8"}```in hive_configuration member of IndeximaHook.
+Be very welcome to add ```{ "serialization.encoding": "utf-8"}``` in hive_configuration member of IndeximaHook.
 
 This setting is set in IndeximaHook.__init__, may you override it ?
+
 
 ## Playing Airflow without Airflow Server
 
@@ -294,3 +310,6 @@ del os.environ['AIRFLOW_CONN_INDEXIMA_ID']
 
 See [Contributing](https://geronimo-iia.github.io/airflow-indexima/contributing)
 
+### Thanks
+
+Thanks to [@bartosz25](https://github.com/bartosz25) for his help with hive connection details... 

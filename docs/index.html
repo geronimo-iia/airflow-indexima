@@ -351,6 +351,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#optional-connection-parameters" class="md-nav__link">
+    Optional connection parameters
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -367,6 +374,47 @@
           <li class="md-nav__item">
   <a href="#tsocket-read-0-bytes" class="md-nav__link">
     "TSocket read 0 bytes"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utf-8-or-could-not-read-byte" class="md-nav__link">
+    "utf-8" or could not read byte ...
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playing-airflow-without-airflow-server" class="md-nav__link">
+    Playing Airflow without Airflow Server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    License
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    Contributing
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#thanks" class="md-nav__link">
+    Thanks
   </a>
   
 </li>
@@ -696,6 +744,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#optional-connection-parameters" class="md-nav__link">
+    Optional connection parameters
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -712,6 +767,47 @@
           <li class="md-nav__item">
   <a href="#tsocket-read-0-bytes" class="md-nav__link">
     "TSocket read 0 bytes"
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utf-8-or-could-not-read-byte" class="md-nav__link">
+    "utf-8" or could not read byte ...
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playing-airflow-without-airflow-server" class="md-nav__link">
+    Playing Airflow without Airflow Server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    License
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    Contributing
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#thanks" class="md-nav__link">
+    Thanks
   </a>
   
 </li>
@@ -771,7 +867,7 @@ As it a young project, take care of change, any help is welcome :)</p>
 &gt;&gt;&gt; airflow_indexima.__version__
 </pre></div>
 
-<p>See <a href="https://geronimo-iia.github.io/airflow-indexima/api/">Api documentation</a></p>
+<p>See <a href="https://geronimo-iia.github.io/airflow-indexima/">Api documentation</a></p>
 <h3 id="a-simple-query">a simple query<a class="headerlink" href="#a-simple-query" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">airflow_indexima.operators</span> <span class="kn">import</span> <span class="n">IndeximaQueryRunnerOperator</span>
 
@@ -832,7 +928,7 @@ As it a young project, take care of change, any help is welcome :)</p>
 <ul>
 <li>host (str): The host to connect to.</li>
 <li>port (int): The (TCP) port to connect to.</li>
-<li>timeout_seconds ([int]): define the socket timeout in second (default 60)</li>
+<li>timeout_seconds ([int]): define the socket timeout in second (default None)</li>
 <li>socket_keepalive ([bool]): enable TCP keepalive, default false.</li>
 <li>auth (str): authentication mode</li>
 <li>username ([str]): username to login</li>
@@ -898,6 +994,19 @@ and use it as a function in your dag.</p>
 <li>an uri factory <code>UriGeneratorFactory = Callable[[str, Optional[ConnectionDecorator]], str]</code></li>
 </ul>
 <p>and return a function with no argument which can be called as a macro in dag's operator.</p>
+<h3 id="optional-connection-parameters">Optional connection parameters<a class="headerlink" href="#optional-connection-parameters" title="Permanent link">&para;</a></h3>
+<p>On each operator you could set this member:</p>
+<ul>
+<li>auth (Optional[str]): authentication mode (default: {'CUSTOM'})</li>
+<li>kerberos_service_name (Optional[str]): optional kerberos service name</li>
+<li>timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second
+                (could be an int or a timedelta)</li>
+<li>socket_keepalive (Optional[bool]): enable TCP keepalive.</li>
+</ul>
+<p>Note:</p>
+<ul>
+<li>if execution_timeout is set, it will be used as default value for timeout_seconds.</li>
+</ul>
 <h2 id="production-feedback">Production Feedback<a class="headerlink" href="#production-feedback" title="Permanent link">&para;</a></h2>
 <p>In production, you could have few strange behaviour like those that we have meet.</p>
 <h3 id="tsocket-read-0-bytes">"TSocket read 0 bytes"<a class="headerlink" href="#tsocket-read-0-bytes" title="Permanent link">&para;</a></h3>
@@ -908,14 +1017,14 @@ and use it as a function in your dag.</p>
    You could have a different behaviour when running a dag with/without airflow context in docker container.</li>
 <li>if your facing a broken pipe, after 300s, and you have an AWS NLB V2 :
    Read again <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/network-load-balancers.html">network-load-balancers</a>, and focus on this:<blockquote>
-<p>Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds. You cannot modify this value. For TCP listeners, clients or targets can use TCP keepalive packets to reset the idle timeout. TCP keepalive packets are not supported for TLS listeners.
-   We have tried for you the "socket_keep_alive", and it did not work at all.
-   Our solution was to remove our NLB and use a simple dns A field on indexima master.</p>
+<p>Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds. You cannot modify this value. For TCP listeners, clients or targets can use TCP keepalive packets to reset the idle timeout. TCP keepalive packets are not supported for TLS listeners.</p>
 </blockquote>
 </li>
 </ol>
-<h1 id="utf-8-or-could-not-read-byte-0">"utf-8" or could not read byte [0]<a class="headerlink" href="#utf-8-or-could-not-read-byte-0" title="Permanent link">&para;</a></h1>
-<p>Be very welcome to add <code>{ &quot;serialization.encoding&quot;: &quot;utf-8&quot;}</code>in hive_configuration member of IndeximaHook.</p>
+<p>We have tried for you the "socket_keep_alive", and it did not work at all.
+   Our solution was to remove our NLB and use a simple dns A field on indexima master.</p>
+<h3 id="utf-8-or-could-not-read-byte">"utf-8" or could not read byte ...<a class="headerlink" href="#utf-8-or-could-not-read-byte" title="Permanent link">&para;</a></h3>
+<p>Be very welcome to add <code>{ &quot;serialization.encoding&quot;: &quot;utf-8&quot;}</code> in hive_configuration member of IndeximaHook.</p>
 <p>This setting is set in IndeximaHook.<strong>init</strong>, may you override it ?</p>
 <h2 id="playing-airflow-without-airflow-server">Playing Airflow without Airflow Server<a class="headerlink" href="#playing-airflow-without-airflow-server" title="Permanent link">&para;</a></h2>
 <p>When I was trying many little things and deals with hive stuff, i wrote a single script that help me a lot.</p>
@@ -971,6 +1080,8 @@ and use it as a function in your dag.</p>
 <p><a href="https://geronimo-iia.github.io/airflow-indexima/license">The MIT License (MIT)</a></p>
 <h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
 <p>See <a href="https://geronimo-iia.github.io/airflow-indexima/contributing">Contributing</a></p>
+<h3 id="thanks">Thanks<a class="headerlink" href="#thanks" title="Permanent link">&para;</a></h3>
+<p>Thanks to <a href="https://github.com/bartosz25">@bartosz25</a> for his help with hive connection details... </p>
                 
                   
                 

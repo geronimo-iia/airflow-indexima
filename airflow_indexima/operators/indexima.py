@@ -139,9 +139,10 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
         4. commit/rollback target_table
 
     All fields ('target_table', 'load_path_uri', 'source_select_query', 'truncate_sql',
-    'format_query', 'prefix_query', 'skip_lines', 'no_check', 'limit', 'locale') support airflow macro.
+    'format_query', 'prefix_query', 'skip_lines', 'no_check', 'limit', 'locale',
+    'pause_delay_in_seconds_between_query' ) support airflow macro.
 
-    Syntax (see https://indexima.com/support/doc/v.1.6/Load_Data/Load_Data_Inpath.html)
+    Syntax (see https://indexima.com/support/doc/v.1.7/Load_Data/Load_Data_Inpath.html)
     ```sql
     LOAD DATA INPATH 'path_of_the_data_source'
     INTO TABLE my_data_space
@@ -167,6 +168,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
         '_no_check',
         '_limit',
         '_locale',
+        '_pause_delay_in_seconds_between_query',
     )
 
     def __init__(
@@ -190,6 +192,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
         kerberos_service_name: Optional[str] = None,
         timeout_seconds: Optional[Union[int, datetime.timedelta]] = None,
         socket_keepalive: Optional[bool] = None,
+        pause_delay_in_seconds_between_query: Optional[int] = None,
         *args,
         **kwargs,
     ):
@@ -219,6 +222,8 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
                 (could be an int or a timedelta)
             socket_keepalive (Optional[bool]): enable TCP keepalive.
             kerberos_service_name (Optional[str]): optional kerberos service name
+            pause_delay_in_seconds_between_query (Optional[int]): optional pause delay between queries
+                truncate, load and commit. A None, zero or negative value disable the 'pause'.
         """
 
         super(IndeximaLoadDataOperator, self).__init__(
@@ -244,8 +249,9 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
         self._no_check = no_check
         self._limit = limit
         self._locale = locale
+        self._pause_delay_in_seconds_between_query = pause_delay_in_seconds_between_query
 
-    def generate_load_data_query(self):
+    def generate_load_data_query(self) -> str:
         """Generate 'load data' sql query.
 
         # Returns
@@ -273,16 +279,29 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
 
         return " ".join(sql_query) + ";"
 
+    def _execute_pause(self, hook: IndeximaHook):
+        if self._pause_delay_in_seconds_between_query and self._pause_delay_in_seconds_between_query > 0:
+            hook.pause(self._pause_delay_in_seconds_between_query)
+
     def execute(self, context):
         """Process executor."""
         try:
             with self.get_hook() as hook:
                 if self._truncate and self._truncate_sql:
                     hook.run(self._truncate_sql)
+                    self._execute_pause(hook=hook)
+
                 cursor = hook.run(self.generate_load_data_query())
                 hook.check_error_of_load_query(cursor=cursor)
+
+                self._execute_pause(hook=hook)
+
                 hook.commit(tablename=self._target_table)
         except Exception as e:
             self.log.error(e)
-            self.get_hook().rollback(tablename=self._target_table)
+
+            with self.get_hook() as hook:
+                self._execute_pause(hook=hook)
+                hook.rollback(tablename=self._target_table)
+
             raise e

@@ -137,6 +137,6 @@ $ make ci
 Release to PyPI:
 
 ```text
-$ make publishh
+$ make publish
 ```
 
