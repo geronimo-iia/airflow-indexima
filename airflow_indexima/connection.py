@@ -11,7 +11,6 @@ from typing import Callable, Optional, Tuple
 
 from airflow.models import Connection
 
-
 __all__ = ['ConnectionDecorator', 'apply_hive_extra_setting', 'extract_hive_extra_setting']
 
 ConnectionDecorator = Callable[[Connection], Connection]

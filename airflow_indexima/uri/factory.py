@@ -3,7 +3,6 @@ from typing import Callable, Optional
 
 from airflow_indexima.connection import ConnectionDecorator
 
-
 __all__ = ['UriGeneratorFactory', 'UriFactory', 'define_load_path_factory']
 
 
@@ -12,9 +11,7 @@ UriGeneratorFactory = Callable[[str, Optional[ConnectionDecorator]], str]
 UriFactory = Callable[[], str]
 
 
-def define_load_path_factory(
-    conn_id: str, decorator: ConnectionDecorator, factory: UriGeneratorFactory
-) -> UriFactory:
+def define_load_path_factory(conn_id: str, decorator: ConnectionDecorator, factory: UriGeneratorFactory) -> UriFactory:
     """Create an uri factory function with UriFactory profile.
 
     Example:

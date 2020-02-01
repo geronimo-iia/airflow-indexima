@@ -18,8 +18,7 @@ def test_apply_hive_extra_setting_with_attribute_1(indexima_connection):
         socket_keepalive=True,
     )
     assert conn.extra == (
-        '{"auth": "CUSTOM", "kerberos_service_name": "my_service", '
-        '"timeout_seconds": 90, "socket_keepalive": true}'
+        '{"auth": "CUSTOM", "kerberos_service_name": "my_service", ' '"timeout_seconds": 90, "socket_keepalive": true}'
     )
 
 
@@ -32,8 +31,7 @@ def test_apply_hive_extra_setting_with_attribute_2(indexima_connection):
         socket_keepalive=False,
     )
     assert conn.extra == (
-        '{"auth": "NONE", "kerberos_service_name": "my_service", '
-        '"timeout_seconds": 91, "socket_keepalive": false}'
+        '{"auth": "NONE", "kerberos_service_name": "my_service", ' '"timeout_seconds": 91, "socket_keepalive": false}'
     )
 
 

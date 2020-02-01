@@ -1,10 +1,6 @@
 from airflow.models import Connection
 
-from airflow_indexima.uri import (
-    get_jdbc_load_path_uri,
-    get_postgresql_load_path_uri,
-    get_redshift_load_path_uri,
-)
+from airflow_indexima.uri import get_jdbc_load_path_uri, get_postgresql_load_path_uri, get_redshift_load_path_uri
 
 
 def test_connection_mockup(connection):

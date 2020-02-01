@@ -64,8 +64,9 @@ pytest-describe = "*"
 pytest-expecter = "*"
 pytest-random = "*"
 pytest-mock = "^1.10"
-coverage = "^5.0.3" # Code coverage measurement for Python
-xdoctest = "^0.11.0" # A rewrite of the builtin doctest modulecoveragespace = "^3.0.1" # A place to track your code coverage metrics.
+coverage = {version = "^5.0.3", extras = ["toml"]} # Code coverage measurement for Python
+xdoctest = "^0.11.0" # A rewrite of the builtin doctest module
+coveragespace = "^3.0.1" # A place to track your code coverage metrics.
 
 # Documentation
 sphinx = "^2.3.1"
@@ -75,7 +76,7 @@ autodocsumm = "*"
 
 [tool.black]
 # see https://black.readthedocs.io/en/stable/
-target-version = ["py37"]
+target-version = ["py36"]
 skip-string-normalization = true
 line_length = 120
 
@@ -85,12 +86,24 @@ not_skip = "__init__.py"
 multi_line_output = 3
 known_standard_library = "dataclasses,typing_extensions"
 known_first_party = "airflow_indexima"
-known_third_party = ["pkg_resources", "toml"]
+known_third_party = ["airflow", "pkg_resources", "pyhive", "sasl", "thrift", "thrift_sasl", "toml"]
 combine_as_imports = true
-force_grid_wrap = false
+#force_grid_wrap = false
 include_trailing_comma = true
-lines_after_imports = 2
+#lines_after_imports = 2
 line_length = 120
+use_parentheses = true
+
+[tool.coverage.run]
+branch = true
+data_file = ".cache/coverage"
+source = ["airflow_indexima"]
+omit = ["tests/*", ".venv/*", "*/__main__.py"]
+
+[tool.coverage.report]
+exclude_lines =[
+    "pragma: no cover",
+    "raise NotImplementedError"]
 
 [build-system]
 requires = ["poetry>=1.0.0"]

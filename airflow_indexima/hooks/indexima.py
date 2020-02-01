@@ -6,13 +6,8 @@ from typing import Any, Dict, List, Optional, Union
 from airflow.hooks.base_hook import BaseHook
 from pyhive import hive
 
-from airflow_indexima.connection import (
-    ConnectionDecorator,
-    apply_hive_extra_setting,
-    extract_hive_extra_setting,
-)
+from airflow_indexima.connection import ConnectionDecorator, apply_hive_extra_setting, extract_hive_extra_setting
 from airflow_indexima.hive_transport import create_hive_transport
-
 
 __all__ = ['IndeximaHook']
 
@@ -108,9 +103,7 @@ class IndeximaHook(BaseHook):
             conn = self._connection_decorator(conn)
 
         self.log.info(f'connect to {conn.host}  {conn.login} {conn.port}')  # noqa: E501
-        (auth, kerberos_service_name, timeout_seconds, socket_keepalive) = extract_hive_extra_setting(
-            connection=conn
-        )
+        (auth, kerberos_service_name, timeout_seconds, socket_keepalive) = extract_hive_extra_setting(connection=conn)
 
         # build parameters for create_hive_transport and keep default value meaning
         parameters = {'host': conn.host}
@@ -130,7 +123,7 @@ class IndeximaHook(BaseHook):
             database=self._schema or conn.schema,
             thrift_transport=create_hive_transport(**parameters),
         )
-        self._cursor = self._conn.cursor()  # type: ignore
+        self._cursor = self._conn.cursor()
         return self._conn
 
     def get_records(self, sql: str) -> hive.Cursor:

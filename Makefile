@@ -1,6 +1,6 @@
 # Project settings
 PACKAGE := airflow_indexima
-REPOSITORY := geronimo-iia/async-btree
+REPOSITORY := geronimo-iia/airflow-indexima
 PACKAGES := $(PACKAGE) tests
 MODULES := $(wildcard $(PACKAGE)/*.py)
 
@@ -31,7 +31,7 @@ install: .install .cache ## Install project dependencies
 
 GIT_DIR = .git
 .install: poetry.lock
-	poetry install
+	SLUGIFY_USES_TEXT_UNIDECODE=yes poetry install
 	poetry check
 	@- test -d $(GIT_DIR) && poetry run pre-commit install -f --install-hooks
 	@touch $@
@@ -70,7 +70,8 @@ test: install ## Run unit tests
 
 	@if test -e $(FAILURES); then poetry run pytest tests --last-failed --exitfirst; fi
 	@rm -rf $(FAILURES)
-	poetry run pytest tests $(PYTEST_OPTIONS)poetry run coveragespace $(REPOSITORY) overall
+	poetry run pytest tests $(PYTEST_OPTIONS)
+	poetry run coveragespace $(REPOSITORY) overall
 	
 ifndef DISABLE_COVERAGE
 	@echo  "coverage report is located at htmlcov/index.html"

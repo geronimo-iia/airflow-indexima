@@ -21,7 +21,6 @@ from thrift.transport.TSocket import TSocket
 from thrift.transport.TTransport import TBufferedTransport
 from thrift_sasl import TSaslClientTransport
 
-
 __all__ = [
     'HIVE_AUTH_MODES',
     'create_transport_socket',
@@ -37,10 +36,7 @@ HIVE_AUTH_MODES = ('NONE', 'CUSTOM', 'KERBEROS', 'NOSASL', 'LDAP')
 
 
 def create_transport_socket(
-    host: str,
-    port: Optional[int],
-    timeout_seconds: Optional[int] = None,
-    socket_keepalive: Optional[bool] = None,
+    host: str, port: Optional[int], timeout_seconds: Optional[int] = None, socket_keepalive: Optional[bool] = None
 ) -> TSocket:
     """Create a transport socket.
 
@@ -66,9 +62,7 @@ def create_transport_socket(
     return socket
 
 
-def create_hive_plain_transport(
-    socket: TSocket, username: str, password: Optional[str] = None
-) -> TSaslClientTransport:
+def create_hive_plain_transport(socket: TSocket, username: str, password: Optional[str] = None) -> TSaslClientTransport:
     """Create a TSaslClientTransport in 'PLAIN' authentication mode.
 
     # Parameters
@@ -152,9 +146,7 @@ def check_hive_connection_parameters(
         raise ValueError(f"Unknown auth parameter '{auth}' (use one of {HIVE_AUTH_MODES}).")
 
     if auth in ('LDAP', 'CUSTOM') and password is None:
-        raise ValueError(
-            "Password should be set in LDAP or CUSTOM mode; " "Remove password or use one of those modes"
-        )
+        raise ValueError("Password should be set in LDAP or CUSTOM mode; " "Remove password or use one of those modes")
     if auth == 'KERBEROS' and kerberos_service_name is None:
         raise ValueError("kerberos_service_name should be set in KERBEROS mode")
 

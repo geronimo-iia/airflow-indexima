@@ -6,13 +6,10 @@ from airflow.hooks.base_hook import BaseHook
 
 from airflow_indexima.connection import ConnectionDecorator
 
-
 __all__ = ['get_jdbc_load_path_uri', 'get_redshift_load_path_uri', 'get_postgresql_load_path_uri']
 
 
-def get_jdbc_load_path_uri(
-    jdbc_type: str, connection_id: str, decorator: Optional[ConnectionDecorator] = None
-) -> str:
+def get_jdbc_load_path_uri(jdbc_type: str, connection_id: str, decorator: Optional[ConnectionDecorator] = None) -> str:
     """Return jdbc load path uri from a connection_id.
 
     # Parameters
@@ -31,9 +28,7 @@ def get_jdbc_load_path_uri(
         conn = decorator(conn)
 
     _result = (
-        f"jdbc:{jdbc_type}://{conn.host}:{conn.port}/{conn.schema}"
-        f"?user={conn.login}"
-        f"&password={conn.password}"
+        f"jdbc:{jdbc_type}://{conn.host}:{conn.port}/{conn.schema}" f"?user={conn.login}" f"&password={conn.password}"
     )
     if conn.extra:
         _extra = json.loads(conn.extra)

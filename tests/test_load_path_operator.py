@@ -20,18 +20,14 @@ def test_load_data_operator_target_table_mandatory():
     from airflow_indexima.operators.indexima import IndeximaLoadDataOperator
 
     with pytest.raises(TypeError):
-        IndeximaLoadDataOperator(
-            task_id="my_task", indexima_conn_id='fake_connection_id', load_path_uri="fake uri"
-        )
+        IndeximaLoadDataOperator(task_id="my_task", indexima_conn_id='fake_connection_id', load_path_uri="fake uri")
 
 
 def test_load_data_operator_load_path_uri_mandatory():
     from airflow_indexima.operators.indexima import IndeximaLoadDataOperator
 
     with pytest.raises(TypeError):
-        IndeximaLoadDataOperator(
-            task_id="my_task", indexima_conn_id='fake_connection_id', target_table="fake_table"
-        )
+        IndeximaLoadDataOperator(task_id="my_task", indexima_conn_id='fake_connection_id', target_table="fake_table")
 
 
 def test_load_data_operator_generate_query_basic():
