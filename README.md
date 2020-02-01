@@ -1,9 +1,11 @@
 # airflow-indexima
 
 
-[![Unix Build Status](https://img.shields.io/travis/geronimo-iia/airflow-indexima/master.svg?label=unix)](https://travis-ci.org/geronimo-iia/airflow-indexima)
-[![PyPI Version](https://img.shields.io/pypi/v/airflow-indexima.svg)](https://pypi.org/project/airflow-indexima)
-[![PyPI License](https://img.shields.io/pypi/l/airflow-indexima.svg)](https://pypi.org/project/airflow-indexima)
+[![Unix Build Status](https://img.shields.io/travis/geronimo-iia/async-btree/master.svg?label=unix)](https://travis-ci.com/geronimo-iia/async-btree)[![Coverage Status](https://img.shields.io/coveralls/geronimo-iia/async-btree/master.svg)](https://coveralls.io/r/geronimo-iia/async-btree)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe669a02b4aa46b5b1faf619ba2bf382)](https://www.codacy.com/app/geronimo-iia/async-btree?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=geronimo-iia/async-btree&amp;utm_campaign=Badge_Grade)[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/geronimo-iia/async-btree.svg)](https://scrutinizer-ci.com/g/geronimo-iia/async-btree/?branch=master)
+[![PyPI Version](https://img.shields.io/pypi/v/async-btree.svg)](https://pypi.org/project/async-btree)
+[![PyPI License](https://img.shields.io/pypi/l/async-btree.svg)](https://pypi.org/project/async-btree)
+
 
 Versions following [Semantic Versioning](https://semver.org/)
 
@@ -14,14 +16,7 @@ Versions following [Semantic Versioning](https://semver.org/)
 This project is used in our prod environment with success.
 As it a young project, take care of change, any help is welcome :)
 
-
-## Setup
-
-### Requirements
-
-* Python 3.6+
-
-### Installation
+## Installation
 
 Install this library directly into an activated virtual environment:
 
@@ -299,16 +294,6 @@ del os.environ['AIRFLOW_CONN_INDEXIMA_ID']
 
 
 ```
-
-
-## License
-
-[The MIT License (MIT)](https://geronimo-iia.github.io/airflow-indexima/license)
-
-
-## Contributing
-
-See [Contributing](https://geronimo-iia.github.io/airflow-indexima/contributing)
 
 ### Thanks
 

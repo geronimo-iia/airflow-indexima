@@ -1,0 +1,17 @@
+default_context:
+  email: jguibert@gmail.com
+  full_name: Jerome Guibert
+  github_repo: airflow-indexima
+  github_username: geronimo-iia
+  max_code_line_length: 120
+  package_name: airflow_indexima
+  project_name: airflow-indexima
+  project_short_description: Indexima Airflow integration.
+  project_slug: airflow-indexima
+  python_major_version: 3
+  python_minor_version: 6
+  use_coveragespace: 1
+  use_scrutinizer: 1
+  year: 2019
+_extensions:
+  - "jinja2_time.TimeExtension"

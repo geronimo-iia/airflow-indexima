@@ -2,7 +2,7 @@ dist: xenial
 
 language: python
 python:
-  - 3.6.4
+  - 3.6
 
 cache:
   pip: true
@@ -26,7 +26,8 @@ script:
   - make test
 
 after_success:
-  - pip install coveralls scrutinizer-ocular
+  - pip install scrutinizer-ocular
+  - pip install coveralls
   - coveralls
   - ocular
 
