@@ -26,11 +26,19 @@ site_dir: docs
 
 nav:
   - Home: index.md
+  - API:
+      - Hooks: airflow_indexima.hooks.indexima.md
+      - Operators: airflow_indexima.operators.indexima.md
+      - Connection: airflow_indexima.connection.md
+      - Hive transport: airflow_indexima.hive_transport.md
+      - Uri:
+        - Factory: airflow_indexima.uri.factory.md
+        - Jdbc: airflow_indexima.uri.jdbc.md
   - About:
-      - Contributing: CONTRIBUTING.md
-      - Change Log: CHANGELOG.md
-      - License: LICENSE.md
-      - Code of Conduct: CODE_OF_CONDUCT.md
+      - Contributing: contributing.md
+      - Change Log: changelog.md
+      - License: license.md
+      - Code of Conduct: code_of_conduct.md
 
 # Customization
 extra:

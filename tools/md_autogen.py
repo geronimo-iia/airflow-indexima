@@ -33,7 +33,7 @@ HUGE THANKS !
 import os
 import re
 import inspect
-from inspect import getdoc, getargspec, getsourcefile, getsourcelines, getmembers
+from inspect import getdoc, getargspec, getsourcefile, getsourcelines, getmembers, getfullargspec
 
 
 _RE_BLOCKSTART = re.compile(
@@ -224,8 +224,8 @@ class MarkdownAPIGenerator(object):
         doc = self.doc2md(func)
 
         args, kwargs = [], []
-        spec = getargspec(func)
-        vargsname, kwargsname = spec.varargs, spec.keywords
+        spec = getfullargspec(func)
+        vargsname, kwargsname = spec.varargs, spec.kwonlyargs
         vargs = list(make_iter(spec.args)) if spec.args else []
         defaults = list(make_iter(spec.defaults)) if spec.defaults else []
 

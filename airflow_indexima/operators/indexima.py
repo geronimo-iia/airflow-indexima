@@ -5,8 +5,8 @@ from typing import Optional, Union
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
-from ..connection import ConnectionDecorator
-from ..hooks.indexima import IndeximaHook
+from airflow_indexima.connection import ConnectionDecorator
+from airflow_indexima.hooks.indexima import IndeximaHook
 
 __all__ = ['IndeximaHookBasedOperator', 'IndeximaQueryRunnerOperator', 'IndeximaLoadDataOperator']
 

@@ -111,5 +111,5 @@ exclude_lines =[
 requires = ["poetry>=1.0.0"]
 build-backend = "poetry.masonry.api"
 
-[tool.poetry.plugins."airflow.plugins"]
-"indexima" = "airflow_indexima.indexima:IndeximaAirflowPlugin"
+#[tool.poetry.plugins."airflow.plugins"]
+#"indexima" = "airflow_indexima.indexima:IndeximaAirflowPlugin"

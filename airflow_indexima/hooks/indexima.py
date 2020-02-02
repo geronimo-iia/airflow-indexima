@@ -6,8 +6,8 @@ from typing import Any, Dict, List, Optional, Union
 from airflow.hooks.base_hook import BaseHook
 from pyhive import hive
 
-from ..connection import ConnectionDecorator, apply_hive_extra_setting, extract_hive_extra_setting
-from ..hive_transport import create_hive_transport
+from airflow_indexima.connection import ConnectionDecorator, apply_hive_extra_setting, extract_hive_extra_setting
+from airflow_indexima.hive_transport import create_hive_transport
 
 __all__ = ['IndeximaHook']
 

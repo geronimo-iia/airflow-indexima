@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Jerome Guibert">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Operators - airflow-indexima</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Operators";
+    var mkdocs_page_input_path = "airflow_indexima.operators.indexima.md";
+    var mkdocs_page_url = "/airflow-indexima/airflow_indexima.operators.indexima/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> airflow-indexima</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">API</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../airflow_indexima.hooks.indexima/">Hooks</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">Operators</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#indeximahookbasedoperator">IndeximaHookBasedOperator</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#indeximahookbasedoperatordag">IndeximaHookBasedOperator.dag</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximahookbasedoperatordag_id">IndeximaHookBasedOperator.dag_id</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximahookbasedoperatordeps">IndeximaHookBasedOperator.deps</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximahookbasedoperatordownstream_list">IndeximaHookBasedOperator.downstream_list</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximahookbasedoperatordownstream_task_ids">IndeximaHookBasedOperator.downstream_task_ids</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximahookbasedoperatorlog">IndeximaHookBasedOperator.log</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximahookbasedoperatorlogger">IndeximaHookBasedOperator.logger</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximahookbasedoperatorpriority_weight_total">IndeximaHookBasedOperator.priority_weight_total</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximahookbasedoperatorschedule_interval">IndeximaHookBasedOperator.schedule_interval</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximahookbasedoperatortask_type">IndeximaHookBasedOperator.task_type</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximahookbasedoperatorupstream_list">IndeximaHookBasedOperator.upstream_list</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximahookbasedoperatorupstream_task_ids">IndeximaHookBasedOperator.upstream_task_ids</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximahookbasedoperator__init__">IndeximaHookBasedOperator.__init__</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#indeximaqueryrunneroperator">IndeximaQueryRunnerOperator</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#indeximaqueryrunneroperatordag">IndeximaQueryRunnerOperator.dag</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaqueryrunneroperatordag_id">IndeximaQueryRunnerOperator.dag_id</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaqueryrunneroperatordeps">IndeximaQueryRunnerOperator.deps</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaqueryrunneroperatordownstream_list">IndeximaQueryRunnerOperator.downstream_list</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaqueryrunneroperatordownstream_task_ids">IndeximaQueryRunnerOperator.downstream_task_ids</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaqueryrunneroperatorlog">IndeximaQueryRunnerOperator.log</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaqueryrunneroperatorlogger">IndeximaQueryRunnerOperator.logger</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaqueryrunneroperatorpriority_weight_total">IndeximaQueryRunnerOperator.priority_weight_total</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaqueryrunneroperatorschedule_interval">IndeximaQueryRunnerOperator.schedule_interval</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaqueryrunneroperatortask_type">IndeximaQueryRunnerOperator.task_type</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaqueryrunneroperatorupstream_list">IndeximaQueryRunnerOperator.upstream_list</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaqueryrunneroperatorupstream_task_ids">IndeximaQueryRunnerOperator.upstream_task_ids</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaqueryrunneroperator__init__">IndeximaQueryRunnerOperator.__init__</a></li>
+        
+        </ul>
+    
+
+    <li class="toctree-l3"><a href="#indeximaloaddataoperator">IndeximaLoadDataOperator</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#indeximaloaddataoperatordag">IndeximaLoadDataOperator.dag</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaloaddataoperatordag_id">IndeximaLoadDataOperator.dag_id</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaloaddataoperatordeps">IndeximaLoadDataOperator.deps</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaloaddataoperatordownstream_list">IndeximaLoadDataOperator.downstream_list</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaloaddataoperatordownstream_task_ids">IndeximaLoadDataOperator.downstream_task_ids</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaloaddataoperatorlog">IndeximaLoadDataOperator.log</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaloaddataoperatorlogger">IndeximaLoadDataOperator.logger</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaloaddataoperatorpriority_weight_total">IndeximaLoadDataOperator.priority_weight_total</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaloaddataoperatorschedule_interval">IndeximaLoadDataOperator.schedule_interval</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaloaddataoperatortask_type">IndeximaLoadDataOperator.task_type</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaloaddataoperatorupstream_list">IndeximaLoadDataOperator.upstream_list</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaloaddataoperatorupstream_task_ids">IndeximaLoadDataOperator.upstream_task_ids</a></li>
+        
+            <li><a class="toctree-l4" href="#indeximaloaddataoperator__init__">IndeximaLoadDataOperator.__init__</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../airflow_indexima.connection/">Connection</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../airflow_indexima.hive_transport/">Hive transport</a>
+                </li>
+                <li class="">
+                    
+    <span class="caption-text">Uri</span>
+    <ul class="subnav">
+                <li class="toctree-l3">
+                    
+    <a class="" href="../airflow_indexima.uri.factory/">Factory</a>
+                </li>
+                <li class="toctree-l3">
+                    
+    <a class="" href="../airflow_indexima.uri.jdbc/">Jdbc</a>
+                </li>
+    </ul>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">About</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../contributing/">Contributing</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../changelog/">Change Log</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../license/">License</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../code_of_conduct/">Code of Conduct</a>
+                </li>
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">airflow-indexima</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>API &raquo;</li>
+        
+      
+    
+    <li>Operators</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/geronimo-iia/airflow-indexima/edit/master/docs/airflow_indexima.operators.indexima.md"> Edit on geronimo-iia/airflow-indexima</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p><strong>Source:</strong> <a href="https://github.com/geronimo-iia/airflow-indexima/tree/master/airflow_indexima/operators/indexima.py#L0">airflow_indexima/operators/indexima.py#L0</a></p>
+<hr />
+<h2 id="indeximahookbasedoperator"><a href="https://github.com/geronimo-iia/airflow-indexima/tree/master/airflow_indexima/operators/indexima.py#L14">IndeximaHookBasedOperator</a><a class="headerlink" href="#indeximahookbasedoperator" title="Permanent link">&para;</a></h2>
+<p>Our base class for indexima operator.</p>
+<p>This class act as a wrapper on IndeximaHook.</p>
+<h4 id="indeximahookbasedoperatordag">IndeximaHookBasedOperator.dag<a class="headerlink" href="#indeximahookbasedoperatordag" title="Permanent link">&para;</a></h4>
+<p>Returns the Operator's DAG if set, otherwise raises an error</p>
+<h4 id="indeximahookbasedoperatordag_id">IndeximaHookBasedOperator.dag_id<a class="headerlink" href="#indeximahookbasedoperatordag_id" title="Permanent link">&para;</a></h4>
+<h4 id="indeximahookbasedoperatordeps">IndeximaHookBasedOperator.deps<a class="headerlink" href="#indeximahookbasedoperatordeps" title="Permanent link">&para;</a></h4>
+<p>Returns the list of dependencies for the operator. These differ from execution
+context dependencies in that they are specific to tasks and can be
+extended/overridden by subclasses.</p>
+<h4 id="indeximahookbasedoperatordownstream_list">IndeximaHookBasedOperator.downstream_list<a class="headerlink" href="#indeximahookbasedoperatordownstream_list" title="Permanent link">&para;</a></h4>
+<p>@property: list of tasks directly downstream</p>
+<h4 id="indeximahookbasedoperatordownstream_task_ids">IndeximaHookBasedOperator.downstream_task_ids<a class="headerlink" href="#indeximahookbasedoperatordownstream_task_ids" title="Permanent link">&para;</a></h4>
+<h4 id="indeximahookbasedoperatorlog">IndeximaHookBasedOperator.log<a class="headerlink" href="#indeximahookbasedoperatorlog" title="Permanent link">&para;</a></h4>
+<h4 id="indeximahookbasedoperatorlogger">IndeximaHookBasedOperator.logger<a class="headerlink" href="#indeximahookbasedoperatorlogger" title="Permanent link">&para;</a></h4>
+<h4 id="indeximahookbasedoperatorpriority_weight_total">IndeximaHookBasedOperator.priority_weight_total<a class="headerlink" href="#indeximahookbasedoperatorpriority_weight_total" title="Permanent link">&para;</a></h4>
+<h4 id="indeximahookbasedoperatorschedule_interval">IndeximaHookBasedOperator.schedule_interval<a class="headerlink" href="#indeximahookbasedoperatorschedule_interval" title="Permanent link">&para;</a></h4>
+<p>The schedule interval of the DAG always wins over individual tasks so
+that tasks within a DAG always line up. The task still needs a
+schedule_interval as it may not be attached to a DAG.</p>
+<h4 id="indeximahookbasedoperatortask_type">IndeximaHookBasedOperator.task_type<a class="headerlink" href="#indeximahookbasedoperatortask_type" title="Permanent link">&para;</a></h4>
+<h4 id="indeximahookbasedoperatorupstream_list">IndeximaHookBasedOperator.upstream_list<a class="headerlink" href="#indeximahookbasedoperatorupstream_list" title="Permanent link">&para;</a></h4>
+<p>@property: list of tasks directly upstream</p>
+<h4 id="indeximahookbasedoperatorupstream_task_ids">IndeximaHookBasedOperator.upstream_task_ids<a class="headerlink" href="#indeximahookbasedoperatorupstream_task_ids" title="Permanent link">&para;</a></h4>
+<hr />
+<h3 id="indeximahookbasedoperator__init__"><a href="https://github.com/geronimo-iia/airflow-indexima/tree/master/airflow_indexima/operators/indexima/__init__#L22">IndeximaHookBasedOperator.<code>__init__</code></a><a class="headerlink" href="#indeximahookbasedoperator__init__" title="Permanent link">&para;</a></h3>
+<pre><code class="python">__init__(*args)
+</code></pre>
+
+<p>Create IndeximaHookBasedOperator instance.</p>
+<p><em>Args:</em></p>
+<ul>
+<li><strong>task_id</strong> (str):  task identifier</li>
+<li><strong>indexima_conn_id</strong> (str):  indexima connection identifier
+connection_decorator Optional[ConnectionDecorator]: optional connection decorator</li>
+<li><strong>dry_run</strong> (Optional[bool]):  dry run mode (default: False). If true no action will
+  be applied against datasource.</li>
+<li><strong>auth</strong> (Optional[str]):  authentication mode (default: {'CUSTOM'})</li>
+<li><strong>kerberos_service_name</strong> (Optional[str]):  optional kerberos service name</li>
+<li><strong>timeout_seconds</strong> (Optional[Union[int, datetime.timedelta]]):  define the socket timeout in second
+  (could be an int or a timedelta)</li>
+<li><strong>socket_keepalive</strong> (Optional[bool]):  enable TCP keepalive.</li>
+</ul>
+<hr />
+<h2 id="indeximaqueryrunneroperator"><a href="https://github.com/geronimo-iia/airflow-indexima/tree/master/airflow_indexima/operators/indexima.py#L72">IndeximaQueryRunnerOperator</a><a class="headerlink" href="#indeximaqueryrunneroperator" title="Permanent link">&para;</a></h2>
+<p>A simple query executor.</p>
+<h4 id="indeximaqueryrunneroperatordag">IndeximaQueryRunnerOperator.dag<a class="headerlink" href="#indeximaqueryrunneroperatordag" title="Permanent link">&para;</a></h4>
+<p>Returns the Operator's DAG if set, otherwise raises an error</p>
+<h4 id="indeximaqueryrunneroperatordag_id">IndeximaQueryRunnerOperator.dag_id<a class="headerlink" href="#indeximaqueryrunneroperatordag_id" title="Permanent link">&para;</a></h4>
+<h4 id="indeximaqueryrunneroperatordeps">IndeximaQueryRunnerOperator.deps<a class="headerlink" href="#indeximaqueryrunneroperatordeps" title="Permanent link">&para;</a></h4>
+<p>Returns the list of dependencies for the operator. These differ from execution
+context dependencies in that they are specific to tasks and can be
+extended/overridden by subclasses.</p>
+<h4 id="indeximaqueryrunneroperatordownstream_list">IndeximaQueryRunnerOperator.downstream_list<a class="headerlink" href="#indeximaqueryrunneroperatordownstream_list" title="Permanent link">&para;</a></h4>
+<p>@property: list of tasks directly downstream</p>
+<h4 id="indeximaqueryrunneroperatordownstream_task_ids">IndeximaQueryRunnerOperator.downstream_task_ids<a class="headerlink" href="#indeximaqueryrunneroperatordownstream_task_ids" title="Permanent link">&para;</a></h4>
+<h4 id="indeximaqueryrunneroperatorlog">IndeximaQueryRunnerOperator.log<a class="headerlink" href="#indeximaqueryrunneroperatorlog" title="Permanent link">&para;</a></h4>
+<h4 id="indeximaqueryrunneroperatorlogger">IndeximaQueryRunnerOperator.logger<a class="headerlink" href="#indeximaqueryrunneroperatorlogger" title="Permanent link">&para;</a></h4>
+<h4 id="indeximaqueryrunneroperatorpriority_weight_total">IndeximaQueryRunnerOperator.priority_weight_total<a class="headerlink" href="#indeximaqueryrunneroperatorpriority_weight_total" title="Permanent link">&para;</a></h4>
+<h4 id="indeximaqueryrunneroperatorschedule_interval">IndeximaQueryRunnerOperator.schedule_interval<a class="headerlink" href="#indeximaqueryrunneroperatorschedule_interval" title="Permanent link">&para;</a></h4>
+<p>The schedule interval of the DAG always wins over individual tasks so
+that tasks within a DAG always line up. The task still needs a
+schedule_interval as it may not be attached to a DAG.</p>
+<h4 id="indeximaqueryrunneroperatortask_type">IndeximaQueryRunnerOperator.task_type<a class="headerlink" href="#indeximaqueryrunneroperatortask_type" title="Permanent link">&para;</a></h4>
+<h4 id="indeximaqueryrunneroperatorupstream_list">IndeximaQueryRunnerOperator.upstream_list<a class="headerlink" href="#indeximaqueryrunneroperatorupstream_list" title="Permanent link">&para;</a></h4>
+<p>@property: list of tasks directly upstream</p>
+<h4 id="indeximaqueryrunneroperatorupstream_task_ids">IndeximaQueryRunnerOperator.upstream_task_ids<a class="headerlink" href="#indeximaqueryrunneroperatorupstream_task_ids" title="Permanent link">&para;</a></h4>
+<hr />
+<h3 id="indeximaqueryrunneroperator__init__"><a href="https://github.com/geronimo-iia/airflow-indexima/tree/master/airflow_indexima/operators/indexima/__init__#L77">IndeximaQueryRunnerOperator.<code>__init__</code></a><a class="headerlink" href="#indeximaqueryrunneroperator__init__" title="Permanent link">&para;</a></h3>
+<pre><code class="python">__init__(*args)
+</code></pre>
+
+<p>Create IndeximaQueryRunnerOperator instance.</p>
+<p><em>Args:</em></p>
+<ul>
+<li><strong>task_id</strong> (str):  task identifier</li>
+<li><strong>sql_query</strong> (str):  query to run</li>
+<li><strong>indexima_conn_id</strong> (str):  indexima connection identifier
+connection_decorator Optional[ConnectionDecorator]: optional connection decorator</li>
+<li><strong>dry_run</strong> (Optional[bool]):  dry run mode (default: False). If true no action will
+  be applied against datasource.</li>
+<li><strong>auth</strong> (Optional[str]):  authentication mode (default: {'CUSTOM'})</li>
+<li><strong>kerberos_service_name</strong> (Optional[str]):  optional kerberos service name</li>
+<li><strong>timeout_seconds</strong> (Optional[Union[int, datetime.timedelta]]):  define the socket timeout in second
+  (could be an int or a timedelta)</li>
+<li><strong>socket_keepalive</strong> (Optional[bool]):  enable TCP keepalive.</li>
+</ul>
+<hr />
+<h2 id="indeximaloaddataoperator"><a href="https://github.com/geronimo-iia/airflow-indexima/tree/master/airflow_indexima/operators/indexima.py#L132">IndeximaLoadDataOperator</a><a class="headerlink" href="#indeximaloaddataoperator" title="Permanent link">&para;</a></h2>
+<p>Indexima load data operator.</p>
+<p>Operations:</p>
+<ol>
+<li>truncate target_table (false per default)</li>
+<li>load source_select_query into target_table using redshift_user_name credential</li>
+<li>commit/rollback target_table</li>
+</ol>
+<p>All fields ('target_table', 'load_path_uri', 'source_select_query', 'truncate_sql',
+'format_query', 'prefix_query', 'skip_lines', 'no_check', 'limit', 'locale',
+'pause_delay_in_seconds_between_query' ) support airflow macro.</p>
+<p>Syntax (see https://indexima.com/support/doc/v.1.7/Load_Data/Load_Data_Inpath.html)</p>
+<pre><code class="sql">LOAD DATA INPATH 'path_of_the_data_source'
+INTO TABLE my_data_space
+[FORMAT 'separator' / ORC / PARQUET / JSON];
+[PREFIX 'value1 \t value2 \t ... \t']
+[QUERY &quot;my_SQL_Query&quot;]
+[SKIP lines]
+[NOCHECK]
+[LIMIT n_lines]
+[LOCALE 'FR']
+</code></pre>
+
+<h4 id="indeximaloaddataoperatordag">IndeximaLoadDataOperator.dag<a class="headerlink" href="#indeximaloaddataoperatordag" title="Permanent link">&para;</a></h4>
+<p>Returns the Operator's DAG if set, otherwise raises an error</p>
+<h4 id="indeximaloaddataoperatordag_id">IndeximaLoadDataOperator.dag_id<a class="headerlink" href="#indeximaloaddataoperatordag_id" title="Permanent link">&para;</a></h4>
+<h4 id="indeximaloaddataoperatordeps">IndeximaLoadDataOperator.deps<a class="headerlink" href="#indeximaloaddataoperatordeps" title="Permanent link">&para;</a></h4>
+<p>Returns the list of dependencies for the operator. These differ from execution
+context dependencies in that they are specific to tasks and can be
+extended/overridden by subclasses.</p>
+<h4 id="indeximaloaddataoperatordownstream_list">IndeximaLoadDataOperator.downstream_list<a class="headerlink" href="#indeximaloaddataoperatordownstream_list" title="Permanent link">&para;</a></h4>
+<p>@property: list of tasks directly downstream</p>
+<h4 id="indeximaloaddataoperatordownstream_task_ids">IndeximaLoadDataOperator.downstream_task_ids<a class="headerlink" href="#indeximaloaddataoperatordownstream_task_ids" title="Permanent link">&para;</a></h4>
+<h4 id="indeximaloaddataoperatorlog">IndeximaLoadDataOperator.log<a class="headerlink" href="#indeximaloaddataoperatorlog" title="Permanent link">&para;</a></h4>
+<h4 id="indeximaloaddataoperatorlogger">IndeximaLoadDataOperator.logger<a class="headerlink" href="#indeximaloaddataoperatorlogger" title="Permanent link">&para;</a></h4>
+<h4 id="indeximaloaddataoperatorpriority_weight_total">IndeximaLoadDataOperator.priority_weight_total<a class="headerlink" href="#indeximaloaddataoperatorpriority_weight_total" title="Permanent link">&para;</a></h4>
+<h4 id="indeximaloaddataoperatorschedule_interval">IndeximaLoadDataOperator.schedule_interval<a class="headerlink" href="#indeximaloaddataoperatorschedule_interval" title="Permanent link">&para;</a></h4>
+<p>The schedule interval of the DAG always wins over individual tasks so
+that tasks within a DAG always line up. The task still needs a
+schedule_interval as it may not be attached to a DAG.</p>
+<h4 id="indeximaloaddataoperatortask_type">IndeximaLoadDataOperator.task_type<a class="headerlink" href="#indeximaloaddataoperatortask_type" title="Permanent link">&para;</a></h4>
+<h4 id="indeximaloaddataoperatorupstream_list">IndeximaLoadDataOperator.upstream_list<a class="headerlink" href="#indeximaloaddataoperatorupstream_list" title="Permanent link">&para;</a></h4>
+<p>@property: list of tasks directly upstream</p>
+<h4 id="indeximaloaddataoperatorupstream_task_ids">IndeximaLoadDataOperator.upstream_task_ids<a class="headerlink" href="#indeximaloaddataoperatorupstream_task_ids" title="Permanent link">&para;</a></h4>
+<hr />
+<h3 id="indeximaloaddataoperator__init__"><a href="https://github.com/geronimo-iia/airflow-indexima/tree/master/airflow_indexima/operators/indexima.py#L174">IndeximaLoadDataOperator.<code>__init__</code></a><a class="headerlink" href="#indeximaloaddataoperator__init__" title="Permanent link">&para;</a></h3>
+<pre><code class="python">__init__(self, task_id, indexima_conn_id, target_table, load_path_uri, truncate=False, \
+    truncate_sql=None, connection_decorator=None, source_select_query=None, format_query=None, \
+    prefix_query=None, skip_lines=None, no_check=False, limit=None, locale=None, dry_run=False, \
+    auth=None, kerberos_service_name=None, timeout_seconds=None, socket_keepalive=None, \
+    pause_delay_in_seconds_between_query=None, *args)
+</code></pre>
+
+<p>Create IndeximaLoadDataOperator instance.</p>
+<p><em>Args:</em></p>
+<ul>
+<li><strong>task_id</strong> (str):  task identifier</li>
+<li><strong>indexima_conn_id</strong> (str):  indexima connection identifier</li>
+<li><strong>target_table</strong> (str):  target table to load into</li>
+<li><strong>load_path_uri</strong> (str):  source uri</li>
+<li><strong>truncate</strong> (bool):  if true execute truncate query before load (default: False)</li>
+<li><strong>truncate_sql</strong> (Optional[str]):  truncate query (truncate table per default)
+connection_decorator Optional[ConnectionDecorator]: optional connection decorator</li>
+<li><strong>source_select_query</strong> (Optional[str]):  optional sql query to select data from load_path_uri</li>
+<li><strong>format_query</strong> (Optional[str]):  optional format to identify a character separator or a file format
+  tailored for big-data ecosystems</li>
+<li><strong>prefix_query</strong> (Optional[str]):  optional prefix used to identify a subset of data to be imported.</li>
+<li><strong>skip_lines</strong> (Optional[int]):  Allows to skip headers lines when importing data for flat text files.</li>
+<li><strong>no_check</strong> (Optional[bool]):  Do not validate data type when loading data when specified
+  (default: False)</li>
+<li><strong>limit</strong> (Optional[int]):  It will import only the first #lines on each imported files.</li>
+<li><strong>locale</strong> (Optional[str]):  The LOCALE 'country' parameter helps to convert character.</li>
+<li><strong>dry_run</strong> (Optional[bool]):  dry run mode (default: False). If true no action will
+  be applied against datasource.</li>
+<li><strong>auth</strong> (Optional[str]):  authentication mode (default: {'CUSTOM'})</li>
+<li><strong>timeout_seconds</strong> (Optional[Union[int, datetime.timedelta]]):  define the socket timeout in second
+  (could be an int or a timedelta)</li>
+<li><strong>socket_keepalive</strong> (Optional[bool]):  enable TCP keepalive.</li>
+<li><strong>kerberos_service_name</strong> (Optional[str]):  optional kerberos service name</li>
+<li><strong>pause_delay_in_seconds_between_query</strong> (Optional[int]):  optional pause delay between queries
+  truncate, load and commit. A None, zero or negative value disable the 'pause'.</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../airflow_indexima.connection/" class="btn btn-neutral float-right" title="Connection">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../airflow_indexima.hooks.indexima/" class="btn btn-neutral" title="Hooks"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright © 2019 <a href="https://github.com/geronimo-iia/airflow-indexima">Jerome Guibert</a></p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../airflow_indexima.hooks.indexima/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../airflow_indexima.connection/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

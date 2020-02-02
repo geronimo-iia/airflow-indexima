@@ -8,7 +8,7 @@
   
   <meta name="author" content="Jerome Guibert">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>License - airflow-indexima</title>
+  <title>Connection - airflow-indexima</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,9 +17,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "License";
-    var mkdocs_page_input_path = "license.md";
-    var mkdocs_page_url = "/airflow-indexima/license/";
+    var mkdocs_page_name = "Connection";
+    var mkdocs_page_input_path = "airflow_indexima.connection.md";
+    var mkdocs_page_url = "/airflow-indexima/airflow_indexima.connection/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -65,9 +65,18 @@
                     
     <a class="" href="../airflow_indexima.operators.indexima/">Operators</a>
                 </li>
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../airflow_indexima.connection/">Connection</a>
+    <a class="current" href="./">Connection</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#apply_hive_extra_setting">apply_hive_extra_setting</a></li>
+    
+
+    <li class="toctree-l3"><a href="#extract_hive_extra_setting">extract_hive_extra_setting</a></li>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
@@ -102,15 +111,9 @@
                     
     <a class="" href="../changelog/">Change Log</a>
                 </li>
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">License</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#license">License</a></li>
-    
-
-    </ul>
+    <a class="" href="../license/">License</a>
                 </li>
                 <li class="">
                     
@@ -141,14 +144,14 @@
     
       
         
-          <li>About &raquo;</li>
+          <li>API &raquo;</li>
         
       
     
-    <li>License</li>
+    <li>Connection</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/geronimo-iia/airflow-indexima/edit/master/docs/license.md"> Edit on geronimo-iia/airflow-indexima</a>
+        <a href="https://github.com/geronimo-iia/airflow-indexima/edit/master/docs/airflow_indexima.connection.md"> Edit on geronimo-iia/airflow-indexima</a>
       
     </li>
   </ul>
@@ -157,24 +160,41 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h1>
-<p><strong>The MIT License (MIT)</strong></p>
-<p>Copyright &copy; 2019, Jerome Guibert</p>
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:</p>
-<p>The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.</p>
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.</p>
+                <p><strong>Source:</strong> <a href="https://github.com/geronimo-iia/airflow-indexima/tree/master/airflow_indexima/connection.py#L0">airflow_indexima/connection.py#L0</a></p>
+<hr />
+<h3 id="apply_hive_extra_setting"><a href="https://github.com/geronimo-iia/airflow-indexima/tree/master/airflow_indexima/connection.py#L20">apply_hive_extra_setting</a><a class="headerlink" href="#apply_hive_extra_setting" title="Permanent link">&para;</a></h3>
+<pre><code class="python">apply_hive_extra_setting(connection, auth=None, kerberos_service_name=None, timeout_seconds=None, \
+    socket_keepalive=None)
+</code></pre>
+
+<p>Apply extra settings on hive connection.</p>
+<p><em>Args:</em></p>
+<ul>
+<li><strong>connection</strong> (Connection):  airflow connection</li>
+<li><strong>auth</strong> (Optional[str]):  optional authentication mode</li>
+<li><strong>kerberos_service_name</strong> (Optional[str]):  optional kerberos service name</li>
+<li><strong>timeout_seconds</strong> (Optional[int]):  optional define the socket timeout in second</li>
+<li><strong>socket_keepalive</strong> (Optional[bool]):  optional enable TCP keepalive.</li>
+</ul>
+<p><em>Returns:</em></p>
+<ul>
+<li>**** (Connection):  configured airflow Connection instance</li>
+</ul>
+<hr />
+<h3 id="extract_hive_extra_setting"><a href="https://github.com/geronimo-iia/airflow-indexima/tree/master/airflow_indexima/connection.py#L58">extract_hive_extra_setting</a><a class="headerlink" href="#extract_hive_extra_setting" title="Permanent link">&para;</a></h3>
+<pre><code class="python">extract_hive_extra_setting(connection)
+</code></pre>
+
+<p>Extract extra settings.</p>
+<p><em>Args:</em></p>
+<ul>
+<li><strong>connection</strong> (Connection):  airflow connection</li>
+</ul>
+<p><em>Returns:</em></p>
+<ul>
+<li>**** (Tuple[Optional[str], Optional[str], Optional[int], Optional[bool]]):  a tuple
+  (auth, kerberos_service_name, timeout_seconds, socket_keepalive)</li>
+</ul>
               
             </div>
           </div>
@@ -182,10 +202,10 @@ THE SOFTWARE.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../code_of_conduct/" class="btn btn-neutral float-right" title="Code of Conduct">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../airflow_indexima.hive_transport/" class="btn btn-neutral float-right" title="Hive transport">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../changelog/" class="btn btn-neutral" title="Change Log"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../airflow_indexima.operators.indexima/" class="btn btn-neutral" title="Operators"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -213,10 +233,10 @@ THE SOFTWARE.</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../changelog/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../airflow_indexima.operators.indexima/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../code_of_conduct/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../airflow_indexima.hive_transport/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
