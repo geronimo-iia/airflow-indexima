@@ -5,8 +5,8 @@ from typing import Optional, Union
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
-from airflow_indexima.connection import ConnectionDecorator
-from airflow_indexima.hooks.indexima import IndeximaHook
+from ..connection import ConnectionDecorator
+from ..hooks.indexima import IndeximaHook
 
 __all__ = ['IndeximaHookBasedOperator', 'IndeximaQueryRunnerOperator', 'IndeximaLoadDataOperator']
 
@@ -35,7 +35,7 @@ class IndeximaHookBasedOperator(BaseOperator):
     ):
         """Create IndeximaHookBasedOperator instance.
 
-        # Parameters
+        Args:
             task_id (str): task identifier
             indexima_conn_id (str): indexima connection identifier
             connection_decorator Optional[ConnectionDecorator]: optional connection decorator
@@ -91,7 +91,7 @@ class IndeximaQueryRunnerOperator(IndeximaHookBasedOperator):
     ):
         """Create IndeximaQueryRunnerOperator instance.
 
-        # Parameters
+        Args:
             task_id (str): task identifier
             sql_query (str): query to run
             indexima_conn_id (str): indexima connection identifier
@@ -122,8 +122,9 @@ class IndeximaQueryRunnerOperator(IndeximaHookBasedOperator):
     def execute(self, context):
         """Execute sql query.
 
-        # Parameters
+        Args:
             context: dag context
+
         """
         self.get_hook().run(self._sql_query)
 
@@ -197,7 +198,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
     ):
         """Create IndeximaLoadDataOperator instance.
 
-        # Parameters
+        Args:
             task_id (str): task identifier
             indexima_conn_id (str): indexima connection identifier
             target_table (str): target table to load into
@@ -223,6 +224,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
             kerberos_service_name (Optional[str]): optional kerberos service name
             pause_delay_in_seconds_between_query (Optional[int]): optional pause delay between queries
                 truncate, load and commit. A None, zero or negative value disable the 'pause'.
+
         """
 
         super(IndeximaLoadDataOperator, self).__init__(
@@ -253,8 +255,9 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
     def generate_load_data_query(self) -> str:
         """Generate 'load data' sql query.
 
-        # Returns
+        Returns:
             (str): load data sql query
+
         """
 
         def escape_quote(txt: str) -> str:

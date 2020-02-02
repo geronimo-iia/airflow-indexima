@@ -12,12 +12,12 @@ __all__ = ['get_jdbc_load_path_uri', 'get_redshift_load_path_uri', 'get_postgres
 def get_jdbc_load_path_uri(jdbc_type: str, connection_id: str, decorator: Optional[ConnectionDecorator] = None) -> str:
     """Return jdbc load path uri from a connection_id.
 
-    # Parameters
+    Args:
         jdbc_type (str): jdbc connection type
         connection_id (str): source connection identifier
         decorator (Optional[ConnectionDecorator]): optinal connection decorator
 
-    # Returns
+    Returns:
         (str) load path uri
 
     """
@@ -47,11 +47,11 @@ def get_redshift_load_path_uri(connection_id: str, decorator: Optional[Connectio
         >> 'jdbc:redshift://my-db:5439/db_client?ssl=true&user=airflow-user&password=XXXXXXXX'
     ```
 
-    # Parameters
+    Args:
         connection_id (str): source connection identifier
         decorator (Optional[ConnectionDecorator]): optinal connection decorator
 
-    # Returns
+    Returns:
         (str) load path uri
 
     """
@@ -67,11 +67,11 @@ def get_postgresql_load_path_uri(connection_id: str, decorator: Optional[Connect
         >> 'jdbc:postgresql://my-db:5432/db_client?ssl=true&user=airflow-user&password=XXXXXXXX'
     ```
 
-    # Parameters
+    Args:
         connection_id (str): source connection identifier
         decorator (Optional[ConnectionDecorator]): optinal connection decorator
 
-    # Returns
+    Returns:
         (str) load path uri
 
     """

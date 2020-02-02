@@ -9,7 +9,7 @@ Contents
 .. toctree::
     :maxdepth: 1
 
-    api
+    api/modules
     changelog
     contributing
     code_of_conduct

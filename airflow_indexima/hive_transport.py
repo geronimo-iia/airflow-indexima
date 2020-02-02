@@ -42,13 +42,13 @@ def create_transport_socket(
 
     This function expose TSocket configuration option (more for clarity rather than anything else).
 
-    # Parameters
+    Args:
         host (str): The host to connect to.
         port (int): The (TCP) port to connect to.
         timeout_seconds (Optional[int]): define the socket timeout in second
         socket_keepalive (Optional[bool]): enable TCP keepalive, default False.
 
-    # Returns
+    Returns:
         (TSocket): transport socket instance.
 
     """
@@ -65,12 +65,12 @@ def create_transport_socket(
 def create_hive_plain_transport(socket: TSocket, username: str, password: Optional[str] = None) -> TSaslClientTransport:
     """Create a TSaslClientTransport in 'PLAIN' authentication mode.
 
-    # Parameters
+    Args:
         socket (TSocket): socket to use
         username (str): username to login
         password (Optional[str]): optional password to login
 
-    # Returns
+    Returns:
         (TSaslClientTransport): transport instance
 
     """
@@ -90,11 +90,11 @@ def create_hive_plain_transport(socket: TSocket, username: str, password: Option
 def create_hive_gssapi_transport(socket: TSocket, service_name: str) -> TSaslClientTransport:
     """Create a TSaslClientTransport in 'GSSAPI' authentication mode.
 
-    # Parameters
+    Args:
         socket (TSocket): socket to use
         service_name (str): kerberos service name
 
-    # Returns
+    Returns:
         (TSaslClientTransport): transport instance
 
     """
@@ -114,11 +114,12 @@ def create_hive_nosasl_transport(socket: TSocket) -> TBufferedTransport:
 
     NOSASL corresponds to hive.server2.authentication=NOSASL in hive-site.xml
 
-    # Parameters
+    Args:
         socket (TSocket):  socket to use
 
-    # Returns
+    Returns:
         (TBufferedTransport): transport instance
+
     """
     return TBufferedTransport(socket)
 
@@ -131,7 +132,7 @@ def check_hive_connection_parameters(
 ):
     """Check hive connection parameters.
 
-    # Parameters
+    Args:
         auth (Optional[str]): authentication mode)
         username (Optional[str]): optional username to login
         password (Optional[str]): optional password to login
@@ -139,6 +140,7 @@ def check_hive_connection_parameters(
 
     # Raises
         (ValueError): if something is wrong
+
     """
     # username will be checked in hive.Connection
 
@@ -165,7 +167,7 @@ def create_hive_transport(
 
     Implementation is heavly based on pyhive.hive.Connection constructor.
 
-    # Parameters
+    Args:
         host (str): The host to connect to.
         port (int): The (TCP) port to connect to.
         timeout_seconds (Optional[int]): define the socket timeout in second (default 60)
@@ -175,11 +177,12 @@ def create_hive_transport(
         password (Optional[str]): optional password to login
         kerberos_service_name (Optional[str]): optional kerberos service name
 
-    # Returns
+    Returns:
         (TSaslClientTransport): transport instance
 
-    # Raises
+    Raises:
         (ValueError): if something is wrong
+
     """
 
     check_hive_connection_parameters(

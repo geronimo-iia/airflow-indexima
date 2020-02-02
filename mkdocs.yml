@@ -1,0 +1,45 @@
+
+docs_dir: docs
+# in order to expose with github page project
+site_dir: site
+
+# Project information
+site_name: airflow-indexima
+site_url: https://geronimo-iia.github.io/airflow-indexima/
+site_description: Indexima Airflow integration
+site_author: Jerome Guibert
+
+# Repository
+repo_name: "geronimo-iia/airflow-indexima"
+repo_url: https://github.com/geronimo-iia/airflow-indexima
+edit_uri:
+
+# Copyright
+copyright: "Copyright © 2019 <a href=\"https://github.com/geronimo-iia/airflow-indexima\">Jerome Guibert</a>"
+
+# Configuration
+theme: readthedocs
+
+docs_dir: .cache/mkdocs
+
+site_dir: docs
+
+nav:
+  - Home: index.md
+  - About:
+      - Contributing: CONTRIBUTING.md
+      - Change Log: CHANGELOG.md
+      - License: LICENSE.md
+      - Code of Conduct: CODE_OF_CONDUCT.md
+
+# Customization
+extra:
+  social:
+    - type: "github"
+      link: "https://github.com/geronimo-iia"
+
+
+# Extensions
+markdown_extensions:
+  - markdown.extensions.toc:
+      permalink: true

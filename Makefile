@@ -102,13 +102,26 @@ publish: build ## Publishes the package, previously built with the build command
 
 # DOC #########################################################################
 
-SPHINX_BUILD_DIR = .cache/sphinx
+SPHINX_BUILD_DIR = .cache/sphinx/html
 .PHONY: docs
 docs:  ## Build and publish sit documentation.
-	@mkdir -p $(SPHINX_BUILD_DIR)
-	@poetry run sphinx-build -M html "sphinx" "$(SPHINX_BUILD_DIR)"
 	@rm -rf docs/
-	@mv $(SPHINX_BUILD_DIR)/html docs/
+	@mkdir -p $(SPHINX_BUILD_DIR)
+	@poetry run sphinx-build -v -T -b html "sphinx" "$(SPHINX_BUILD_DIR)"
+	@mv $(SPHINX_BUILD_DIR) docs/
+	@touch docs/.nojekill
+
+
+MKDOC_BUILD_DIR = .cache/mkdocs
+.PHONY: docs2
+docs2:  ## Build and publish sit documentation.
+	@rm -rf docs/ $(MKDOC_BUILD_DIR)
+	@mkdir -p docs
+	@mkdir -p $(MKDOC_BUILD_DIR)
+	@cp *.md $(MKDOC_BUILD_DIR)
+	@mv $(MKDOC_BUILD_DIR)/README.md $(MKDOC_BUILD_DIR)/index.md
+	@poetry run mkdocs build
+	@touch docs/.nojekill
 
 
 # CLEANUP #####################################################################
