@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>airflow_indexima.hooks.indexima &mdash; airflow_indexima 2.2.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> airflow_indexima
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">airflow_indexima</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>airflow_indexima.hooks.indexima</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for airflow_indexima.hooks.indexima</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Indexima hook module definition.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">airflow.hooks.base_hook</span> <span class="kn">import</span> <span class="n">BaseHook</span>
+<span class="kn">from</span> <span class="nn">pyhive</span> <span class="kn">import</span> <span class="n">hive</span>
+
+<span class="kn">from</span> <span class="nn">airflow_indexima.connection</span> <span class="kn">import</span> <span class="n">ConnectionDecorator</span><span class="p">,</span> <span class="n">apply_hive_extra_setting</span><span class="p">,</span> <span class="n">extract_hive_extra_setting</span>
+<span class="kn">from</span> <span class="nn">airflow_indexima.hive_transport</span> <span class="kn">import</span> <span class="n">create_hive_transport</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;IndeximaHook&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="IndeximaHook"><a class="viewcode-back" href="../../../api.html#airflow_indexima.hooks.indexima.IndeximaHook">[docs]</a><span class="k">class</span> <span class="nc">IndeximaHook</span><span class="p">(</span><span class="n">BaseHook</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Indexima hook implementation.</span>
+
+<span class="sd">    This implementation can be used as a context manager.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; with IndeximaHook(...) as hook:</span>
+<span class="sd">                hook.run(&#39;select ...&#39;)</span>
+
+<span class="sd">    This implementation can be customized with a `connection_decorator` function</span>
+<span class="sd">    which must have this profile: `Callable[[Connection], Connection]` (alias ConnectionDecorator)</span>
+
+<span class="sd">    In this handler you could retreive credentials from other backeng like aws ssm.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">indexima_conn_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">connection_decorator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ConnectionDecorator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dry_run</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">auth</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">kerberos_service_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout_seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">socket_keepalive</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create an IndeximaHook instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            indexima_conn_id (str): connection identifier</span>
+<span class="sd">            auth (str): pyhive authentication mode (defaults: &#39;CUSTOM&#39;)</span>
+<span class="sd">            connection_decorator (Optional[ConnectionDecorator]) : optional function handler</span>
+<span class="sd">                to post process connection parameter(default: None)</span>
+<span class="sd">            dry_run (Optional[bool]): dry run mode (default: False). </span>
+<span class="sd">                If true no action will be applied against datasource.</span>
+<span class="sd">            timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second</span>
+<span class="sd">                (could be an int or a timedelta)</span>
+<span class="sd">            socket_keepalive (Optional[bool]): enable TCP keepalive.</span>
+<span class="sd">            kerberos_service_name (Optional[str]): optional kerberos service name</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Per default, hive connection is set in &#39;utf-8&#39;:</span>
+<span class="sd">            ```{ &quot;serialization.encoding&quot;: &quot;utf-8&quot;}```</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">IndeximaHook</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s1">&#39;indexima&#39;</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_indexima_conn_id</span> <span class="o">=</span> <span class="n">indexima_conn_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;schema&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection_decorator</span> <span class="o">=</span> <span class="n">connection_decorator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dry_run</span> <span class="o">=</span> <span class="n">dry_run</span> <span class="ow">or</span> <span class="kc">False</span>
+
+        <span class="n">_timeout_seconds</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">timeout_seconds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">timeout_seconds</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">):</span>
+                <span class="n">_timeout_seconds</span> <span class="o">=</span> <span class="n">timeout_seconds</span><span class="o">.</span><span class="n">seconds</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">_timeout_seconds</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">timeout_seconds</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_settings_decorator</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">connection</span><span class="p">:</span> <span class="n">apply_hive_extra_setting</span><span class="p">(</span>
+            <span class="n">connection</span><span class="o">=</span><span class="n">connection</span><span class="p">,</span>
+            <span class="n">auth</span><span class="o">=</span><span class="n">auth</span><span class="p">,</span>
+            <span class="n">kerberos_service_name</span><span class="o">=</span><span class="n">kerberos_service_name</span><span class="p">,</span>
+            <span class="n">timeout_seconds</span><span class="o">=</span><span class="n">_timeout_seconds</span><span class="p">,</span>
+            <span class="n">socket_keepalive</span><span class="o">=</span><span class="n">socket_keepalive</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># set default hive configuration</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hive_configuration</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;serialization.encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;utf-8&quot;</span><span class="p">}</span>
+
+<div class="viewcode-block" id="IndeximaHook.get_conn"><a class="viewcode-back" href="../../../api.html#airflow_indexima.hooks.indexima.IndeximaHook.get_conn">[docs]</a>    <span class="k">def</span> <span class="nf">get_conn</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hive</span><span class="o">.</span><span class="n">Connection</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a hive connection.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            hive.Connection: the hive connection</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_indexima_conn_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">conn</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;no connection identifier found with </span><span class="si">{self._indexima_conn_id}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># load extra parameters of airflow connection</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_settings_decorator</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+
+        <span class="c1"># apply decorator</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection_decorator</span><span class="p">:</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection_decorator</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;connect to </span><span class="si">{conn.host}</span><span class="s1">  </span><span class="si">{conn.login}</span><span class="s1"> </span><span class="si">{conn.port}</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># noqa: E501</span>
+        <span class="p">(</span><span class="n">auth</span><span class="p">,</span> <span class="n">kerberos_service_name</span><span class="p">,</span> <span class="n">timeout_seconds</span><span class="p">,</span> <span class="n">socket_keepalive</span><span class="p">)</span> <span class="o">=</span> <span class="n">extract_hive_extra_setting</span><span class="p">(</span><span class="n">connection</span><span class="o">=</span><span class="n">conn</span><span class="p">)</span>
+
+        <span class="c1"># build parameters for create_hive_transport and keep default value meaning</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;host&#39;</span><span class="p">:</span> <span class="n">conn</span><span class="o">.</span><span class="n">host</span><span class="p">}</span>
+        <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">port</span> <span class="ow">or</span> <span class="mi">10000</span>
+        <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;timeout_seconds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">timeout_seconds</span> <span class="ow">or</span> <span class="mi">60</span>
+        <span class="k">if</span> <span class="n">socket_keepalive</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;socket_keepalive&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">socket_keepalive</span>
+        <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;auth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">auth</span> <span class="ow">or</span> <span class="s1">&#39;CUSTOM&#39;</span>
+        <span class="k">if</span> <span class="n">conn</span><span class="o">.</span><span class="n">login</span><span class="p">:</span>
+            <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">login</span>
+        <span class="k">if</span> <span class="n">conn</span><span class="o">.</span><span class="n">password</span><span class="p">:</span>
+            <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">password</span>
+        <span class="k">if</span> <span class="n">kerberos_service_name</span><span class="p">:</span>
+            <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;kerberos_service_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kerberos_service_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span> <span class="o">=</span> <span class="n">hive</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span>
+            <span class="n">configuration</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_hive_configuration</span><span class="p">,</span>
+            <span class="n">database</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_schema</span> <span class="ow">or</span> <span class="n">conn</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+            <span class="n">thrift_transport</span><span class="o">=</span><span class="n">create_hive_transport</span><span class="p">(</span><span class="o">**</span><span class="n">parameters</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span></div>
+
+<div class="viewcode-block" id="IndeximaHook.get_records"><a class="viewcode-back" href="../../../api.html#airflow_indexima.hooks.indexima.IndeximaHook.get_records">[docs]</a>    <span class="k">def</span> <span class="nf">get_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sql</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hive</span><span class="o">.</span><span class="n">Cursor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Execute query and return curror.</span>
+
+<span class="sd">        Notes:</span>
+<span class="sd">            alias of run method</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">sql</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">get_pandas_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sql</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+<div class="viewcode-block" id="IndeximaHook.run"><a class="viewcode-back" href="../../../api.html#airflow_indexima.hooks.indexima.IndeximaHook.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sql</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hive</span><span class="o">.</span><span class="n">Cursor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Execute query and return curror.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_conn</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dry_run</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span></div>
+
+<div class="viewcode-block" id="IndeximaHook.check_error_of_load_query"><a class="viewcode-back" href="../../../api.html#airflow_indexima.hooks.indexima.IndeximaHook.check_error_of_load_query">[docs]</a>    <span class="k">def</span> <span class="nf">check_error_of_load_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cursor</span><span class="p">:</span> <span class="n">hive</span><span class="o">.</span><span class="n">Cursor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Raise error if a load query fail.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cursor: cursor returned by load path query.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: if an error is found</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_messages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">inserts</span><span class="p">,</span> <span class="n">errors</span><span class="p">,</span> <span class="n">message</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>  <span class="c1"># type: ignore</span>
+            <span class="k">if</span> <span class="n">errors</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
+                <span class="n">_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{path}</span><span class="s2">, </span><span class="si">{inserts}</span><span class="s2">, </span><span class="si">{errors}</span><span class="s2">: </span><span class="si">{message}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_messages</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_messages</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="IndeximaHook.commit"><a class="viewcode-back" href="../../../api.html#airflow_indexima.hooks.indexima.IndeximaHook.commit">[docs]</a>    <span class="k">def</span> <span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tablename</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Execute a simple commit on table.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            tablename (str): table name to commit</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;COMMIT </span><span class="si">{tablename}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="IndeximaHook.rollback"><a class="viewcode-back" href="../../../api.html#airflow_indexima.hooks.indexima.IndeximaHook.rollback">[docs]</a>    <span class="k">def</span> <span class="nf">rollback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tablename</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Execute a simple rollback on table.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            tablename (str): table name to rollback</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ROLLBACK </span><span class="si">{tablename}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="IndeximaHook.pause"><a class="viewcode-back" href="../../../api.html#airflow_indexima.hooks.indexima.IndeximaHook.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pause_in_seconds</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Execute a pause statement.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pause_in_seconds (int): pause delay</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;PAUSE {pause_in_seconds * 1000}&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="IndeximaHook.close"><a class="viewcode-back" href="../../../api.html#airflow_indexima.hooks.indexima.IndeximaHook.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Close current connection.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_conn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cursor</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_conn</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">exc</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">is_dry_run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dry_run</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">hive_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;Return hive configuration.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict[str, str]: A dictionary of Hive settings (functionally same as the `set` command)</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; hool.hive_configuration = {</span>
+<span class="sd">                &quot;hive.server.read.socket.timeout&quot;: str(3600000),</span>
+<span class="sd">                &quot;hive.server2.session.check.interval&quot;: str(3600000),</span>
+<span class="sd">                &quot;hive.server2.idle.session.check.operation&quot;: &quot;true&quot;,</span>
+<span class="sd">                &quot;hive.server2.idle.operation.timeout&quot;: str(3600000 * 24),</span>
+<span class="sd">                &quot;hive.server2.idle.session.timeout&quot;: str(3600000 * 24 * 3),</span>
+<span class="sd">            })</span>
+
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hive_configuration</span>
+
+    <span class="nd">@hive_configuration</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">hive_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]):</span>
+        <span class="sd">&quot;&quot;&quot;Set hive connection configuration.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            configuration: A dictionary of Hive settings (functionally same as the `set` command)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hive_configuration</span> <span class="o">=</span> <span class="n">configuration</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Jerome Guibert
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

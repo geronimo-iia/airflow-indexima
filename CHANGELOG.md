@@ -3,6 +3,7 @@
 ## 2.2.2
 
 - upgrade project template
+- update doctring (see example https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html)
 
 ## 2.2.1 (2019-12-17)
 

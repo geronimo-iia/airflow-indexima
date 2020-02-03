@@ -17,10 +17,9 @@ class IndeximaHook(BaseHook):
 
     This implementation can be used as a context manager.
 
-    ```
-        with IndeximaHook(...) as hook:
-            hook.run('select ...')
-    ```
+    Examples:
+        >>> with IndeximaHook(...) as hook:
+                hook.run('select ...')
 
     This implementation can be customized with a `connection_decorator` function
     which must have this profile: `Callable[[Connection], Connection]` (alias ConnectionDecorator)
@@ -44,19 +43,20 @@ class IndeximaHook(BaseHook):
         """Create an IndeximaHook instance.
 
         Args:
-            indexima_conn_id(str): connection identifier
-            auth(str): pyhive authentication mode (defaults: 'CUSTOM')
+            indexima_conn_id (str): connection identifier
+            auth (str): pyhive authentication mode (defaults: 'CUSTOM')
             connection_decorator (Optional[ConnectionDecorator]) : optional function handler
                 to post process connection parameter(default: None)
-            dry_run (Optional[bool]): dry run mode (default: False). If true no action will
-                be applied against datasource.
+            dry_run (Optional[bool]): dry run mode (default: False).
+                If true no action will be applied against datasource.
             timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second
                 (could be an int or a timedelta)
             socket_keepalive (Optional[bool]): enable TCP keepalive.
             kerberos_service_name (Optional[str]): optional kerberos service name
 
-        Per default, hive connection is set in 'utf-8':
-        `{ "serialization.encoding": "utf-8"}`
+        Note:
+            Per default, hive connection is set in 'utf-8':
+            ```{ "serialization.encoding": "utf-8"}```
 
         """
         super(IndeximaHook, self).__init__(source='indexima', *args, **kwargs)
@@ -89,7 +89,7 @@ class IndeximaHook(BaseHook):
         """Return a hive connection.
 
         Returns:
-            (hive.Connection): the hive connection
+            hive.Connection: the hive connection
 
         """
 
@@ -131,7 +131,9 @@ class IndeximaHook(BaseHook):
     def get_records(self, sql: str) -> hive.Cursor:
         """Execute query and return curror.
 
-        (alias of run method)
+        Notes:
+            alias of run method
+
         """
         return self.run(sql=sql)
 
@@ -155,7 +157,7 @@ class IndeximaHook(BaseHook):
             cursor: cursor returned by load path query.
 
         Raises:
-            (RuntimeError): if an error is found
+            RuntimeError: if an error is found
 
         """
         _messages: List[str] = []
@@ -216,7 +218,17 @@ class IndeximaHook(BaseHook):
         """Return hive configuration.
 
         Returns:
-            (Dict[str, str]): A dictionary of Hive settings (functionally same as the `set` command)
+            Dict[str, str]: A dictionary of Hive settings (functionally same as the `set` command)
+
+        Example:
+            >>> hool.hive_configuration = {
+                "hive.server.read.socket.timeout": str(3600000),
+                "hive.server2.session.check.interval": str(3600000),
+                "hive.server2.idle.session.check.operation": "true",
+                "hive.server2.idle.operation.timeout": str(3600000 * 24),
+                "hive.server2.idle.session.timeout": str(3600000 * 24 * 3),
+            })
+
 
         """
         return self._hive_configuration
@@ -227,17 +239,6 @@ class IndeximaHook(BaseHook):
 
         Args:
             configuration: A dictionary of Hive settings (functionally same as the `set` command)
-
-        Example:
-        ```python
-        hool.hive_configuration = {
-            "hive.server.read.socket.timeout": str(3600000),
-            "hive.server2.session.check.interval": str(3600000),
-            "hive.server2.idle.session.check.operation": "true",
-            "hive.server2.idle.operation.timeout": str(3600000 * 24),
-            "hive.server2.idle.session.timeout": str(3600000 * 24 * 3),
-        })
-        ```
 
         """
         self._hive_configuration = configuration

@@ -46,20 +46,13 @@ release = get_version()
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinxcontrib.apidoc",
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
     "sphinx.ext.ifconfig",
     "sphinx.ext.autosummary",
     "m2r",
-    # "autodocsumm",
 ]
-
-apidoc_module_dir = '../airflow_indexima'
-apidoc_output_dir = 'api'
-apidoc_excluded_paths = ['tests']
-apidoc_separate_modules = True
 
 autoclass_content = "both"  # include both class docstring and __init__
 autosummary_generate = True

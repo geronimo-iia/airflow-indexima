@@ -71,11 +71,9 @@ coveragespace = "^3.0.1" # A place to track your code coverage metrics.
 # Documentation
 sphinx = "^2.3.1"
 sphinx_rtd_theme = "^0.4.3"
-sphinxcontrib-apidoc = "^0.3.0"
 m2r = "^0.2.1"  # M2R converts a markdown file including reStructuredText (rst)
 autodocsumm = "*"
 
-mkdocs = "*"
 
 
 [tool.black]

@@ -1,0 +1,816 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Reference &mdash; airflow_indexima 2.2.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Change Log" href="changelog.html" />
+    <link rel="prev" title="airflow-indexima" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> airflow_indexima
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-airflow_indexima">airflow-indexima</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hooks">Hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-airflow_indexima.operators.indexima">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-airflow_indexima.connection">Connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-airflow_indexima.uri">Uri</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-airflow_indexima.hive_transport">Hive Transport</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_of_conduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">airflow_indexima</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>API Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-reference">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">API Reference</a><a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#api-reference" id="id2">API Reference</a></p>
+<ul>
+<li><p><a class="reference internal" href="#module-airflow_indexima" id="id3">airflow-indexima</a></p></li>
+<li><p><a class="reference internal" href="#hooks" id="id4">Hooks</a></p></li>
+<li><p><a class="reference internal" href="#module-airflow_indexima.operators.indexima" id="id5">Operators</a></p></li>
+<li><p><a class="reference internal" href="#module-airflow_indexima.connection" id="id6">Connection</a></p></li>
+<li><p><a class="reference internal" href="#module-airflow_indexima.uri" id="id7">Uri</a></p></li>
+<li><p><a class="reference internal" href="#module-airflow_indexima.hive_transport" id="id8">Hive Transport</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="module-airflow_indexima">
+<span id="airflow-indexima"></span><h2><a class="toc-backref" href="#id3">airflow-indexima</a><a class="headerlink" href="#module-airflow_indexima" title="Permalink to this headline">¶</a></h2>
+<p>airflow-indexima definition.</p>
+</div>
+<div class="section" id="hooks">
+<h2><a class="toc-backref" href="#id4">Hooks</a><a class="headerlink" href="#hooks" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="airflow_indexima.hooks.indexima.IndeximaHook">
+<em class="property">class </em><code class="sig-prename descclassname">airflow_indexima.hooks.indexima.</code><code class="sig-name descname">IndeximaHook</code><span class="sig-paren">(</span><em class="sig-param">indexima_conn_id: str</em>, <em class="sig-param">connection_decorator: Optional[Callable[airflow.models.Connection</em>, <em class="sig-param">airflow.models.Connection]] = None</em>, <em class="sig-param">dry_run: Optional[bool] = False</em>, <em class="sig-param">auth: Optional[str] = None</em>, <em class="sig-param">kerberos_service_name: Optional[str] = None</em>, <em class="sig-param">timeout_seconds: Union[int</em>, <em class="sig-param">datetime.timedelta</em>, <em class="sig-param">None] = None</em>, <em class="sig-param">socket_keepalive: Optional[bool] = None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/airflow_indexima/hooks/indexima.html#IndeximaHook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hooks.indexima.IndeximaHook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">airflow.hooks.base_hook.BaseHook</span></code></p>
+<p>Indexima hook implementation.</p>
+<p>This implementation can be used as a context manager.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">IndeximaHook</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="k">as</span> <span class="n">hook</span><span class="p">:</span>
+<span class="go">        hook.run(&#39;select ...&#39;)</span>
+</pre></div>
+</div>
+<p>This implementation can be customized with a <cite>connection_decorator</cite> function
+which must have this profile: <cite>Callable[[Connection], Connection]</cite> (alias ConnectionDecorator)</p>
+<p>In this handler you could retreive credentials from other backeng like aws ssm.</p>
+<p>Create an IndeximaHook instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indexima_conn_id</strong> (<em>str</em>) – connection identifier</p></li>
+<li><p><strong>auth</strong> (<em>str</em>) – pyhive authentication mode (defaults: ‘CUSTOM’)</p></li>
+<li><p><strong>connection_decorator</strong> (<em>Optional</em><em>[</em><em>ConnectionDecorator</em><em>]</em>) – optional function handler
+to post process connection parameter(default: None)</p></li>
+<li><p><strong>dry_run</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – dry run mode (default: False).
+If true no action will be applied against datasource.</p></li>
+<li><p><strong>timeout_seconds</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>datetime.timedelta</em><em>]</em><em>]</em>) – define the socket timeout in second
+(could be an int or a timedelta)</p></li>
+<li><p><strong>socket_keepalive</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – enable TCP keepalive.</p></li>
+<li><p><strong>kerberos_service_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional kerberos service name</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Per default, hive connection is set in ‘utf-8’:
+<code class="docutils literal notranslate"><span class="pre">`{</span> <span class="pre">&quot;serialization.encoding&quot;:</span> <span class="pre">&quot;utf-8&quot;}`</span></code></p>
+</div>
+<dl class="method">
+<dt id="airflow_indexima.hooks.indexima.IndeximaHook.get_conn">
+<code class="sig-name descname">get_conn</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pyhive.hive.Connection<a class="reference internal" href="_modules/airflow_indexima/hooks/indexima.html#IndeximaHook.get_conn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hooks.indexima.IndeximaHook.get_conn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a hive connection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><em>hive.Connection</em> – the hive connection</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="airflow_indexima.hooks.indexima.IndeximaHook.get_records">
+<code class="sig-name descname">get_records</code><span class="sig-paren">(</span><em class="sig-param">sql: str</em><span class="sig-paren">)</span> &#x2192; pyhive.hive.Cursor<a class="reference internal" href="_modules/airflow_indexima/hooks/indexima.html#IndeximaHook.get_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hooks.indexima.IndeximaHook.get_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute query and return curror.</p>
+<p class="rubric">Notes</p>
+<p>alias of run method</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="airflow_indexima.hooks.indexima.IndeximaHook.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">sql: str</em><span class="sig-paren">)</span> &#x2192; pyhive.hive.Cursor<a class="reference internal" href="_modules/airflow_indexima/hooks/indexima.html#IndeximaHook.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hooks.indexima.IndeximaHook.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute query and return curror.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="airflow_indexima.hooks.indexima.IndeximaHook.check_error_of_load_query">
+<code class="sig-name descname">check_error_of_load_query</code><span class="sig-paren">(</span><em class="sig-param">cursor: pyhive.hive.Cursor</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/airflow_indexima/hooks/indexima.html#IndeximaHook.check_error_of_load_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hooks.indexima.IndeximaHook.check_error_of_load_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raise error if a load query fail.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cursor</strong> – cursor returned by load path query.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – if an error is found</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="airflow_indexima.hooks.indexima.IndeximaHook.commit">
+<code class="sig-name descname">commit</code><span class="sig-paren">(</span><em class="sig-param">tablename: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/airflow_indexima/hooks/indexima.html#IndeximaHook.commit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hooks.indexima.IndeximaHook.commit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a simple commit on table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tablename</strong> (<em>str</em>) – table name to commit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="airflow_indexima.hooks.indexima.IndeximaHook.rollback">
+<code class="sig-name descname">rollback</code><span class="sig-paren">(</span><em class="sig-param">tablename: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/airflow_indexima/hooks/indexima.html#IndeximaHook.rollback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hooks.indexima.IndeximaHook.rollback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a simple rollback on table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tablename</strong> (<em>str</em>) – table name to rollback</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="airflow_indexima.hooks.indexima.IndeximaHook.pause">
+<code class="sig-name descname">pause</code><span class="sig-paren">(</span><em class="sig-param">pause_in_seconds: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/airflow_indexima/hooks/indexima.html#IndeximaHook.pause"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hooks.indexima.IndeximaHook.pause" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute a pause statement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pause_in_seconds</strong> (<em>int</em>) – pause delay</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="airflow_indexima.hooks.indexima.IndeximaHook.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/airflow_indexima/hooks/indexima.html#IndeximaHook.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hooks.indexima.IndeximaHook.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close current connection.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="airflow_indexima.hooks.indexima.IndeximaHook.hive_configuration">
+<em class="property">property </em><code class="sig-name descname">hive_configuration</code><a class="headerlink" href="#airflow_indexima.hooks.indexima.IndeximaHook.hive_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return hive configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><em>Dict[str, str]</em> – A dictionary of Hive settings (functionally same as the <cite>set</cite> command)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">hool</span><span class="o">.</span><span class="n">hive_configuration</span> <span class="o">=</span> <span class="p">{</span>
+<span class="go">    &quot;hive.server.read.socket.timeout&quot;: str(3600000),</span>
+<span class="go">    &quot;hive.server2.session.check.interval&quot;: str(3600000),</span>
+<span class="go">    &quot;hive.server2.idle.session.check.operation&quot;: &quot;true&quot;,</span>
+<span class="go">    &quot;hive.server2.idle.operation.timeout&quot;: str(3600000 * 24),</span>
+<span class="go">    &quot;hive.server2.idle.session.timeout&quot;: str(3600000 * 24 * 3),</span>
+<span class="go">})</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-airflow_indexima.operators.indexima">
+<span id="operators"></span><h2><a class="toc-backref" href="#id5">Operators</a><a class="headerlink" href="#module-airflow_indexima.operators.indexima" title="Permalink to this headline">¶</a></h2>
+<p>Indexima operators module definition.</p>
+<dl class="class">
+<dt id="airflow_indexima.operators.indexima.IndeximaHookBasedOperator">
+<em class="property">class </em><code class="sig-prename descclassname">airflow_indexima.operators.indexima.</code><code class="sig-name descname">IndeximaHookBasedOperator</code><span class="sig-paren">(</span><em class="sig-param">task_id: str</em>, <em class="sig-param">indexima_conn_id: str</em>, <em class="sig-param">connection_decorator: Optional[Callable[airflow.models.Connection</em>, <em class="sig-param">airflow.models.Connection]] = None</em>, <em class="sig-param">dry_run: Optional[bool] = False</em>, <em class="sig-param">auth: Optional[str] = None</em>, <em class="sig-param">kerberos_service_name: Optional[str] = None</em>, <em class="sig-param">timeout_seconds: Union[int</em>, <em class="sig-param">datetime.timedelta</em>, <em class="sig-param">None] = None</em>, <em class="sig-param">socket_keepalive: Optional[bool] = None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/airflow_indexima/operators/indexima.html#IndeximaHookBasedOperator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.operators.indexima.IndeximaHookBasedOperator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">airflow.models.BaseOperator</span></code></p>
+<p>Our base class for indexima operator.</p>
+<p>This class act as a wrapper on IndeximaHook.</p>
+<p>Create IndeximaHookBasedOperator instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task_id</strong> (<em>str</em>) – task identifier</p></li>
+<li><p><strong>indexima_conn_id</strong> (<em>str</em>) – indexima connection identifier</p></li>
+<li><p><strong>Optional</strong><strong>[</strong><strong>ConnectionDecorator</strong><strong>]</strong> (<em>connection_decorator</em>) – optional connection decorator</p></li>
+<li><p><strong>dry_run</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – dry run mode (default: False). If true no action will
+be applied against datasource.</p></li>
+<li><p><strong>auth</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – authentication mode (default: {‘CUSTOM’})</p></li>
+<li><p><strong>kerberos_service_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional kerberos service name</p></li>
+<li><p><strong>timeout_seconds</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>datetime.timedelta</em><em>]</em><em>]</em>) – define the socket timeout in second
+(could be an int or a timedelta)</p></li>
+<li><p><strong>socket_keepalive</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – enable TCP keepalive.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="airflow_indexima.operators.indexima.IndeximaHookBasedOperator.get_hook">
+<code class="sig-name descname">get_hook</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; airflow_indexima.hooks.indexima.IndeximaHook<a class="reference internal" href="_modules/airflow_indexima/operators/indexima.html#IndeximaHookBasedOperator.get_hook"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.operators.indexima.IndeximaHookBasedOperator.get_hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a configured IndeximaHook instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="airflow_indexima.operators.indexima.IndeximaQueryRunnerOperator">
+<em class="property">class </em><code class="sig-prename descclassname">airflow_indexima.operators.indexima.</code><code class="sig-name descname">IndeximaQueryRunnerOperator</code><span class="sig-paren">(</span><em class="sig-param">task_id: str</em>, <em class="sig-param">sql_query: str</em>, <em class="sig-param">indexima_conn_id: str</em>, <em class="sig-param">connection_decorator: Optional[Callable[airflow.models.Connection</em>, <em class="sig-param">airflow.models.Connection]] = None</em>, <em class="sig-param">dry_run: Optional[bool] = False</em>, <em class="sig-param">auth: Optional[str] = None</em>, <em class="sig-param">kerberos_service_name: Optional[str] = None</em>, <em class="sig-param">timeout_seconds: Union[int</em>, <em class="sig-param">datetime.timedelta</em>, <em class="sig-param">None] = None</em>, <em class="sig-param">socket_keepalive: Optional[bool] = None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/airflow_indexima/operators/indexima.html#IndeximaQueryRunnerOperator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.operators.indexima.IndeximaQueryRunnerOperator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#airflow_indexima.operators.indexima.IndeximaHookBasedOperator" title="airflow_indexima.operators.indexima.IndeximaHookBasedOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">airflow_indexima.operators.indexima.IndeximaHookBasedOperator</span></code></a></p>
+<p>A simple query executor.</p>
+<p>Create IndeximaQueryRunnerOperator instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task_id</strong> (<em>str</em>) – task identifier</p></li>
+<li><p><strong>sql_query</strong> (<em>str</em>) – query to run</p></li>
+<li><p><strong>indexima_conn_id</strong> (<em>str</em>) – indexima connection identifier</p></li>
+<li><p><strong>Optional</strong><strong>[</strong><strong>ConnectionDecorator</strong><strong>]</strong> (<em>connection_decorator</em>) – optional connection decorator</p></li>
+<li><p><strong>dry_run</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – dry run mode (default: False). If true no action will
+be applied against datasource.</p></li>
+<li><p><strong>auth</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – authentication mode (default: {‘CUSTOM’})</p></li>
+<li><p><strong>kerberos_service_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional kerberos service name</p></li>
+<li><p><strong>timeout_seconds</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>datetime.timedelta</em><em>]</em><em>]</em>) – define the socket timeout in second
+(could be an int or a timedelta)</p></li>
+<li><p><strong>socket_keepalive</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – enable TCP keepalive.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="airflow_indexima.operators.indexima.IndeximaQueryRunnerOperator.execute">
+<code class="sig-name descname">execute</code><span class="sig-paren">(</span><em class="sig-param">context</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/airflow_indexima/operators/indexima.html#IndeximaQueryRunnerOperator.execute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.operators.indexima.IndeximaQueryRunnerOperator.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute sql query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> – dag context</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="airflow_indexima.operators.indexima.IndeximaLoadDataOperator">
+<em class="property">class </em><code class="sig-prename descclassname">airflow_indexima.operators.indexima.</code><code class="sig-name descname">IndeximaLoadDataOperator</code><span class="sig-paren">(</span><em class="sig-param">task_id: str</em>, <em class="sig-param">indexima_conn_id: str</em>, <em class="sig-param">target_table: str</em>, <em class="sig-param">load_path_uri: str</em>, <em class="sig-param">truncate: bool = False</em>, <em class="sig-param">truncate_sql: Optional[str] = None</em>, <em class="sig-param">connection_decorator: Optional[Callable[airflow.models.Connection</em>, <em class="sig-param">airflow.models.Connection]] = None</em>, <em class="sig-param">source_select_query: Optional[str] = None</em>, <em class="sig-param">format_query: Optional[str] = None</em>, <em class="sig-param">prefix_query: Optional[str] = None</em>, <em class="sig-param">skip_lines: Optional[int] = None</em>, <em class="sig-param">no_check: Optional[bool] = False</em>, <em class="sig-param">limit: Optional[int] = None</em>, <em class="sig-param">locale: Optional[str] = None</em>, <em class="sig-param">dry_run: Optional[bool] = False</em>, <em class="sig-param">auth: Optional[str] = None</em>, <em class="sig-param">kerberos_service_name: Optional[str] = None</em>, <em class="sig-param">timeout_seconds: Union[int</em>, <em class="sig-param">datetime.timedelta</em>, <em class="sig-param">None] = None</em>, <em class="sig-param">socket_keepalive: Optional[bool] = None</em>, <em class="sig-param">pause_delay_in_seconds_between_query: Optional[int] = None</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/airflow_indexima/operators/indexima.html#IndeximaLoadDataOperator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.operators.indexima.IndeximaLoadDataOperator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#airflow_indexima.operators.indexima.IndeximaHookBasedOperator" title="airflow_indexima.operators.indexima.IndeximaHookBasedOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">airflow_indexima.operators.indexima.IndeximaHookBasedOperator</span></code></a></p>
+<p>Indexima load data operator.</p>
+<p>This operator perform this task:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>truncate target_table (false per default)</p></li>
+<li><p>load <cite>source_select_query</cite> into <cite>target_table</cite> using <cite>redshift_user_name</cite> credential</p></li>
+<li><p>commit/rollback target_table</p></li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All fields support airflow macro.
+(‘target_table’, ‘load_path_uri’, ‘source_select_query’, ‘truncate_sql’,
+‘format_query’, ‘prefix_query’, ‘skip_lines’, ‘no_check’, ‘limit’, ‘locale’,
+‘pause_delay_in_seconds_between_query’ )</p>
+</div>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="go">&gt;&gt;&gt;</span>
+<span class="go">LOAD DATA INPATH &#39;path_of_the_data_source&#39;</span>
+<span class="go">INTO TABLE my_data_space</span>
+<span class="go">[FORMAT &#39;separator&#39; / ORC / PARQUET / JSON];</span>
+<span class="go">[PREFIX &#39;value1 \t value2 \t ... \t&#39;]</span>
+<span class="go">[QUERY &quot;my_SQL_Query&quot;]</span>
+<span class="go">[SKIP lines]</span>
+<span class="go">[NOCHECK]</span>
+<span class="go">[LIMIT n_lines]</span>
+<span class="go">[LOCALE &#39;FR&#39;]</span>
+</pre></div>
+</div>
+<p>Create IndeximaLoadDataOperator instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>task_id</strong> (<em>str</em>) – task identifier</p></li>
+<li><p><strong>indexima_conn_id</strong> (<em>str</em>) – indexima connection identifier</p></li>
+<li><p><strong>target_table</strong> (<em>str</em>) – target table to load into</p></li>
+<li><p><strong>load_path_uri</strong> (<em>str</em>) – source uri</p></li>
+<li><p><strong>truncate</strong> (<em>bool</em>) – if true execute truncate query before load (default: False)</p></li>
+<li><p><strong>truncate_sql</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – truncate query (truncate table per default)</p></li>
+<li><p><strong>Optional</strong><strong>[</strong><strong>ConnectionDecorator</strong><strong>]</strong> (<em>connection_decorator</em>) – optional connection decorator</p></li>
+<li><p><strong>source_select_query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional sql query to select data from load_path_uri</p></li>
+<li><p><strong>format_query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional format to identify a character separator or a file format
+tailored for big-data ecosystems</p></li>
+<li><p><strong>prefix_query</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional prefix used to identify a subset of data to be imported.</p></li>
+<li><p><strong>skip_lines</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Allows to skip headers lines when importing data for flat text files.</p></li>
+<li><p><strong>no_check</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – Do not validate data type when loading data when specified
+(default: False)</p></li>
+<li><p><strong>limit</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – It will import only the first #lines on each imported files.</p></li>
+<li><p><strong>locale</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The LOCALE ‘country’ parameter helps to convert character.</p></li>
+<li><p><strong>dry_run</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – dry run mode (default: False). If true no action will
+be applied against datasource.</p></li>
+<li><p><strong>auth</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – authentication mode (default: {‘CUSTOM’})</p></li>
+<li><p><strong>timeout_seconds</strong> (<em>Optional</em><em>[</em><em>Union</em><em>[</em><em>int</em><em>, </em><em>datetime.timedelta</em><em>]</em><em>]</em>) – define the socket timeout in second
+(could be an int or a timedelta)</p></li>
+<li><p><strong>socket_keepalive</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – enable TCP keepalive.</p></li>
+<li><p><strong>kerberos_service_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional kerberos service name</p></li>
+<li><p><strong>pause_delay_in_seconds_between_query</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – optional pause delay between queries
+truncate, load and commit. A None, zero or negative value disable the ‘pause’.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="airflow_indexima.operators.indexima.IndeximaLoadDataOperator.generate_load_data_query">
+<code class="sig-name descname">generate_load_data_query</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/airflow_indexima/operators/indexima.html#IndeximaLoadDataOperator.generate_load_data_query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.operators.indexima.IndeximaLoadDataOperator.generate_load_data_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate ‘load data’ sql query.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><em>str</em> – load data sql query</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="airflow_indexima.operators.indexima.IndeximaLoadDataOperator.execute">
+<code class="sig-name descname">execute</code><span class="sig-paren">(</span><em class="sig-param">context</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/airflow_indexima/operators/indexima.html#IndeximaLoadDataOperator.execute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.operators.indexima.IndeximaLoadDataOperator.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process executor.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-airflow_indexima.connection">
+<span id="connection"></span><h2><a class="toc-backref" href="#id6">Connection</a><a class="headerlink" href="#module-airflow_indexima.connection" title="Permalink to this headline">¶</a></h2>
+<p>Define a decorator connection function profile.</p>
+<dl class="attribute">
+<dt id="airflow_indexima.connection.ConnectionDecorator">
+<code class="sig-prename descclassname">airflow_indexima.connection.</code><code class="sig-name descname">ConnectionDecorator</code><a class="headerlink" href="#airflow_indexima.connection.ConnectionDecorator" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Callable</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="airflow_indexima.connection.apply_hive_extra_setting">
+<code class="sig-prename descclassname">airflow_indexima.connection.</code><code class="sig-name descname">apply_hive_extra_setting</code><span class="sig-paren">(</span><em class="sig-param">connection: airflow.models.Connection</em>, <em class="sig-param">auth: Optional[str] = None</em>, <em class="sig-param">kerberos_service_name: Optional[str] = None</em>, <em class="sig-param">timeout_seconds: Optional[int] = None</em>, <em class="sig-param">socket_keepalive: Optional[bool] = None</em><span class="sig-paren">)</span> &#x2192; airflow.models.Connection<a class="reference internal" href="_modules/airflow_indexima/connection.html#apply_hive_extra_setting"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.connection.apply_hive_extra_setting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply extra settings on hive connection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>connection</strong> (<em>Connection</em>) – airflow connection</p></li>
+<li><p><strong>auth</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional authentication mode</p></li>
+<li><p><strong>kerberos_service_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional kerberos service name</p></li>
+<li><p><strong>timeout_seconds</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – optional define the socket timeout in second</p></li>
+<li><p><strong>socket_keepalive</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – optional enable TCP keepalive.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>Connection</em> – configured airflow Connection instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="airflow_indexima.connection.extract_hive_extra_setting">
+<code class="sig-prename descclassname">airflow_indexima.connection.</code><code class="sig-name descname">extract_hive_extra_setting</code><span class="sig-paren">(</span><em class="sig-param">connection: airflow.models.Connection</em><span class="sig-paren">)</span> &#x2192; Tuple[Optional[str], Optional[str], Optional[int], Optional[bool]]<a class="reference internal" href="_modules/airflow_indexima/connection.html#extract_hive_extra_setting"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.connection.extract_hive_extra_setting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract extra settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>connection</strong> (<em>Connection</em>) – airflow connection</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><em>Tuple[Optional[str], Optional[str], Optional[int], Optional[bool]]</em> –</p>
+<dl class="simple">
+<dt>a tuple</dt><dd><p>(auth, kerberos_service_name, timeout_seconds, socket_keepalive)</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-airflow_indexima.uri">
+<span id="uri"></span><h2><a class="toc-backref" href="#id7">Uri</a><a class="headerlink" href="#module-airflow_indexima.uri" title="Permalink to this headline">¶</a></h2>
+<p>URI tooling.</p>
+<dl class="attribute">
+<dt id="airflow_indexima.uri.UriFactory">
+<code class="sig-prename descclassname">airflow_indexima.uri.</code><code class="sig-name descname">UriFactory</code><a class="headerlink" href="#airflow_indexima.uri.UriFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Callable</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="airflow_indexima.uri.UriGeneratorFactory">
+<code class="sig-prename descclassname">airflow_indexima.uri.</code><code class="sig-name descname">UriGeneratorFactory</code><a class="headerlink" href="#airflow_indexima.uri.UriGeneratorFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">typing.Callable</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="airflow_indexima.uri.define_load_path_factory">
+<code class="sig-prename descclassname">airflow_indexima.uri.</code><code class="sig-name descname">define_load_path_factory</code><span class="sig-paren">(</span><em class="sig-param">conn_id: str, decorator: Callable[airflow.models.Connection, airflow.models.Connection], factory: Callable[[str, Optional[Callable[airflow.models.Connection, airflow.models.Connection]]], str]</em><span class="sig-paren">)</span> &#x2192; Callable[str]<a class="reference internal" href="_modules/airflow_indexima/uri/factory.html#define_load_path_factory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.uri.define_load_path_factory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an uri factory function with UriFactory profile.</p>
+<p class="rubric">Example</p>
+<dl class="simple">
+<dt>&gt;&gt;&gt;def my_decorator(conn:Connection) -&gt; Connection:</dt><dd><p>…
+return conn</p>
+</dd>
+<dt>decorated_redshift_uri_factory = define_load_path_factory(</dt><dd><p>decorator=my_decorator,
+factory=get_redshift_load_path_uri
+)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conn_id</strong> (<em>str</em>) – connection identifier of data source</p></li>
+<li><p><strong>decorator</strong> (<em>ConnectionDecorator</em>) – Connection decorator</p></li>
+<li><p><strong>factory</strong> (<em>UriGeneratorFactory</em>) – uri decorated factory</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>UriFactory</em> – function used as a macro to get load uri path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="airflow_indexima.uri.get_jdbc_load_path_uri">
+<code class="sig-prename descclassname">airflow_indexima.uri.</code><code class="sig-name descname">get_jdbc_load_path_uri</code><span class="sig-paren">(</span><em class="sig-param">jdbc_type: str</em>, <em class="sig-param">connection_id: str</em>, <em class="sig-param">decorator: Optional[Callable[airflow.models.Connection</em>, <em class="sig-param">airflow.models.Connection]] = None</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/airflow_indexima/uri/jdbc.html#get_jdbc_load_path_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.uri.get_jdbc_load_path_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return jdbc load path uri from a connection_id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>jdbc_type</strong> (<em>str</em>) – jdbc connection type</p></li>
+<li><p><strong>connection_id</strong> (<em>str</em>) – source connection identifier</p></li>
+<li><p><strong>decorator</strong> (<em>Optional</em><em>[</em><em>ConnectionDecorator</em><em>]</em>) – optinal connection decorator</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>str</em> – load path uri</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="airflow_indexima.uri.get_postgresql_load_path_uri">
+<code class="sig-prename descclassname">airflow_indexima.uri.</code><code class="sig-name descname">get_postgresql_load_path_uri</code><span class="sig-paren">(</span><em class="sig-param">connection_id: str</em>, <em class="sig-param">decorator: Optional[Callable[airflow.models.Connection</em>, <em class="sig-param">airflow.models.Connection]] = None</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/airflow_indexima/uri/jdbc.html#get_postgresql_load_path_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.uri.get_postgresql_load_path_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return postgresql load path uri from a connection_id.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_postgresql_load_path_uri</span><span class="p">(</span><span class="n">connection_id</span><span class="o">=</span><span class="s1">&#39;my_conn&#39;</span><span class="p">)</span>
+<span class="go">&#39;jdbc:postgresql://my-db:5432/db_client?ssl=true&amp;user=airflow-user&amp;password=XXXXXXXX&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>connection_id</strong> (<em>str</em>) – source connection identifier</p></li>
+<li><p><strong>decorator</strong> (<em>Optional</em><em>[</em><em>ConnectionDecorator</em><em>]</em>) – optinal connection decorator</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>str</em> – load path uri</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="airflow_indexima.uri.get_redshift_load_path_uri">
+<code class="sig-prename descclassname">airflow_indexima.uri.</code><code class="sig-name descname">get_redshift_load_path_uri</code><span class="sig-paren">(</span><em class="sig-param">connection_id: str</em>, <em class="sig-param">decorator: Optional[Callable[airflow.models.Connection</em>, <em class="sig-param">airflow.models.Connection]] = None</em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/airflow_indexima/uri/jdbc.html#get_redshift_load_path_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.uri.get_redshift_load_path_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return redshift load path uri from a connection_id.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_redshift_load_path_uri</span><span class="p">(</span><span class="n">connection_id</span><span class="o">=</span><span class="s1">&#39;my_conn&#39;</span><span class="p">)</span>
+<span class="go">&#39;jdbc:redshift://my-db:5439/db_client?ssl=true&amp;user=airflow-user&amp;password=XXXXXXXX&#39;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>connection_id</strong> (<em>str</em>) – source connection identifier</p></li>
+<li><p><strong>decorator</strong> (<em>Optional</em><em>[</em><em>ConnectionDecorator</em><em>]</em>) – optinal connection decorator</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>str</em> – load path uri</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-airflow_indexima.hive_transport">
+<span id="hive-transport"></span><h2><a class="toc-backref" href="#id8">Hive Transport</a><a class="headerlink" href="#module-airflow_indexima.hive_transport" title="Permalink to this headline">¶</a></h2>
+<p>Define hive transport function utilities.</p>
+<p>PyHive supported authentication mode:</p>
+<ul class="simple">
+<li><p>NONE</p></li>
+<li><p>CUSTOM</p></li>
+<li><p>LDAP</p></li>
+<li><p>KERBEROS</p></li>
+<li><p>NOSASL</p></li>
+</ul>
+<p>Extra configuration:</p>
+<ul class="simple">
+<li><p>socket timeout_seconds</p></li>
+<li><p>socket keepalive</p></li>
+</ul>
+<dl class="function">
+<dt id="airflow_indexima.hive_transport.create_transport_socket">
+<code class="sig-prename descclassname">airflow_indexima.hive_transport.</code><code class="sig-name descname">create_transport_socket</code><span class="sig-paren">(</span><em class="sig-param">host: str, port: Optional[int], timeout_seconds: Optional[int] = None, socket_keepalive: Optional[bool] = None</em><span class="sig-paren">)</span> &#x2192; thrift.transport.TSocket.TSocket<a class="reference internal" href="_modules/airflow_indexima/hive_transport.html#create_transport_socket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hive_transport.create_transport_socket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a transport socket.</p>
+<p>This function expose TSocket configuration option (more for clarity rather than anything else).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> (<em>str</em>) – The host to connect to.</p></li>
+<li><p><strong>port</strong> (<em>int</em>) – The (TCP) port to connect to.</p></li>
+<li><p><strong>timeout_seconds</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – define the socket timeout in second</p></li>
+<li><p><strong>socket_keepalive</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – enable TCP keepalive, default False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>TSocket</em> – transport socket instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="airflow_indexima.hive_transport.create_hive_plain_transport">
+<code class="sig-prename descclassname">airflow_indexima.hive_transport.</code><code class="sig-name descname">create_hive_plain_transport</code><span class="sig-paren">(</span><em class="sig-param">socket: thrift.transport.TSocket.TSocket</em>, <em class="sig-param">username: str</em>, <em class="sig-param">password: Optional[str] = None</em><span class="sig-paren">)</span> &#x2192; thrift_sasl.TSaslClientTransport<a class="reference internal" href="_modules/airflow_indexima/hive_transport.html#create_hive_plain_transport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hive_transport.create_hive_plain_transport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a TSaslClientTransport in ‘PLAIN’ authentication mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>socket</strong> (<em>TSocket</em>) – socket to use</p></li>
+<li><p><strong>username</strong> (<em>str</em>) – username to login</p></li>
+<li><p><strong>password</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional password to login</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>TSaslClientTransport</em> – transport instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="airflow_indexima.hive_transport.create_hive_gssapi_transport">
+<code class="sig-prename descclassname">airflow_indexima.hive_transport.</code><code class="sig-name descname">create_hive_gssapi_transport</code><span class="sig-paren">(</span><em class="sig-param">socket: thrift.transport.TSocket.TSocket</em>, <em class="sig-param">service_name: str</em><span class="sig-paren">)</span> &#x2192; thrift_sasl.TSaslClientTransport<a class="reference internal" href="_modules/airflow_indexima/hive_transport.html#create_hive_gssapi_transport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hive_transport.create_hive_gssapi_transport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a TSaslClientTransport in ‘GSSAPI’ authentication mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>socket</strong> (<em>TSocket</em>) – socket to use</p></li>
+<li><p><strong>service_name</strong> (<em>str</em>) – kerberos service name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>TSaslClientTransport</em> – transport instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="airflow_indexima.hive_transport.create_hive_nosasl_transport">
+<code class="sig-prename descclassname">airflow_indexima.hive_transport.</code><code class="sig-name descname">create_hive_nosasl_transport</code><span class="sig-paren">(</span><em class="sig-param">socket: thrift.transport.TSocket.TSocket</em><span class="sig-paren">)</span> &#x2192; thrift.transport.TTransport.TBufferedTransport<a class="reference internal" href="_modules/airflow_indexima/hive_transport.html#create_hive_nosasl_transport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hive_transport.create_hive_nosasl_transport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a TBufferedTransport in ‘NOSASL’ authentication mode.</p>
+<p>NOSASL corresponds to hive.server2.authentication=NOSASL in hive-site.xml</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>socket</strong> (<em>TSocket</em>) – socket to use</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>TBufferedTransport</em> – transport instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="airflow_indexima.hive_transport.check_hive_connection_parameters">
+<code class="sig-prename descclassname">airflow_indexima.hive_transport.</code><code class="sig-name descname">check_hive_connection_parameters</code><span class="sig-paren">(</span><em class="sig-param">auth: Optional[str] = None</em>, <em class="sig-param">username: Optional[str] = None</em>, <em class="sig-param">password: Optional[str] = None</em>, <em class="sig-param">kerberos_service_name: Optional[str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/airflow_indexima/hive_transport.html#check_hive_connection_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hive_transport.check_hive_connection_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check hive connection parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>auth</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – authentication mode)</p></li>
+<li><p><strong>username</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional username to login</p></li>
+<li><p><strong>password</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional password to login</p></li>
+<li><p><strong>kerberos_service_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional service name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if something is wrong</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="airflow_indexima.hive_transport.create_hive_transport">
+<code class="sig-prename descclassname">airflow_indexima.hive_transport.</code><code class="sig-name descname">create_hive_transport</code><span class="sig-paren">(</span><em class="sig-param">host: str</em>, <em class="sig-param">port: Optional[int] = None</em>, <em class="sig-param">timeout_seconds: Optional[int] = None</em>, <em class="sig-param">socket_keepalive: Optional[bool] = None</em>, <em class="sig-param">auth: Optional[str] = None</em>, <em class="sig-param">username: Optional[str] = None</em>, <em class="sig-param">password: Optional[str] = None</em>, <em class="sig-param">kerberos_service_name: Optional[str] = None</em><span class="sig-paren">)</span> &#x2192; thrift_sasl.TSaslClientTransport<a class="reference internal" href="_modules/airflow_indexima/hive_transport.html#create_hive_transport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#airflow_indexima.hive_transport.create_hive_transport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a TSaslClientTransport.</p>
+<p>Implementation is heavly based on pyhive.hive.Connection constructor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> (<em>str</em>) – The host to connect to.</p></li>
+<li><p><strong>port</strong> (<em>int</em>) – The (TCP) port to connect to.</p></li>
+<li><p><strong>timeout_seconds</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – define the socket timeout in second (default 60)</p></li>
+<li><p><strong>socket_keepalive</strong> (<em>Optional</em><em>[</em><em>bool</em><em>]</em>) – enable TCP keepalive, default off.</p></li>
+<li><p><strong>auth</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – authentication mode (Defaul ‘NONE’)</p></li>
+<li><p><strong>username</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional username to login</p></li>
+<li><p><strong>password</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional password to login</p></li>
+<li><p><strong>kerberos_service_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – optional kerberos service name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>TSaslClientTransport</em> – transport instance</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – if something is wrong</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Change Log" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="airflow-indexima" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Jerome Guibert
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

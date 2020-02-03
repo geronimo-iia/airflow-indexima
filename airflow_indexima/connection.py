@@ -1,12 +1,4 @@
-"""Define a decorator connection function profile.
-
-Implementation can be used tp customized a connection like
-retreive credentials from other backeng like aws ssm.
-
-`ConnectionDecorator = Callable[[Connection], Connection]`
-
-
-"""
+"""Define a decorator connection function profile."""
 import json
 from typing import Callable, Optional, Tuple
 
@@ -14,6 +6,9 @@ from airflow.models import Connection
 
 __all__ = ['ConnectionDecorator', 'apply_hive_extra_setting', 'extract_hive_extra_setting']
 
+"""Implementation can be used to customize a connection like
+retreive credentials from other backeng like aws ssm.
+"""
 ConnectionDecorator = Callable[[Connection], Connection]
 
 
@@ -34,7 +29,7 @@ def apply_hive_extra_setting(
         socket_keepalive (Optional[bool]): optional enable TCP keepalive.
 
     Returns:
-        (Connection): configured airflow Connection instance
+        Connection: configured airflow Connection instance
 
     """
 
@@ -64,7 +59,7 @@ def extract_hive_extra_setting(
         connection (Connection): airflow connection
 
     Returns:
-        (Tuple[Optional[str], Optional[str], Optional[int], Optional[bool]]): a tuple
+        Tuple[Optional[str], Optional[str], Optional[int], Optional[bool]]: a tuple
             (auth, kerberos_service_name, timeout_seconds, socket_keepalive)
 
     """

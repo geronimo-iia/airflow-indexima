@@ -49,7 +49,7 @@ def create_transport_socket(
         socket_keepalive (Optional[bool]): enable TCP keepalive, default False.
 
     Returns:
-        (TSocket): transport socket instance.
+        TSocket: transport socket instance.
 
     """
     socket = TSocket(
@@ -71,7 +71,7 @@ def create_hive_plain_transport(socket: TSocket, username: str, password: Option
         password (Optional[str]): optional password to login
 
     Returns:
-        (TSaslClientTransport): transport instance
+        TSaslClientTransport: transport instance
 
     """
 
@@ -95,7 +95,7 @@ def create_hive_gssapi_transport(socket: TSocket, service_name: str) -> TSaslCli
         service_name (str): kerberos service name
 
     Returns:
-        (TSaslClientTransport): transport instance
+        TSaslClientTransport: transport instance
 
     """
 
@@ -118,7 +118,7 @@ def create_hive_nosasl_transport(socket: TSocket) -> TBufferedTransport:
         socket (TSocket):  socket to use
 
     Returns:
-        (TBufferedTransport): transport instance
+        TBufferedTransport: transport instance
 
     """
     return TBufferedTransport(socket)
@@ -138,8 +138,8 @@ def check_hive_connection_parameters(
         password (Optional[str]): optional password to login
         kerberos_service_name (Optional[str]): optional service name
 
-    # Raises
-        (ValueError): if something is wrong
+    Raises:
+        ValueError: if something is wrong
 
     """
     # username will be checked in hive.Connection
@@ -178,10 +178,10 @@ def create_hive_transport(
         kerberos_service_name (Optional[str]): optional kerberos service name
 
     Returns:
-        (TSaslClientTransport): transport instance
+        TSaslClientTransport: transport instance
 
     Raises:
-        (ValueError): if something is wrong
+        ValueError: if something is wrong
 
     """
 

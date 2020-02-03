@@ -1,431 +1,469 @@
+
+
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Indexima Airflow integration">
-  <meta name="author" content="Jerome Guibert">
-  <link rel="shortcut icon" href="img/favicon.ico">
-  <title>Home - airflow-indexima</title>
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  
+  <title>airflow-indexima &mdash; airflow_indexima 2.2.2 documentation</title>
+  
 
-  <link rel="stylesheet" href="css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   
-  <script>
-    // Current page data
-    var mkdocs_page_name = "Home";
-    var mkdocs_page_input_path = "index.md";
-    var mkdocs_page_url = "/airflow-indexima/";
-  </script>
   
-  <script src="js/jquery-2.1.1.min.js" defer></script>
-  <script src="js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
   
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-      <div class="wy-side-nav-search">
-        <a href="." class="icon icon-home"> airflow-indexima</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> airflow_indexima
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
   </form>
 </div>
-      </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-	<ul class="current">
-	  
           
-            <li class="toctree-l1 current">
-		
-    <a class="current" href=".">Home</a>
-    <ul class="subnav">
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
             
-    <li class="toctree-l2"><a href="#airflow-indexima">airflow-indexima</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l3" href="#overview">Overview</a></li>
-        
-            <li><a class="toctree-l3" href="#installation">Installation</a></li>
-        
-            <li><a class="toctree-l3" href="#usage">Usage</a></li>
-        
-            <li><a class="toctree-l3" href="#indexima-connection">Indexima Connection</a></li>
-        
-            <li><a class="toctree-l3" href="#production-feedback">Production Feedback</a></li>
-        
-            <li><a class="toctree-l3" href="#playing-airflow-without-airflow-server">Playing Airflow without Airflow Server</a></li>
-        
-        </ul>
-    
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_of_conduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
 
-    </ul>
-	    </li>
+            
           
-            <li class="toctree-l1">
-		
-    <span class="caption-text">API</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="airflow_indexima.hooks.indexima/">Hooks</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="airflow_indexima.operators.indexima/">Operators</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="airflow_indexima.connection/">Connection</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="airflow_indexima.hive_transport/">Hive transport</a>
-                </li>
-                <li class="">
-                    
-    <span class="caption-text">Uri</span>
-    <ul class="subnav">
-                <li class="toctree-l3">
-                    
-    <a class="" href="airflow_indexima.uri.factory/">Factory</a>
-                </li>
-                <li class="toctree-l3">
-                    
-    <a class="" href="airflow_indexima.uri.jdbc/">Jdbc</a>
-                </li>
-    </ul>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">About</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="contributing/">Contributing</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="changelog/">Change Log</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="license/">License</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="code_of_conduct/">Code of Conduct</a>
-                </li>
-    </ul>
-	    </li>
-          
-        </ul>
+        </div>
       </div>
-      &nbsp;
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href=".">airflow-indexima</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">airflow_indexima</a>
+        
       </nav>
 
-      
+
       <div class="wy-nav-content">
+        
         <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href=".">Docs</a> &raquo;</li>
     
-      
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>airflow-indexima</li>
     
-    <li>Home</li>
-    <li class="wy-breadcrumbs-aside">
-      
-        <a href="https://github.com/geronimo-iia/airflow-indexima/edit/master/docs/index.md"> Edit on geronimo-iia/airflow-indexima</a>
-      
-    </li>
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
-          <div role="main">
-            <div class="section">
-              
-                <h1 id="airflow-indexima">airflow-indexima<a class="headerlink" href="#airflow-indexima" title="Permanent link">&para;</a></h1>
-<p><a href="https://travis-ci.com/geronimo-iia/async-btree"><img alt="Unix Build Status" src="https://img.shields.io/travis/geronimo-iia/async-btree/master.svg?label=unix" /></a><a href="https://coveralls.io/r/geronimo-iia/async-btree"><img alt="Coverage Status" src="https://img.shields.io/coveralls/geronimo-iia/async-btree/master.svg" /></a>
-<a href="https://www.codacy.com/app/geronimo-iia/async-btree?utm_source=github.com&amp;amp;utm_medium=referral&amp;amp;utm_content=geronimo-iia/async-btree&amp;amp;utm_campaign=Badge_Grade"><img alt="Codacy Badge" src="https://api.codacy.com/project/badge/Grade/fe669a02b4aa46b5b1faf619ba2bf382" /></a><a href="https://scrutinizer-ci.com/g/geronimo-iia/async-btree/?branch=master"><img alt="Scrutinizer Code Quality" src="https://img.shields.io/scrutinizer/g/geronimo-iia/async-btree.svg" /></a>
-<a href="https://pypi.org/project/async-btree"><img alt="PyPI Version" src="https://img.shields.io/pypi/v/async-btree.svg" /></a>
-<a href="https://pypi.org/project/async-btree"><img alt="PyPI License" src="https://img.shields.io/pypi/l/async-btree.svg" /></a></p>
-<p>Versions following <a href="https://semver.org/">Semantic Versioning</a></p>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p><a href="https://indexima.com/">Indexima</a> <a href="https://airflow.apache.org/">Airflow</a> integration based on pyhive.</p>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="airflow-indexima">
+<span id="index"></span><h1>airflow-indexima<a class="headerlink" href="#airflow-indexima" title="Permalink to this headline">¶</a></h1>
+<a class="reference external image-reference" href="https://travis-ci.com/geronimo-iia/async-btree"><img alt="Unix Build Status" src="https://img.shields.io/travis/geronimo-iia/async-btree/master.svg?label=unix" /></a>
+<a class="reference external image-reference" href="https://coveralls.io/r/geronimo-iia/async-btree"><img alt="Coverage Status" src="https://img.shields.io/coveralls/geronimo-iia/async-btree/master.svg" /></a>
+<a class="reference external image-reference" href="https://www.codacy.com/app/geronimo-iia/async-btree?utm_source=github.com&amp;amp;utm_medium=referral&amp;amp;utm_content=geronimo-iia/async-btree&amp;amp;utm_campaign=Badge_Grade"><img alt="Codacy Badge" src="https://api.codacy.com/project/badge/Grade/fe669a02b4aa46b5b1faf619ba2bf382" /></a>
+<a class="reference external image-reference" href="https://scrutinizer-ci.com/g/geronimo-iia/async-btree/?branch=master"><img alt="Scrutinizer Code Quality" src="https://img.shields.io/scrutinizer/g/geronimo-iia/async-btree.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.org/project/async-btree"><img alt="PyPI Version" src="https://img.shields.io/pypi/v/async-btree.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.org/project/async-btree"><img alt="PyPI License" src="https://img.shields.io/pypi/l/async-btree.svg" /></a>
+<p>Versions following <a class="reference external" href="https://semver.org/">Semantic Versioning</a></p>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://indexima.com/">Indexima</a> <a class="reference external" href="https://airflow.apache.org/">Airflow</a> integration based on pyhive.</p>
 <p>This project is used in our prod environment with success.
 As it a young project, take care of change, any help is welcome :)</p>
-<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>Install this library directly into an activated virtual environment:</p>
-<pre><code class="text">$ pip install airflow-indexima
-</code></pre>
-
-<p>or add it to your <a href="https://poetry.eustace.io/">Poetry</a> project:</p>
-<pre><code class="text">$ poetry add airflow-indexima
-</code></pre>
-
-<p>or you could use it as an <a href="https://airflow.apache.org/docs/stable/plugins.html">Airflow plugin</a></p>
-<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ pip install airflow-indexima
+</pre></div>
+</div>
+<p>or add it to your <a class="reference external" href="https://poetry.eustace.io/">Poetry</a> project:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ poetry add airflow-indexima
+</pre></div>
+</div>
+<p>or you could use it as an <a class="reference external" href="https://airflow.apache.org/docs/stable/plugins.html">Airflow plugin</a></p>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>After installation, the package can imported:</p>
-<pre><code class="text">$ python
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python
 &gt;&gt;&gt; import airflow_indexima
 &gt;&gt;&gt; airflow_indexima.__version__
-</code></pre>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://geronimo-iia.github.io/airflow-indexima/">Api documentation</a></p>
+<div class="section" id="a-simple-query">
+<h3>a simple query<a class="headerlink" href="#a-simple-query" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">airflow_indexima.operators</span> <span class="kn">import</span> <span class="n">IndeximaQueryRunnerOperator</span>
 
-<p>See <a href="https://geronimo-iia.github.io/airflow-indexima/">Api documentation</a></p>
-<h3 id="a-simple-query">a simple query<a class="headerlink" href="#a-simple-query" title="Permanent link">&para;</a></h3>
-<pre><code class="python">from airflow_indexima.operators import IndeximaQueryRunnerOperator
+<span class="o">...</span>
 
-...
+<span class="k">with</span> <span class="n">dag</span><span class="p">:</span>
+    <span class="o">...</span>
+    <span class="n">op</span> <span class="o">=</span> <span class="n">IndeximaQueryRunnerOperator</span><span class="p">(</span>
+        <span class="n">task_id</span> <span class="o">=</span> <span class="s1">&#39;my-task-id&#39;</span><span class="p">,</span>
+        <span class="n">sql_query</span><span class="o">=</span> <span class="s1">&#39;DELETE FROM Client WHERE GRPD = 1&#39;</span><span class="p">,</span>
+        <span class="n">indexima_conn_id</span><span class="o">=</span><span class="s1">&#39;my-indexima-connection&#39;</span>
+    <span class="p">)</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-load-into-indexima">
+<h3>a load into indexima<a class="headerlink" href="#a-load-into-indexima" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">airflow_indexima.operators.indexima</span> <span class="kn">import</span> <span class="n">IndeximaLoadDataOperator</span>
 
-with dag:
-    ...
-    op = IndeximaQueryRunnerOperator(
-        task_id = 'my-task-id',
-        sql_query= 'DELETE FROM Client WHERE GRPD = 1',
-        indexima_conn_id='my-indexima-connection'
-    )
-    ...
-</code></pre>
+<span class="o">...</span>
 
-<h3 id="a-load-into-indexima">a load into indexima<a class="headerlink" href="#a-load-into-indexima" title="Permanent link">&para;</a></h3>
-<pre><code class="python">from airflow_indexima.operators.indexima import IndeximaLoadDataOperator
-
-...
-
-with dag:
-    ...
-    op = IndeximaLoadDataOperator(
-        task_id = 'my-task-id',
-        indexima_conn_id='my-indexima-connection',
-        target_table='Client',
-        source_select_query='select * from dsi.client',
-        truncate=True,
-        load_path_uri='jdbc:redshift://my-private-instance.com:5439/db_client?ssl=true&amp;user=airflow-user&amp;password=XXXXXXXX'
-    )
-    ...
-
-</code></pre>
-
-<h3 id="get-load-path-uri-from-connection">get load path uri from Connection<a class="headerlink" href="#get-load-path-uri-from-connection" title="Permanent link">&para;</a></h3>
+<span class="k">with</span> <span class="n">dag</span><span class="p">:</span>
+    <span class="o">...</span>
+    <span class="n">op</span> <span class="o">=</span> <span class="n">IndeximaLoadDataOperator</span><span class="p">(</span>
+        <span class="n">task_id</span> <span class="o">=</span> <span class="s1">&#39;my-task-id&#39;</span><span class="p">,</span>
+        <span class="n">indexima_conn_id</span><span class="o">=</span><span class="s1">&#39;my-indexima-connection&#39;</span><span class="p">,</span>
+        <span class="n">target_table</span><span class="o">=</span><span class="s1">&#39;Client&#39;</span><span class="p">,</span>
+        <span class="n">source_select_query</span><span class="o">=</span><span class="s1">&#39;select * from dsi.client&#39;</span><span class="p">,</span>
+        <span class="n">truncate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">load_path_uri</span><span class="o">=</span><span class="s1">&#39;jdbc:redshift://my-private-instance.com:5439/db_client?ssl=true&amp;user=airflow-user&amp;password=XXXXXXXX&#39;</span>
+    <span class="p">)</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-load-path-uri-from-connection">
+<h3>get load path uri from Connection<a class="headerlink" href="#get-load-path-uri-from-connection" title="Permalink to this headline">¶</a></h3>
 <p>In order to get jdbc uri from an Airflow Connection, you could use:</p>
-<ul>
-<li><code>get_redshift_load_path_uri</code></li>
-<li><code>get_postgresql_load_path_uri</code></li>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">get_redshift_load_path_uri</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_postgresql_load_path_uri</span></code></p></li>
 </ul>
-<p>from module <code>airflow_indexima.uri</code></p>
-<p>Both method have this profile: <code>Callable[[str, Optional[ConnectionDecorator]], str]</code></p>
+<p>from module <code class="docutils literal notranslate"><span class="pre">airflow_indexima.uri</span></code></p>
+<p>Both method have this profile: <code class="docutils literal notranslate"><span class="pre">Callable[[str,</span> <span class="pre">Optional[ConnectionDecorator]],</span> <span class="pre">str]</span></code></p>
 <p>Example:</p>
-<pre><code class="text">    get_postgresql_load_path_uri(connection_id='my_conn')
-    &gt;&gt; 'jdbc:postgresql://my-db:5432/db_client?ssl=true&amp;user=airflow-user&amp;password=XXXXXXXX'
-</code></pre>
-
-<h2 id="indexima-connection">Indexima Connection<a class="headerlink" href="#indexima-connection" title="Permanent link">&para;</a></h2>
-<h3 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">&para;</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>get_postgresql_load_path_uri(connection_id=&#39;my_conn&#39;)
+&gt;&gt; &#39;jdbc:postgresql://my-db:5432/db_client?ssl=true&amp;user=airflow-user&amp;password=XXXXXXXX&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="indexima-connection">
+<h2>Indexima Connection<a class="headerlink" href="#indexima-connection" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="authentication">
+<h3>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h3>
 <p>PyHive supported authentication mode:</p>
-<ul>
-<li>'NONE': needs a username without password</li>
-<li>'CUSTOM': needs a username and password (default mode)</li>
-<li>'LDAP': needs a username and password</li>
-<li>'KERBEROS': need a kerberos service name</li>
-<li>'NOSASL': corresponds to hive.server2.authentication=NOSASL in hive-site.xml</li>
+<ul class="simple">
+<li><p>‘NONE’: needs a username without password</p></li>
+<li><p>‘CUSTOM’: needs a username and password (default mode)</p></li>
+<li><p>‘LDAP’: needs a username and password</p></li>
+<li><p>‘KERBEROS’: need a kerberos service name</p></li>
+<li><p>‘NOSASL’: corresponds to hive.server2.authentication=NOSASL in hive-site.xml</p></li>
 </ul>
-<h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
+</div>
+<div class="section" id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
 <p>You could set those parameters:</p>
-<ul>
-<li>host (str): The host to connect to.</li>
-<li>port (int): The (TCP) port to connect to.</li>
-<li>timeout_seconds ([int]): define the socket timeout in second (default None)</li>
-<li>socket_keepalive ([bool]): enable TCP keepalive, default false.</li>
-<li>auth (str): authentication mode</li>
-<li>username ([str]): username to login</li>
-<li>password ([str]): password to login</li>
-<li>kerberos_service_name ([str]): kerberos service name</li>
+<ul class="simple">
+<li><p>host (str): The host to connect to.</p></li>
+<li><p>port (int): The (TCP) port to connect to.</p></li>
+<li><p>timeout_seconds ([int]): define the socket timeout in second (default None)</p></li>
+<li><p>socket_keepalive ([bool]): enable TCP keepalive, default false.</p></li>
+<li><p>auth (str): authentication mode</p></li>
+<li><p>username ([str]): username to login</p></li>
+<li><p>password ([str]): password to login</p></li>
+<li><p>kerberos_service_name ([str]): kerberos service name</p></li>
 </ul>
-<p><code>host</code>, <code>port</code>, <code>username</code> and <code>password</code> came from airflow Connection configuration.</p>
-<p><code>timeout_seconds</code>, <code>socket_keepalive</code>, <code>auth</code> and <code>kerberos_service_name</code> parameters can came from:</p>
-<ol>
-<li>attribut on Hook/Operator class</li>
-<li>Airflow Connection in <code>extra</code> parameter</li>
+<p><code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">port</span></code>, <code class="docutils literal notranslate"><span class="pre">username</span></code> and <code class="docutils literal notranslate"><span class="pre">password</span></code> came from airflow Connection configuration.</p>
+<p><code class="docutils literal notranslate"><span class="pre">timeout_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">socket_keepalive</span></code>, <code class="docutils literal notranslate"><span class="pre">auth</span></code> and <code class="docutils literal notranslate"><span class="pre">kerberos_service_name</span></code> parameters can came from:</p>
+<ol class="arabic simple">
+<li><p>attribut on Hook/Operator class</p></li>
+<li><p>Airflow Connection in <code class="docutils literal notranslate"><span class="pre">extra</span></code> parameter</p></li>
 </ol>
 <p>For example:</p>
-<pre><code class="json">{&quot;auth&quot;: &quot;CUSTOM&quot;, &quot;timeout_seconds&quot;: 90, &quot;socket_keepalive&quot;: true}
-</code></pre>
-
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;auth&quot;</span><span class="p">:</span> <span class="s2">&quot;CUSTOM&quot;</span><span class="p">,</span> <span class="nt">&quot;timeout_seconds&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span> <span class="nt">&quot;socket_keepalive&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">}</span>
+</pre></div>
+</div>
 <p>Setted attribut override airflow connection configuration.</p>
 <p>You could add a decorator function in order to post process Connection before usage.
 This decorator will be executed after connection configuration (see next section).</p>
-<h3 id="customize-connection-credential-access">customize Connection credential access<a class="headerlink" href="#customize-connection-credential-access" title="Permanent link">&para;</a></h3>
+</div>
+<div class="section" id="customize-connection-credential-access">
+<h3>customize Connection credential access<a class="headerlink" href="#customize-connection-credential-access" title="Permalink to this headline">¶</a></h3>
 <p>If you use another backend to store your password (like AWS SSM), you could define a decorator
 and use it as a function in your dag.</p>
-<pre><code class="python">from airflow.models import Connection
-from airflow import DAG
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">airflow.models</span> <span class="kn">import</span> <span class="n">Connection</span>
+<span class="kn">from</span> <span class="nn">airflow</span> <span class="kn">import</span> <span class="n">DAG</span>
 
-from airdlow_indexima.uri import define_load_path_factory, get_redshift_load_path_uri
-
-
-def my_decorator(conn:Connection) -&gt; Connection:
-    # conn instance will be not shared, and use only on connection request
-    conn.password = get_ssm_parameter(param_name=f'{conn.conn_id}.{con.login}')
-    return conn
+<span class="kn">from</span> <span class="nn">airdlow_indexima.uri</span> <span class="kn">import</span> <span class="n">define_load_path_factory</span><span class="p">,</span> <span class="n">get_redshift_load_path_uri</span>
 
 
-dag = DAG(
-    dag_id='my_dag',
-    user_defined_macros={
-        # we define a macro get_load_path_uri
-        'get_load_path_uri': define_load_path_factory(
-            conn_id='my-redshift-connection',
-            decorator=my_decorator,
-            factory=get_redshift_load_path_uri)
-        },
-    ...
-)
-
-with dag:
-    ...
-    op = IndeximaLoadDataOperator(
-        task_id = 'my-task-id',
-        indexima_conn_id='my-indexima-connection',
-        target_table='Client',
-        source_select_query='select * from dsi.client',
-        truncate=True,
-        load_path_uri='{{ get_load_path_uri() }}'
-    )
-    ...
+<span class="k">def</span> <span class="nf">my_decorator</span><span class="p">(</span><span class="n">conn</span><span class="p">:</span><span class="n">Connection</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Connection</span><span class="p">:</span>
+    <span class="c1"># conn instance will be not shared, and use only on connection request</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">get_ssm_parameter</span><span class="p">(</span><span class="n">param_name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{conn.conn_id}</span><span class="s1">.</span><span class="si">{con.login}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">conn</span>
 
 
-</code></pre>
+<span class="n">dag</span> <span class="o">=</span> <span class="n">DAG</span><span class="p">(</span>
+    <span class="n">dag_id</span><span class="o">=</span><span class="s1">&#39;my_dag&#39;</span><span class="p">,</span>
+    <span class="n">user_defined_macros</span><span class="o">=</span><span class="p">{</span>
+        <span class="c1"># we define a macro get_load_path_uri</span>
+        <span class="s1">&#39;get_load_path_uri&#39;</span><span class="p">:</span> <span class="n">define_load_path_factory</span><span class="p">(</span>
+            <span class="n">conn_id</span><span class="o">=</span><span class="s1">&#39;my-redshift-connection&#39;</span><span class="p">,</span>
+            <span class="n">decorator</span><span class="o">=</span><span class="n">my_decorator</span><span class="p">,</span>
+            <span class="n">factory</span><span class="o">=</span><span class="n">get_redshift_load_path_uri</span><span class="p">)</span>
+        <span class="p">},</span>
+    <span class="o">...</span>
+<span class="p">)</span>
 
-<p>A Connection decorator must follow this type: </p>
-<pre><code class="python">ConnectionDecorator = Callable[[Connection], Connection]
-</code></pre>
-
-<p><code>define_load_path_factory</code> is a function which take:</p>
-<ul>
-<li>a connnection identifier</li>
-<li>a decorator <code>ConnectionDecorator</code></li>
-<li>an uri factory <code>UriGeneratorFactory = Callable[[str, Optional[ConnectionDecorator]], str]</code></li>
+<span class="k">with</span> <span class="n">dag</span><span class="p">:</span>
+    <span class="o">...</span>
+    <span class="n">op</span> <span class="o">=</span> <span class="n">IndeximaLoadDataOperator</span><span class="p">(</span>
+        <span class="n">task_id</span> <span class="o">=</span> <span class="s1">&#39;my-task-id&#39;</span><span class="p">,</span>
+        <span class="n">indexima_conn_id</span><span class="o">=</span><span class="s1">&#39;my-indexima-connection&#39;</span><span class="p">,</span>
+        <span class="n">target_table</span><span class="o">=</span><span class="s1">&#39;Client&#39;</span><span class="p">,</span>
+        <span class="n">source_select_query</span><span class="o">=</span><span class="s1">&#39;select * from dsi.client&#39;</span><span class="p">,</span>
+        <span class="n">truncate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">load_path_uri</span><span class="o">=</span><span class="s1">&#39;{{ get_load_path_uri() }}&#39;</span>
+    <span class="p">)</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>A Connection decorator must follow this type:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ConnectionDecorator</span> <span class="o">=</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Connection</span><span class="p">],</span> <span class="n">Connection</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">define_load_path_factory</span></code> is a function which take:</p>
+<ul class="simple">
+<li><p>a connnection identifier</p></li>
+<li><p>a decorator <code class="docutils literal notranslate"><span class="pre">ConnectionDecorator</span></code></p></li>
+<li><p>an uri factory <code class="docutils literal notranslate"><span class="pre">UriGeneratorFactory</span> <span class="pre">=</span> <span class="pre">Callable[[str,</span> <span class="pre">Optional[ConnectionDecorator]],</span> <span class="pre">str]</span></code></p></li>
 </ul>
-<p>and return a function with no argument which can be called as a macro in dag's operator.</p>
-<h3 id="optional-connection-parameters">Optional connection parameters<a class="headerlink" href="#optional-connection-parameters" title="Permanent link">&para;</a></h3>
+<p>and return a function with no argument which can be called as a macro in dag’s operator.</p>
+</div>
+<div class="section" id="optional-connection-parameters">
+<h3>Optional connection parameters<a class="headerlink" href="#optional-connection-parameters" title="Permalink to this headline">¶</a></h3>
 <p>On each operator you could set this member:</p>
 <ul>
-<li>auth (Optional[str]): authentication mode (default: {'CUSTOM'})</li>
-<li>kerberos_service_name (Optional[str]): optional kerberos service name</li>
-<li>timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second
-                (could be an int or a timedelta)</li>
-<li>socket_keepalive (Optional[bool]): enable TCP keepalive.</li>
+<li><p>auth (Optional[str]): authentication mode (default: {‘CUSTOM’})</p></li>
+<li><p>kerberos_service_name (Optional[str]): optional kerberos service name</p></li>
+<li><p>timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second
+.. code-block:: guess</p>
+<blockquote>
+<div><p>(could be an int or a timedelta)</p>
+</div></blockquote>
+</li>
+<li><p>socket_keepalive (Optional[bool]): enable TCP keepalive.</p></li>
 </ul>
 <p>Note:</p>
-<ul>
-<li>if execution_timeout is set, it will be used as default value for timeout_seconds.</li>
+<ul class="simple">
+<li><p>if execution_timeout is set, it will be used as default value for timeout_seconds.</p></li>
 </ul>
-<h2 id="production-feedback">Production Feedback<a class="headerlink" href="#production-feedback" title="Permanent link">&para;</a></h2>
+</div>
+</div>
+<div class="section" id="production-feedback">
+<h2>Production Feedback<a class="headerlink" href="#production-feedback" title="Permalink to this headline">¶</a></h2>
 <p>In production, you could have few strange behaviour like those that we have meet.</p>
-<h3 id="tsocket-read-0-bytes">"TSocket read 0 bytes"<a class="headerlink" href="#tsocket-read-0-bytes" title="Permanent link">&para;</a></h3>
-<p>You could fine this issue https://github.com/dropbox/PyHive/issues/240 on long load query running.</p>
+<div class="section" id="tsocket-read-0-bytes">
+<h3>“TSocket read 0 bytes”<a class="headerlink" href="#tsocket-read-0-bytes" title="Permalink to this headline">¶</a></h3>
+<p>You could fine this issue <a class="reference external" href="https://github.com/dropbox/PyHive/issues/240">https://github.com/dropbox/PyHive/issues/240</a> on long load query running.</p>
 <p>Try this in sequence:</p>
-<ol>
-<li>check your operator configuration, and set <code>timeout_seconds</code> member to 3600 second for example.
-   You could have a different behaviour when running a dag with/without airflow context in docker container.</li>
-<li>if your facing a broken pipe, after 300s, and you have an AWS NLB V2 :
-   Read again <a href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/network-load-balancers.html">network-load-balancers</a>, and focus on this:<blockquote>
-<p>Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds. You cannot modify this value. For TCP listeners, clients or targets can use TCP keepalive packets to reset the idle timeout. TCP keepalive packets are not supported for TLS listeners.</p>
-</blockquote>
+<ol class="arabic">
+<li><p>check your operator configuration, and set <code class="docutils literal notranslate"><span class="pre">timeout_seconds</span></code> member to 3600 second for example.
+You could have a different behaviour when running a dag with/without airflow context in docker container.</p></li>
+<li><p>if your facing a broken pipe, after 300s, and you have an AWS NLB V2 :
+Read again <a class="reference external" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/network-load-balancers.html">network-load-balancers</a>, and focus on this:</p>
+<blockquote>
+<div><p>Elastic Load Balancing sets the idle timeout value for TCP flows to 350 seconds. You cannot modify this value. For TCP listeners, clients or targets can use TCP keepalive packets to reset the idle timeout. TCP keepalive packets are not supported for TLS listeners.</p>
+</div></blockquote>
+<p>We have tried for you the “socket_keep_alive”, and it did not work at all.
+Our solution was to remove our NLB and use a simple dns A field on indexima master.</p>
 </li>
 </ol>
-<p>We have tried for you the "socket_keep_alive", and it did not work at all.
-   Our solution was to remove our NLB and use a simple dns A field on indexima master.</p>
-<h3 id="utf-8-or-could-not-read-byte">"utf-8" or could not read byte ...<a class="headerlink" href="#utf-8-or-could-not-read-byte" title="Permanent link">&para;</a></h3>
-<p>Be very welcome to add <code>{ "serialization.encoding": "utf-8"}</code> in hive_configuration member of IndeximaHook.</p>
+</div>
+<div class="section" id="utf-8-or-could-not-read-byte">
+<h3>“utf-8” or could not read byte …<a class="headerlink" href="#utf-8-or-could-not-read-byte" title="Permalink to this headline">¶</a></h3>
+<p>Be very welcome to add <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">&quot;serialization.encoding&quot;:</span> <span class="pre">&quot;utf-8&quot;}</span></code> in hive_configuration member of IndeximaHook.</p>
 <p>This setting is set in IndeximaHook.<strong>init</strong>, may you override it ?</p>
-<h2 id="playing-airflow-without-airflow-server">Playing Airflow without Airflow Server<a class="headerlink" href="#playing-airflow-without-airflow-server" title="Permanent link">&para;</a></h2>
+</div>
+</div>
+<div class="section" id="playing-airflow-without-airflow-server">
+<h2>Playing Airflow without Airflow Server<a class="headerlink" href="#playing-airflow-without-airflow-server" title="Permalink to this headline">¶</a></h2>
 <p>When I was trying many little things and deals with hive stuff, i wrote a single script that help me a lot.</p>
 <p>Feel free to use it (or not) to set your dag by yourself:</p>
-<pre><code class="python">import os
-import datetime
-from airflow.hooks.base_hook import BaseHook
-from airflow import DAG
-from airflow_indexima.operators.indexima import IndeximaLoadDataOperator
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">airflow.hooks.base_hook</span> <span class="kn">import</span> <span class="n">BaseHook</span>
+<span class="kn">from</span> <span class="nn">airflow</span> <span class="kn">import</span> <span class="n">DAG</span>
+<span class="kn">from</span> <span class="nn">airflow_indexima.operators.indexima</span> <span class="kn">import</span> <span class="n">IndeximaLoadDataOperator</span>
 
-# here we create our Airflow Connection
-os.environ['AIRFLOW_CONN_INDEXIMA_ID'] = 'hive://my-user:my-password@my-server:10000/default'
-conn = BaseHook.get_connection('indexima_id')
+<span class="c1"># here we create our Airflow Connection</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;AIRFLOW_CONN_INDEXIMA_ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;hive://my-user:my-password@my-server:10000/default&#39;</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">BaseHook</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="s1">&#39;indexima_id&#39;</span><span class="p">)</span>
 
-dag = DAG(
-    dag_id='my_dag',
-    default_args={
-        'start_date': datetime.datetime(year=2019, month=12, day=1),
-        'depends_on_past': False,
-        'email_on_failure': False,
-        'email': [],
-    },
-)
+<span class="n">dag</span> <span class="o">=</span> <span class="n">DAG</span><span class="p">(</span>
+    <span class="n">dag_id</span><span class="o">=</span><span class="s1">&#39;my_dag&#39;</span><span class="p">,</span>
+    <span class="n">default_args</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;start_date&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2019</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s1">&#39;depends_on_past&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;email_on_failure&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="p">},</span>
+<span class="p">)</span>
 
-with dag:
+<span class="k">with</span> <span class="n">dag</span><span class="p">:</span>
 
-    load_operator = IndeximaLoadDataOperator(
-        task_id='my_task',
-        indexima_conn_id='indexima_id',
-        target_table='my_table',
-        source_select_query=(
-            &quot;select * from source_table where &quot;
-            &quot;creation_date_tms between '2019-11-30T00:00:00+00:00' and '2019-11-30T12:59:59.000999+00:00'&quot;
-        ),
-        truncate=True,
-        truncate_sql=(
-            &quot;DELETE FROM my_table WHERE &quot;
-            &quot;creation_date_tms between '2019-11-30T00:00:00+00:00' and '2019-11-30T12:59:59.000999+00:00'&quot;
-        ),
-        load_path_uri='jdbc:postgresql://myserver:5439/db_common?user=etl_user&amp;password=a_strong_password&amp;ssl=true',
-        retries=2,
-        execution_timeout=datetime.timedelta(hours=3),
-        sla=datetime.timedelta(hours=1, minutes=30),
-    )
+    <span class="n">load_operator</span> <span class="o">=</span> <span class="n">IndeximaLoadDataOperator</span><span class="p">(</span>
+        <span class="n">task_id</span><span class="o">=</span><span class="s1">&#39;my_task&#39;</span><span class="p">,</span>
+        <span class="n">indexima_conn_id</span><span class="o">=</span><span class="s1">&#39;indexima_id&#39;</span><span class="p">,</span>
+        <span class="n">target_table</span><span class="o">=</span><span class="s1">&#39;my_table&#39;</span><span class="p">,</span>
+        <span class="n">source_select_query</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;select * from source_table where &quot;</span>
+            <span class="s2">&quot;creation_date_tms between &#39;2019-11-30T00:00:00+00:00&#39; and &#39;2019-11-30T12:59:59.000999+00:00&#39;&quot;</span>
+        <span class="p">),</span>
+        <span class="n">truncate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">truncate_sql</span><span class="o">=</span><span class="p">(</span>
+            <span class="s2">&quot;DELETE FROM my_table WHERE &quot;</span>
+            <span class="s2">&quot;creation_date_tms between &#39;2019-11-30T00:00:00+00:00&#39; and &#39;2019-11-30T12:59:59.000999+00:00&#39;&quot;</span>
+        <span class="p">),</span>
+        <span class="n">load_path_uri</span><span class="o">=</span><span class="s1">&#39;jdbc:postgresql://myserver:5439/db_common?user=etl_user&amp;password=a_strong_password&amp;ssl=true&#39;</span><span class="p">,</span>
+        <span class="n">retries</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">execution_timeout</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+        <span class="n">sla</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span>
+    <span class="p">)</span>
 
-    # here we run the dag
-    load_operator.execute(context={})
+    <span class="c1"># here we run the dag</span>
+    <span class="n">load_operator</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="p">{})</span>
 
-del os.environ['AIRFLOW_CONN_INDEXIMA_ID']
+<span class="k">del</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;AIRFLOW_CONN_INDEXIMA_ID&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="thanks">
+<h3>Thanks<a class="headerlink" href="#thanks" title="Permalink to this headline">¶</a></h3>
+<p>Thanks to <a class="reference external" href="https://github.com/bartosz25">&#64;bartosz25</a> for his help with hive connection details…</p>
+</div>
+</div>
+</div>
+<div class="section" id="contents">
+<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_of_conduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
 
 
-</code></pre>
-
-<h3 id="thanks">Thanks<a class="headerlink" href="#thanks" title="Permanent link">&para;</a></h3>
-<p>Thanks to <a href="https://github.com/bartosz25">@bartosz25</a> for his help with hive connection details... </p>
-              
-            </div>
+           </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="airflow_indexima.hooks.indexima/" class="btn btn-neutral float-right" title="Hooks">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -434,39 +472,34 @@ del os.environ['AIRFLOW_CONN_INDEXIMA_ID']
   <hr/>
 
   <div role="contentinfo">
-    <!-- Copyright etc -->
-    
-      <p>Copyright © 2019 <a href="https://github.com/geronimo-iia/airflow-indexima">Jerome Guibert</a></p>
-    
-  </div>
+    <p>
+        &copy; Copyright 2019, Jerome Guibert
 
-  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
 </footer>
-      
+
         </div>
       </div>
 
     </section>
 
   </div>
+  
 
-  <div class="rst-versions" role="note" style="cursor: pointer">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      
-      
-      
-        <span style="margin-left: 15px"><a href="airflow_indexima.hooks.indexima/" style="color: #fcfcfc">Next &raquo;</a></span>
-      
-    </span>
-</div>
-    <script>var base_url = '.';</script>
-    <script src="js/theme.js" defer></script>
-      <script src="search/main.js" defer></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
-
-<!--
-MkDocs version : 1.0.4
-Build Date UTC : 2020-02-02 01:19:05
--->
