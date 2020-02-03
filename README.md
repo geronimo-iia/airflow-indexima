@@ -87,16 +87,16 @@ with dag:
 
 In order to get jdbc uri from an Airflow Connection, you could use:
 
-- ```get_redshift_load_path_uri```
-- ```get_postgresql_load_path_uri```
+- `get_redshift_load_path_uri`
+- `get_postgresql_load_path_uri`
 
-from module ```airflow_indexima.uri```
+from module `airflow_indexima.uri`
 
-Both method have this profile: ```Callable[[str, Optional[ConnectionDecorator]], str]```
+Both method have this profile: `Callable[[str, Optional[ConnectionDecorator]], str]`
 
 
 Example:
-```
+```text
     get_postgresql_load_path_uri(connection_id='my_conn')
     >> 'jdbc:postgresql://my-db:5432/db_client?ssl=true&user=airflow-user&password=XXXXXXXX'
 ```
@@ -133,10 +133,12 @@ You could set those parameters:
 `timeout_seconds`, `socket_keepalive`, `auth` and `kerberos_service_name` parameters can came from:
 
 1. attribut on Hook/Operator class
-2. Airflow Connection in ```extra``` parameter, like this:
-   ```
-   '{"auth": "CUSTOM", "timeout_seconds": 90, "socket_keepalive": true}'
-   ```
+2. Airflow Connection in `extra` parameter
+
+For example:
+```json
+{"auth": "CUSTOM", "timeout_seconds": 90, "socket_keepalive": true}
+```
 
 Setted attribut override airflow connection configuration.
 
@@ -188,13 +190,16 @@ with dag:
 
 ```
 
-a Connection decorator must follow this type: ```ConnectionDecorator = Callable[[Connection], Connection]```
+A Connection decorator must follow this type: 
+```python
+ConnectionDecorator = Callable[[Connection], Connection]
+```
 
-```define_load_path_factory``` is a function which take:
+`define_load_path_factory` is a function which take:
 
 - a connnection identifier
-- a decorator ```ConnectionDecorator```
-- an uri factory ```UriGeneratorFactory = Callable[[str, Optional[ConnectionDecorator]], str]```
+- a decorator `ConnectionDecorator`
+- an uri factory `UriGeneratorFactory = Callable[[str, Optional[ConnectionDecorator]], str]`
 
 and return a function with no argument which can be called as a macro in dag's operator.
 
@@ -222,7 +227,7 @@ You could fine this issue https://github.com/dropbox/PyHive/issues/240 on long l
 
 Try this in sequence:
 
-1. check your operator configuration, and set ```timeout_seconds``` member to 3600 second for example.
+1. check your operator configuration, and set `timeout_seconds` member to 3600 second for example.
    You could have a different behaviour when running a dag with/without airflow context in docker container.
 2. if your facing a broken pipe, after 300s, and you have an AWS NLB V2 :
    Read again [network-load-balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/network-load-balancers.html), and focus on this:
@@ -234,7 +239,7 @@ Try this in sequence:
 
 ### "utf-8" or could not read byte ...
 
-Be very welcome to add ```{ "serialization.encoding": "utf-8"}``` in hive_configuration member of IndeximaHook.
+Be very welcome to add `{ "serialization.encoding": "utf-8"}` in hive_configuration member of IndeximaHook.
 
 This setting is set in IndeximaHook.__init__, may you override it ?
 

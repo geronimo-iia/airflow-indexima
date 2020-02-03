@@ -35,7 +35,7 @@ class IndeximaHookBasedOperator(BaseOperator):
     ):
         """Create IndeximaHookBasedOperator instance.
 
-        # Parameters
+        Args:
             task_id (str): task identifier
             indexima_conn_id (str): indexima connection identifier
             connection_decorator Optional[ConnectionDecorator]: optional connection decorator
@@ -91,7 +91,7 @@ class IndeximaQueryRunnerOperator(IndeximaHookBasedOperator):
     ):
         """Create IndeximaQueryRunnerOperator instance.
 
-        # Parameters
+        Args:
             task_id (str): task identifier
             sql_query (str): query to run
             indexima_conn_id (str): indexima connection identifier
@@ -122,8 +122,9 @@ class IndeximaQueryRunnerOperator(IndeximaHookBasedOperator):
     def execute(self, context):
         """Execute sql query.
 
-        # Parameters
+        Args:
             context: dag context
+
         """
         self.get_hook().run(self._sql_query)
 
@@ -131,28 +132,33 @@ class IndeximaQueryRunnerOperator(IndeximaHookBasedOperator):
 class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
     r"""Indexima load data operator.
 
-    Operations:
+    This operator perform this task:
 
         1. truncate target_table (false per default)
-        2. load source_select_query into target_table using redshift_user_name credential
-        4. commit/rollback target_table
+        2. load `source_select_query` into `target_table` using `redshift_user_name` credential
+        3. commit/rollback target_table
 
-    All fields ('target_table', 'load_path_uri', 'source_select_query', 'truncate_sql',
-    'format_query', 'prefix_query', 'skip_lines', 'no_check', 'limit', 'locale',
-    'pause_delay_in_seconds_between_query' ) support airflow macro.
+    Note:
+        All fields support airflow macro.
+        ('target_table', 'load_path_uri', 'source_select_query', 'truncate_sql',
+        'format_query', 'prefix_query', 'skip_lines', 'no_check', 'limit', 'locale',
+        'pause_delay_in_seconds_between_query' )
 
-    Syntax (see https://indexima.com/support/doc/v.1.7/Load_Data/Load_Data_Inpath.html)
-    ```sql
-    LOAD DATA INPATH 'path_of_the_data_source'
-    INTO TABLE my_data_space
-    [FORMAT 'separator' / ORC / PARQUET / JSON];
-    [PREFIX 'value1 \t value2 \t ... \t']
-    [QUERY "my_SQL_Query"]
-    [SKIP lines]
-    [NOCHECK]
-    [LIMIT n_lines]
-    [LOCALE 'FR']
-    ```
+
+    .. Syntax:
+        https://indexima.com/support/doc/v.1.7/Load_Data/Load_Data_Inpath.html
+
+    Example:
+        >>>
+        LOAD DATA INPATH 'path_of_the_data_source'
+        INTO TABLE my_data_space
+        [FORMAT 'separator' / ORC / PARQUET / JSON];
+        [PREFIX 'value1 \t value2 \t ... \t']
+        [QUERY "my_SQL_Query"]
+        [SKIP lines]
+        [NOCHECK]
+        [LIMIT n_lines]
+        [LOCALE 'FR']
 
     """
 
@@ -197,7 +203,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
     ):
         """Create IndeximaLoadDataOperator instance.
 
-        # Parameters
+        Args:
             task_id (str): task identifier
             indexima_conn_id (str): indexima connection identifier
             target_table (str): target table to load into
@@ -223,6 +229,7 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
             kerberos_service_name (Optional[str]): optional kerberos service name
             pause_delay_in_seconds_between_query (Optional[int]): optional pause delay between queries
                 truncate, load and commit. A None, zero or negative value disable the 'pause'.
+
         """
 
         super(IndeximaLoadDataOperator, self).__init__(
@@ -253,8 +260,9 @@ class IndeximaLoadDataOperator(IndeximaHookBasedOperator):
     def generate_load_data_query(self) -> str:
         """Generate 'load data' sql query.
 
-        # Returns
-            (str): load data sql query
+        Returns:
+            str: load data sql query
+
         """
 
         def escape_quote(txt: str) -> str:

@@ -8,14 +8,19 @@ This will create a hook, and an operator accessible at:
 
 
 see https://airflow.apache.org/docs/stable/plugins.html
+
 """
 from airflow.plugins_manager import AirflowPlugin
 
 from airflow_indexima.hooks.indexima import IndeximaHook
 from airflow_indexima.operators.indexima import IndeximaLoadDataOperator, IndeximaQueryRunnerOperator
 
+__all__ = ["IndeximaAirflowPlugin"]
+
 
 class IndeximaAirflowPlugin(AirflowPlugin):
+    """Indexima Airflow Plugin Declaration."""
+
     name = 'indexima'
     operators = [IndeximaQueryRunnerOperator, IndeximaLoadDataOperator]
     hooks = [IndeximaHook]

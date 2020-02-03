@@ -15,12 +15,13 @@ import sys
 
 import toml
 
-
-sys.path.append(os.path.dirname(__file__))
-sys.path.append(os.path.join(os.path.dirname(__name__), "..", "airflow_indexima"))
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__name__), "..")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__name__), "..", "airflow_indexima")))
 
 
 # -- Project information -----------------------------------------------------
+
 
 def get_version():
     """Return current project version from pyproject.toml."""
@@ -49,13 +50,17 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
     "sphinx.ext.ifconfig",
+    "sphinx.ext.autosummary",
     "m2r",
-    "autodocsumm",
 ]
+
+autoclass_content = "both"  # include both class docstring and __init__
+autosummary_generate = True
+
 
 # Napoleon settings
 napoleon_google_docstring = True
-napoleon_numpy_docstring = True
+napoleon_numpy_docstring = False
 napoleon_include_init_with_doc = False
 napoleon_include_private_with_doc = False
 napoleon_include_special_with_doc = True
@@ -64,17 +69,16 @@ napoleon_use_admonition_for_notes = False
 napoleon_use_admonition_for_references = False
 napoleon_use_ivar = False
 napoleon_use_param = True
-napoleon_use_rtype = True
+napoleon_use_rtype = False
 
 # autodocsumm settings
 autodoc_default_options = {'autosummary': True}
 
-autodata_content = 'both'
-
+# source
 source_suffix = ['.rst', '.md']
 
 # Autodoc Settings
-autodoc_default_options = {"member-order": "bysource", "undoc-members": True}
+autodoc_default_options = {"member-order": "bysource", "undoc-members": True, "members": True, "show-inheritance": True}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

@@ -1,11 +1,4 @@
-"""Define a decorator connection function profile.
-
-Implementation can be used tp customized a connection like
-retreive credentials from other backeng like aws ssm.
-
-```ConnectionDecorator = Callable[[Connection], Connection]```
-
-"""
+"""Define a decorator connection function profile."""
 import json
 from typing import Callable, Optional, Tuple
 
@@ -13,6 +6,9 @@ from airflow.models import Connection
 
 __all__ = ['ConnectionDecorator', 'apply_hive_extra_setting', 'extract_hive_extra_setting']
 
+"""Implementation can be used to customize a connection like
+retreive credentials from other backeng like aws ssm.
+"""
 ConnectionDecorator = Callable[[Connection], Connection]
 
 
@@ -25,15 +21,16 @@ def apply_hive_extra_setting(
 ) -> Connection:
     """Apply extra settings on hive connection.
 
-    # Parameters:
+    Args:
         connection (Connection): airflow connection
         auth (Optional[str]): optional authentication mode
         kerberos_service_name (Optional[str]): optional kerberos service name
         timeout_seconds (Optional[int]): optional define the socket timeout in second
         socket_keepalive (Optional[bool]): optional enable TCP keepalive.
 
-    # Returns
-        (Connection): configured airflow Connection instance
+    Returns:
+        Connection: configured airflow Connection instance
+
     """
 
     _extra = json.loads(connection.extra) if connection.extra else {}
@@ -58,12 +55,13 @@ def extract_hive_extra_setting(
 ) -> Tuple[Optional[str], Optional[str], Optional[int], Optional[bool]]:
     """Extract extra settings.
 
-    # Parameters:
+    Args:
         connection (Connection): airflow connection
 
-    # Returns
-        (Tuple[Optional[str], Optional[str], Optional[int], Optional[bool]]): a tuple
+    Returns:
+        Tuple[Optional[str], Optional[str], Optional[int], Optional[bool]]: a tuple
             (auth, kerberos_service_name, timeout_seconds, socket_keepalive)
+
     """
     _extra = json.loads(connection.extra) if connection.extra else {}
 

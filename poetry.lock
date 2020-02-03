@@ -310,7 +310,7 @@ description = "A place to track your code coverage metrics."
 name = "coveragespace"
 optional = false
 python-versions = ">=3.5,<4.0"
-version = "3.1"
+version = "3.1.1"
 
 [package.dependencies]
 colorama = ">=0.3,<0.4"
@@ -1905,8 +1905,8 @@ coverage = [
     {file = "coverage-5.0.3.tar.gz", hash = "sha256:77afca04240c40450c331fa796b3eab6f1e15c5ecf8bf2b8bee9706cd5452fef"},
 ]
 coveragespace = [
-    {file = "coveragespace-3.1-py3-none-any.whl", hash = "sha256:0e10faf0a7e59fd6753e4444fd864f139375dc3e0ccdcafdbcfc286a4539710d"},
-    {file = "coveragespace-3.1.tar.gz", hash = "sha256:9c009900782b7487f4c6c83e328d0103a9734a6cf80c0a5f2540120384a10d21"},
+    {file = "coveragespace-3.1.1-py3-none-any.whl", hash = "sha256:cc62bf4f2feb419032920270a0c16f1a379b80ac9fc6bd3cefce918bfc90ba27"},
+    {file = "coveragespace-3.1.1.tar.gz", hash = "sha256:c5862d04a91bec32fc7dd8487006922e144280dc05e75b26c38f4ffe4e760fb0"},
 ]
 croniter = [
     {file = "croniter-0.3.31-py2.py3-none-any.whl", hash = "sha256:cfd0837246845d3f3eb463ae8790bfb7db6ac76743e8f31aacaf37830de7fb52"},

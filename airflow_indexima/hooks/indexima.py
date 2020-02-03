@@ -15,17 +15,17 @@ __all__ = ['IndeximaHook']
 class IndeximaHook(BaseHook):
     """Indexima hook implementation.
 
-    This implementation can be used as a context manager like this:
+    This implementation can be used as a context manager.
 
-    ```python
-    with IndeximaHook(...) as hook:
-        hook.run('select ...')
-    ```
+    Examples:
+        >>> with IndeximaHook(...) as hook:
+                hook.run('select ...')
 
-    This implementation can be customized with a ```connection_decorator```function
-    which must have this profile: Callable[[Connection], Connection] (alias ConnectionDecorator)
+    This implementation can be customized with a `connection_decorator` function
+    which must have this profile: `Callable[[Connection], Connection]` (alias ConnectionDecorator)
 
     In this handler you could retreive credentials from other backeng like aws ssm.
+
     """
 
     def __init__(
@@ -42,20 +42,21 @@ class IndeximaHook(BaseHook):
     ):
         """Create an IndeximaHook instance.
 
-        # Parameters
-            indexima_conn_id(str): connection identifier
-            auth(str): pyhive authentication mode (defaults: 'CUSTOM')
+        Args:
+            indexima_conn_id (str): connection identifier
+            auth (str): pyhive authentication mode (defaults: 'CUSTOM')
             connection_decorator (Optional[ConnectionDecorator]) : optional function handler
                 to post process connection parameter(default: None)
-            dry_run (Optional[bool]): dry run mode (default: False). If true no action will
-                be applied against datasource.
+            dry_run (Optional[bool]): dry run mode (default: False).
+                If true no action will be applied against datasource.
             timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second
                 (could be an int or a timedelta)
             socket_keepalive (Optional[bool]): enable TCP keepalive.
             kerberos_service_name (Optional[str]): optional kerberos service name
 
-        Per default, hive connection is set in 'utf-8':
-        ```{ "serialization.encoding": "utf-8"}```
+        Note:
+            Per default, hive connection is set in 'utf-8':
+            ```{ "serialization.encoding": "utf-8"}```
 
         """
         super(IndeximaHook, self).__init__(source='indexima', *args, **kwargs)
@@ -87,8 +88,9 @@ class IndeximaHook(BaseHook):
     def get_conn(self) -> hive.Connection:
         """Return a hive connection.
 
-        # Returns
-            (hive.Connection): the hive connection
+        Returns:
+            hive.Connection: the hive connection
+
         """
 
         conn = self.get_connection(self._indexima_conn_id)
@@ -129,7 +131,9 @@ class IndeximaHook(BaseHook):
     def get_records(self, sql: str) -> hive.Cursor:
         """Execute query and return curror.
 
-        (alias of run method)
+        Notes:
+            alias of run method
+
         """
         return self.run(sql=sql)
 
@@ -149,11 +153,11 @@ class IndeximaHook(BaseHook):
     def check_error_of_load_query(self, cursor: hive.Cursor):
         """Raise error if a load query fail.
 
-        # Parameters
+        Args:
             cursor: cursor returned by load path query.
 
-        # Raises
-            (RuntimeError): if an error is found
+        Raises:
+            RuntimeError: if an error is found
 
         """
         _messages: List[str] = []
@@ -167,23 +171,25 @@ class IndeximaHook(BaseHook):
     def commit(self, tablename: str):
         """Execute a simple commit on table.
 
-        # Parameters
+        Args:
             tablename (str): table name to commit
+
         """
         self.run(f'COMMIT {tablename}')
 
     def rollback(self, tablename: str):
         """Execute a simple rollback on table.
 
-        # Parameters
+        Args:
             tablename (str): table name to rollback
+
         """
         self.run(f'ROLLBACK {tablename}')
 
     def pause(self, pause_in_seconds: int):
         """Execute a pause statement.
 
-        # Parameters
+        Args:
             pause_in_seconds (int): pause delay
 
         """
@@ -211,8 +217,19 @@ class IndeximaHook(BaseHook):
     def hive_configuration(self) -> Optional[Dict[str, str]]:
         """Return hive configuration.
 
-        # Returns
-            (Dict[str, str]): A dictionary of Hive settings (functionally same as the `set` command)
+        Returns:
+            Dict[str, str]: A dictionary of Hive settings (functionally same as the `set` command)
+
+        Example:
+            >>> hool.hive_configuration = {
+                "hive.server.read.socket.timeout": str(3600000),
+                "hive.server2.session.check.interval": str(3600000),
+                "hive.server2.idle.session.check.operation": "true",
+                "hive.server2.idle.operation.timeout": str(3600000 * 24),
+                "hive.server2.idle.session.timeout": str(3600000 * 24 * 3),
+            })
+
+
         """
         return self._hive_configuration
 
@@ -220,20 +237,8 @@ class IndeximaHook(BaseHook):
     def hive_configuration(self, configuration: Optional[Dict[str, str]]):
         """Set hive connection configuration.
 
-        # Parameters
+        Args:
             configuration: A dictionary of Hive settings (functionally same as the `set` command)
-
-        # Example
-
-        ```python
-        hool.hive_configuration = {
-            "hive.server.read.socket.timeout": str(3600000),
-            "hive.server2.session.check.interval": str(3600000),
-            "hive.server2.idle.session.check.operation": "true",
-            "hive.server2.idle.operation.timeout": str(3600000 * 24),
-            "hive.server2.idle.session.timeout": str(3600000 * 24 * 3),
-        })
-        ```
 
         """
         self._hive_configuration = configuration

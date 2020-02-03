@@ -12,13 +12,13 @@ __all__ = ['get_jdbc_load_path_uri', 'get_redshift_load_path_uri', 'get_postgres
 def get_jdbc_load_path_uri(jdbc_type: str, connection_id: str, decorator: Optional[ConnectionDecorator] = None) -> str:
     """Return jdbc load path uri from a connection_id.
 
-    # Parameters
+    Args:
         jdbc_type (str): jdbc connection type
         connection_id (str): source connection identifier
         decorator (Optional[ConnectionDecorator]): optinal connection decorator
 
-    # Returns
-        (str) load path uri
+    Returns:
+        str: load path uri
 
     """
     conn = BaseHook.get_connection(connection_id)
@@ -41,18 +41,16 @@ def get_jdbc_load_path_uri(jdbc_type: str, connection_id: str, decorator: Option
 def get_redshift_load_path_uri(connection_id: str, decorator: Optional[ConnectionDecorator] = None) -> str:
     """Return redshift load path uri from a connection_id.
 
-    Example:
-    ```
-        get_redshift_load_path_uri(connection_id='my_conn')
-        >> 'jdbc:redshift://my-db:5439/db_client?ssl=true&user=airflow-user&password=XXXXXXXX'
-    ```
+    Examples:
+        >>> get_redshift_load_path_uri(connection_id='my_conn')
+        'jdbc:redshift://my-db:5439/db_client?ssl=true&user=airflow-user&password=XXXXXXXX'
 
-    # Parameters
+    Args:
         connection_id (str): source connection identifier
         decorator (Optional[ConnectionDecorator]): optinal connection decorator
 
-    # Returns
-        (str) load path uri
+    Returns:
+        str: load path uri
 
     """
     return get_jdbc_load_path_uri(jdbc_type='redshift', connection_id=connection_id, decorator=decorator)
@@ -61,18 +59,16 @@ def get_redshift_load_path_uri(connection_id: str, decorator: Optional[Connectio
 def get_postgresql_load_path_uri(connection_id: str, decorator: Optional[ConnectionDecorator] = None) -> str:
     """Return postgresql load path uri from a connection_id.
 
-    Example:
-    ```
-        get_postgresql_load_path_uri(connection_id='my_conn')
-        >> 'jdbc:postgresql://my-db:5432/db_client?ssl=true&user=airflow-user&password=XXXXXXXX'
-    ```
+    Examples:
+        >>> get_postgresql_load_path_uri(connection_id='my_conn')
+        'jdbc:postgresql://my-db:5432/db_client?ssl=true&user=airflow-user&password=XXXXXXXX'
 
-    # Parameters
+    Args:
         connection_id (str): source connection identifier
         decorator (Optional[ConnectionDecorator]): optinal connection decorator
 
-    # Returns
-        (str) load path uri
+    Returns:
+        str: load path uri
 
     """
     return get_jdbc_load_path_uri(jdbc_type='postgresql', connection_id=connection_id, decorator=decorator)

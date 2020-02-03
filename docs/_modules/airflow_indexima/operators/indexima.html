@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>airflow_indexima.operators.indexima &mdash; airflow_indexima 2.2.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> airflow_indexima
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change Log</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../code_of_conduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">airflow_indexima</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>airflow_indexima.operators.indexima</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for airflow_indexima.operators.indexima</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Indexima operators module definition.&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">airflow.models</span> <span class="kn">import</span> <span class="n">BaseOperator</span>
+<span class="kn">from</span> <span class="nn">airflow.utils.decorators</span> <span class="kn">import</span> <span class="n">apply_defaults</span>
+
+<span class="kn">from</span> <span class="nn">airflow_indexima.connection</span> <span class="kn">import</span> <span class="n">ConnectionDecorator</span>
+<span class="kn">from</span> <span class="nn">airflow_indexima.hooks.indexima</span> <span class="kn">import</span> <span class="n">IndeximaHook</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;IndeximaHookBasedOperator&#39;</span><span class="p">,</span> <span class="s1">&#39;IndeximaQueryRunnerOperator&#39;</span><span class="p">,</span> <span class="s1">&#39;IndeximaLoadDataOperator&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="IndeximaHookBasedOperator"><a class="viewcode-back" href="../../../api.html#airflow_indexima.operators.indexima.IndeximaHookBasedOperator">[docs]</a><span class="k">class</span> <span class="nc">IndeximaHookBasedOperator</span><span class="p">(</span><span class="n">BaseOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Our base class for indexima operator.</span>
+
+<span class="sd">    This class act as a wrapper on IndeximaHook.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">ui_color</span> <span class="o">=</span> <span class="s1">&#39;#ededed&#39;</span>  <span class="c1"># Define color for airflow UI.</span>
+
+    <span class="nd">@apply_defaults</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">task_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">indexima_conn_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">connection_decorator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ConnectionDecorator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dry_run</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">auth</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">kerberos_service_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout_seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">socket_keepalive</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create IndeximaHookBasedOperator instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            task_id (str): task identifier</span>
+<span class="sd">            indexima_conn_id (str): indexima connection identifier</span>
+<span class="sd">            connection_decorator Optional[ConnectionDecorator]: optional connection decorator</span>
+<span class="sd">            dry_run (Optional[bool]): dry run mode (default: False). If true no action will</span>
+<span class="sd">                be applied against datasource.</span>
+<span class="sd">            auth (Optional[str]): authentication mode (default: {&#39;CUSTOM&#39;})</span>
+<span class="sd">            kerberos_service_name (Optional[str]): optional kerberos service name</span>
+<span class="sd">            timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second</span>
+<span class="sd">                (could be an int or a timedelta)</span>
+<span class="sd">            socket_keepalive (Optional[bool]): enable TCP keepalive.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">IndeximaHookBasedOperator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="n">task_id</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># align timeout_seconds on execution_timeout if setted</span>
+        <span class="k">if</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="s1">&#39;execution_timeout&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">timeout_seconds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">timeout_seconds</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;execution_timeout&#39;</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hook</span> <span class="o">=</span> <span class="n">IndeximaHook</span><span class="p">(</span>
+            <span class="n">indexima_conn_id</span><span class="o">=</span><span class="n">indexima_conn_id</span><span class="p">,</span>
+            <span class="n">connection_decorator</span><span class="o">=</span><span class="n">connection_decorator</span><span class="p">,</span>
+            <span class="n">dry_run</span><span class="o">=</span><span class="n">dry_run</span><span class="p">,</span>
+            <span class="n">auth</span><span class="o">=</span><span class="n">auth</span><span class="p">,</span>
+            <span class="n">kerberos_service_name</span><span class="o">=</span><span class="n">kerberos_service_name</span><span class="p">,</span>
+            <span class="n">timeout_seconds</span><span class="o">=</span><span class="n">timeout_seconds</span><span class="p">,</span>
+            <span class="n">socket_keepalive</span><span class="o">=</span><span class="n">socket_keepalive</span><span class="p">,</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="IndeximaHookBasedOperator.get_hook"><a class="viewcode-back" href="../../../api.html#airflow_indexima.operators.indexima.IndeximaHookBasedOperator.get_hook">[docs]</a>    <span class="k">def</span> <span class="nf">get_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">IndeximaHook</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a configured IndeximaHook instance.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hook</span></div></div>
+
+
+<div class="viewcode-block" id="IndeximaQueryRunnerOperator"><a class="viewcode-back" href="../../../api.html#airflow_indexima.operators.indexima.IndeximaQueryRunnerOperator">[docs]</a><span class="k">class</span> <span class="nc">IndeximaQueryRunnerOperator</span><span class="p">(</span><span class="n">IndeximaHookBasedOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A simple query executor.&quot;&quot;&quot;</span>
+
+    <span class="n">template_fields</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;_sql_query&#39;</span><span class="p">,)</span>
+
+    <span class="nd">@apply_defaults</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">task_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">sql_query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">indexima_conn_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">connection_decorator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ConnectionDecorator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dry_run</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">auth</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">kerberos_service_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout_seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">socket_keepalive</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create IndeximaQueryRunnerOperator instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            task_id (str): task identifier</span>
+<span class="sd">            sql_query (str): query to run</span>
+<span class="sd">            indexima_conn_id (str): indexima connection identifier</span>
+<span class="sd">            connection_decorator Optional[ConnectionDecorator]: optional connection decorator</span>
+<span class="sd">            dry_run (Optional[bool]): dry run mode (default: False). If true no action will</span>
+<span class="sd">                be applied against datasource.</span>
+<span class="sd">            auth (Optional[str]): authentication mode (default: {&#39;CUSTOM&#39;})</span>
+<span class="sd">            kerberos_service_name (Optional[str]): optional kerberos service name</span>
+<span class="sd">            timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second</span>
+<span class="sd">                (could be an int or a timedelta)</span>
+<span class="sd">            socket_keepalive (Optional[bool]): enable TCP keepalive.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">IndeximaQueryRunnerOperator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">task_id</span><span class="o">=</span><span class="n">task_id</span><span class="p">,</span>
+            <span class="n">indexima_conn_id</span><span class="o">=</span><span class="n">indexima_conn_id</span><span class="p">,</span>
+            <span class="n">connection_decorator</span><span class="o">=</span><span class="n">connection_decorator</span><span class="p">,</span>
+            <span class="n">dry_run</span><span class="o">=</span><span class="n">dry_run</span><span class="p">,</span>
+            <span class="n">auth</span><span class="o">=</span><span class="n">auth</span><span class="p">,</span>
+            <span class="n">kerberos_service_name</span><span class="o">=</span><span class="n">kerberos_service_name</span><span class="p">,</span>
+            <span class="n">timeout_seconds</span><span class="o">=</span><span class="n">timeout_seconds</span><span class="p">,</span>
+            <span class="n">socket_keepalive</span><span class="o">=</span><span class="n">socket_keepalive</span><span class="p">,</span>
+            <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_sql_query</span> <span class="o">=</span> <span class="n">sql_query</span>
+
+<div class="viewcode-block" id="IndeximaQueryRunnerOperator.execute"><a class="viewcode-back" href="../../../api.html#airflow_indexima.operators.indexima.IndeximaQueryRunnerOperator.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Execute sql query.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            context: dag context</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_hook</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sql_query</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="IndeximaLoadDataOperator"><a class="viewcode-back" href="../../../api.html#airflow_indexima.operators.indexima.IndeximaLoadDataOperator">[docs]</a><span class="k">class</span> <span class="nc">IndeximaLoadDataOperator</span><span class="p">(</span><span class="n">IndeximaHookBasedOperator</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Indexima load data operator.</span>
+
+<span class="sd">    This operator perform this task:</span>
+
+<span class="sd">        1. truncate target_table (false per default)</span>
+<span class="sd">        2. load `source_select_query` into `target_table` using `redshift_user_name` credential</span>
+<span class="sd">        3. commit/rollback target_table</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        All fields support airflow macro.</span>
+<span class="sd">        (&#39;target_table&#39;, &#39;load_path_uri&#39;, &#39;source_select_query&#39;, &#39;truncate_sql&#39;,</span>
+<span class="sd">        &#39;format_query&#39;, &#39;prefix_query&#39;, &#39;skip_lines&#39;, &#39;no_check&#39;, &#39;limit&#39;, &#39;locale&#39;,</span>
+<span class="sd">        &#39;pause_delay_in_seconds_between_query&#39; ) </span>
+
+
+<span class="sd">    .. Syntax:</span>
+<span class="sd">        https://indexima.com/support/doc/v.1.7/Load_Data/Load_Data_Inpath.html</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        LOAD DATA INPATH &#39;path_of_the_data_source&#39;</span>
+<span class="sd">        INTO TABLE my_data_space</span>
+<span class="sd">        [FORMAT &#39;separator&#39; / ORC / PARQUET / JSON];</span>
+<span class="sd">        [PREFIX &#39;value1 \t value2 \t ... \t&#39;]</span>
+<span class="sd">        [QUERY &quot;my_SQL_Query&quot;]</span>
+<span class="sd">        [SKIP lines]</span>
+<span class="sd">        [NOCHECK]</span>
+<span class="sd">        [LIMIT n_lines]</span>
+<span class="sd">        [LOCALE &#39;FR&#39;]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_fields</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s1">&#39;_target_table&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_load_path_uri&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_source_select_query&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_truncate_sql&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_format_query&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_prefix_query&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_skip_lines&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_no_check&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_limit&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_locale&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_pause_delay_in_seconds_between_query&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">task_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">indexima_conn_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">target_table</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">load_path_uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">truncate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">truncate_sql</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">connection_decorator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ConnectionDecorator</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">source_select_query</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">format_query</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">prefix_query</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">skip_lines</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">no_check</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">limit</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">locale</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">dry_run</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">auth</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">kerberos_service_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout_seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">socket_keepalive</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">pause_delay_in_seconds_between_query</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create IndeximaLoadDataOperator instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            task_id (str): task identifier</span>
+<span class="sd">            indexima_conn_id (str): indexima connection identifier</span>
+<span class="sd">            target_table (str): target table to load into</span>
+<span class="sd">            load_path_uri (str): source uri</span>
+<span class="sd">            truncate (bool): if true execute truncate query before load (default: False)</span>
+<span class="sd">            truncate_sql (Optional[str]): truncate query (truncate table per default)</span>
+<span class="sd">            connection_decorator Optional[ConnectionDecorator]: optional connection decorator</span>
+<span class="sd">            source_select_query (Optional[str]): optional sql query to select data from load_path_uri</span>
+<span class="sd">            format_query (Optional[str]): optional format to identify a character separator or a file format</span>
+<span class="sd">                tailored for big-data ecosystems</span>
+<span class="sd">            prefix_query (Optional[str]): optional prefix used to identify a subset of data to be imported.</span>
+<span class="sd">            skip_lines (Optional[int]): Allows to skip headers lines when importing data for flat text files.</span>
+<span class="sd">            no_check (Optional[bool]): Do not validate data type when loading data when specified</span>
+<span class="sd">                (default: False)</span>
+<span class="sd">            limit (Optional[int]): It will import only the first #lines on each imported files.</span>
+<span class="sd">            locale (Optional[str]): The LOCALE &#39;country&#39; parameter helps to convert character.</span>
+<span class="sd">            dry_run (Optional[bool]): dry run mode (default: False). If true no action will</span>
+<span class="sd">                be applied against datasource.</span>
+<span class="sd">            auth (Optional[str]): authentication mode (default: {&#39;CUSTOM&#39;})</span>
+<span class="sd">            timeout_seconds (Optional[Union[int, datetime.timedelta]]): define the socket timeout in second</span>
+<span class="sd">                (could be an int or a timedelta)</span>
+<span class="sd">            socket_keepalive (Optional[bool]): enable TCP keepalive.</span>
+<span class="sd">            kerberos_service_name (Optional[str]): optional kerberos service name</span>
+<span class="sd">            pause_delay_in_seconds_between_query (Optional[int]): optional pause delay between queries</span>
+<span class="sd">                truncate, load and commit. A None, zero or negative value disable the &#39;pause&#39;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">IndeximaLoadDataOperator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">task_id</span><span class="o">=</span><span class="n">task_id</span><span class="p">,</span>
+            <span class="n">indexima_conn_id</span><span class="o">=</span><span class="n">indexima_conn_id</span><span class="p">,</span>
+            <span class="n">connection_decorator</span><span class="o">=</span><span class="n">connection_decorator</span><span class="p">,</span>
+            <span class="n">dry_run</span><span class="o">=</span><span class="n">dry_run</span><span class="p">,</span>
+            <span class="n">auth</span><span class="o">=</span><span class="n">auth</span><span class="p">,</span>
+            <span class="n">kerberos_service_name</span><span class="o">=</span><span class="n">kerberos_service_name</span><span class="p">,</span>
+            <span class="n">timeout_seconds</span><span class="o">=</span><span class="n">timeout_seconds</span><span class="p">,</span>
+            <span class="n">socket_keepalive</span><span class="o">=</span><span class="n">socket_keepalive</span><span class="p">,</span>
+            <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target_table</span> <span class="o">=</span> <span class="n">target_table</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_path_uri</span> <span class="o">=</span> <span class="n">load_path_uri</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_truncate</span> <span class="o">=</span> <span class="n">truncate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_truncate_sql</span> <span class="o">=</span> <span class="n">truncate_sql</span> <span class="k">if</span> <span class="n">truncate_sql</span> <span class="k">else</span> <span class="sa">f</span><span class="s1">&#39;truncate table </span><span class="si">{self._target_table}</span><span class="s1">;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_source_select_query</span> <span class="o">=</span> <span class="n">source_select_query</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_format_query</span> <span class="o">=</span> <span class="n">format_query</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prefix_query</span> <span class="o">=</span> <span class="n">prefix_query</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_skip_lines</span> <span class="o">=</span> <span class="n">skip_lines</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_no_check</span> <span class="o">=</span> <span class="n">no_check</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_limit</span> <span class="o">=</span> <span class="n">limit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_locale</span> <span class="o">=</span> <span class="n">locale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pause_delay_in_seconds_between_query</span> <span class="o">=</span> <span class="n">pause_delay_in_seconds_between_query</span>
+
+<div class="viewcode-block" id="IndeximaLoadDataOperator.generate_load_data_query"><a class="viewcode-back" href="../../../api.html#airflow_indexima.operators.indexima.IndeximaLoadDataOperator.generate_load_data_query">[docs]</a>    <span class="k">def</span> <span class="nf">generate_load_data_query</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Generate &#39;load data&#39; sql query.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: load data sql query</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">escape_quote</span><span class="p">(</span><span class="n">txt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">txt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+        <span class="n">sql_query</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;LOAD DATA INPATH &#39;</span><span class="si">{self._load_path_uri}</span><span class="s2">&#39;&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;INTO TABLE </span><span class="si">{self._target_table}</span><span class="s2">&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_query</span><span class="p">:</span>
+            <span class="n">sql_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;FORMAT </span><span class="si">{self._format_query}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prefix_query</span><span class="p">:</span>
+            <span class="n">sql_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;PREFIX &#39;{escape_quote(self._prefix_query)}&#39;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_select_query</span><span class="p">:</span>
+            <span class="n">sql_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;QUERY &#39;{escape_quote(self._source_select_query)}&#39;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_skip_lines</span><span class="p">:</span>
+            <span class="n">sql_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SKIP </span><span class="si">{self._skip_lines}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_no_check</span><span class="p">:</span>
+            <span class="n">sql_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NOCHECK&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_limit</span><span class="p">:</span>
+            <span class="n">sql_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LIMIT </span><span class="si">{self._limit}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_locale</span><span class="p">:</span>
+            <span class="n">sql_query</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LOCALE &#39;</span><span class="si">{self._locale}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sql_query</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;;&quot;</span></div>
+
+    <span class="k">def</span> <span class="nf">_execute_pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hook</span><span class="p">:</span> <span class="n">IndeximaHook</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pause_delay_in_seconds_between_query</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pause_delay_in_seconds_between_query</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">hook</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pause_delay_in_seconds_between_query</span><span class="p">)</span>
+
+<div class="viewcode-block" id="IndeximaLoadDataOperator.execute"><a class="viewcode-back" href="../../../api.html#airflow_indexima.operators.indexima.IndeximaLoadDataOperator.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Process executor.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_hook</span><span class="p">()</span> <span class="k">as</span> <span class="n">hook</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_truncate</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_truncate_sql</span><span class="p">:</span>
+                    <span class="n">hook</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_truncate_sql</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_execute_pause</span><span class="p">(</span><span class="n">hook</span><span class="o">=</span><span class="n">hook</span><span class="p">)</span>
+
+                <span class="n">cursor</span> <span class="o">=</span> <span class="n">hook</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">generate_load_data_query</span><span class="p">())</span>
+                <span class="n">hook</span><span class="o">.</span><span class="n">check_error_of_load_query</span><span class="p">(</span><span class="n">cursor</span><span class="o">=</span><span class="n">cursor</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_execute_pause</span><span class="p">(</span><span class="n">hook</span><span class="o">=</span><span class="n">hook</span><span class="p">)</span>
+
+                <span class="n">hook</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="n">tablename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_target_table</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+            <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_hook</span><span class="p">()</span> <span class="k">as</span> <span class="n">hook</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_execute_pause</span><span class="p">(</span><span class="n">hook</span><span class="o">=</span><span class="n">hook</span><span class="p">)</span>
+                <span class="n">hook</span><span class="o">.</span><span class="n">rollback</span><span class="p">(</span><span class="n">tablename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_target_table</span><span class="p">)</span>
+
+            <span class="k">raise</span> <span class="n">e</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Jerome Guibert
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
